@@ -1,0 +1,20 @@
+{
+  "store.storelocator": {
+    "blocks": ["flex-layout.row#title"]
+  },
+  "flex-layout.row#title": {
+    "children": ["flex-layout.col#title", "store-list"]
+  },
+  "flex-layout.col#title": {
+    "children": ["rich-text#title"],
+    "props": {
+      "blockClass": "title",
+      "preventVerticalStretch": true
+    }
+  },
+  "rich-text#title": {
+    "props": {
+      "text": "## Store Locator"
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "store.storelocator": {
+    "title": "Store Locator",
+    "path": "/stores"
+  },
+  "store.storelocator.store": {
+    "title": "Store Locator",
+    "path": "/store/:slug"
+  }
+}
