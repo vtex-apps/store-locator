@@ -2,6 +2,9 @@
   "store-list": {
     "component": "List"
   },
+  "store-detail": {
+    "component": "Store"
+  },
   "store.storelocator": {},
   "store.storelocator.store": {}
 }

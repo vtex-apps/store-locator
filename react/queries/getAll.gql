@@ -1,0 +1,48 @@
+query getAllStores($pageNumber: Int, $pageNumber: Int) {
+  getAllStores(pageNumber: $pageNumber, pageNumber: $pageNumber) {
+    items {
+      id
+      name
+      description
+      instructions
+      address {
+        postalCode
+        country {
+          acronym
+          name
+        }
+        city
+        state
+        neighborhood
+        street
+        number
+        complement
+        reference
+        location {
+          latitude
+          longitude
+        }
+      }
+      isActive
+      distance
+      businessHours {
+        dayOfWeek
+        openingTime
+        closingTime
+      }
+      tagsLabel
+      pickupHolidays {
+        date
+        hourBegin
+        hourEnd
+      }
+      isThirdPartyPickup
+    }
+    paging {
+      page
+      pageSize
+      total
+      pages
+    }
+  }
+}

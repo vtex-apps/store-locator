@@ -1,0 +1,110 @@
+type Query {
+  getAllStores(pageNumber: Int, pageSize: Int): StoreResponse
+    @cacheControl(scope: PRIVATE)
+  getStoresByLocation(
+    postalCode: String
+    pageNumber: Int
+    pageSize: Int
+  ): StoreType @cacheControl(scope: PRIVATE)
+}
+
+type StoreResponse {
+  items: [StoreItemType]
+  paging: Paging
+}
+type StoreItemType {
+  id: String
+  name: String
+  description: String
+  instructions: String
+  address: Address
+  isActive: Boolean
+  distance: Float
+  businessHours: [Hours]
+  tagsLabel: [String]
+  pickupHolidays: PickupHolidays
+  isThirdPartyPickup: Boolean
+}
+type PickupHolidays {
+  date: String
+  hourBegin: String
+  hourEnd: String
+}
+type StoreGeoResponse {
+  paging: Paging
+  items: [StoreType]
+}
+
+type Address {
+  postalCode: String
+  country: CountryType
+  city: String
+  state: String
+  neighborhood: String
+  street: String
+  number: String
+  complement: String
+  reference: String
+  location: LocationType
+}
+
+type LocationType {
+  latitude: Float
+  longitude: Float
+}
+
+type CountryType {
+  acronym: String
+  name: String
+}
+
+type Hours {
+  dayOfWeek: Int
+  openingTime: String
+  closingTime: String
+}
+type HoursLocation {
+  DayOfWeek: Int
+  OpeningTime: String
+  ClosingTime: String
+}
+
+type Paging {
+  page: Int
+  pageSize: Int
+  total: Int
+  pages: Int
+}
+
+type StoreType {
+  paging: Paging
+  items: [StoreLocationItem]
+}
+
+type StoreLocationItem {
+  pickupPoint: PickupPoint
+  distance: Float
+}
+
+type PickupPoint {
+  friendlyName: String
+  address: AddressLocation
+  additionalInfo: String
+  id: String
+  businessHours: [HoursLocation]
+}
+
+type AddressLocation {
+  addressType: String
+  receiverName: String
+  postalCode: String
+  country: String
+  city: String
+  state: String
+  neighborhood: String
+  street: String
+  number: String
+  complement: String
+  reference: String
+  geoCoordinates: [Float]
+}
