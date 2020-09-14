@@ -3,7 +3,7 @@
     "title": "Store Locator",
     "path": "/stores"
   },
-  "store.storelocator.store": {
+  "store.storedetail": {
     "title": "Store Locator",
     "path": "/store/:slug"
   }

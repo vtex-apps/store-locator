@@ -1,16 +1,18 @@
-query getAllStores($pageNumber: Int, $pageNumber: Int) {
-  getAllStores(pageNumber: $pageNumber, pageNumber: $pageNumber) {
+query getStores($postalCode: String, $pageNumber: Int, $pageSize: Int) {
+  getStores(
+    postalCode: $postalCode
+    pageNumber: $pageNumber
+    pageSize: $pageSize
+  ) {
     items {
-      id
+      distance
       name
-      description
       instructions
+      id
+      isActive
       address {
         postalCode
-        country {
-          acronym
-          name
-        }
+        country
         city
         state
         neighborhood
@@ -23,20 +25,16 @@ query getAllStores($pageNumber: Int, $pageNumber: Int) {
           longitude
         }
       }
-      isActive
-      distance
-      businessHours {
-        dayOfWeek
-        openingTime
-        closingTime
-      }
-      tagsLabel
       pickupHolidays {
         date
         hourBegin
         hourEnd
       }
-      isThirdPartyPickup
+      businessHours {
+        dayOfWeek
+        openingTime
+        closingTime
+      }
     }
     paging {
       page

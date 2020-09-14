@@ -1,19 +1,15 @@
+/* eslint-disable no-console */
 import { ExternalClient, InstanceOptions, IOContext } from '@vtex/api'
 
 const routes = {
-  getAll: (pageNumber?: number, pageSize?: number) =>
+  getAll: ({ pageNumber, pageSize }: any) =>
     `https://logistics.vtexcommercestable.com.br/api/logistics/pvt/configuration/pickuppoints/_search?an=${
       process.env.VTEX_ACCOUNT
     }&page=${pageNumber ?? 1}&pageSize=${pageSize ?? 50}`,
-  getByLocation: (
-    postalCode: string,
-    country: string,
-    pageNumber?: number,
-    pageSize?: number
-  ) =>
+  getByLocation: ({ postalCode, countryCode, pageNumber, pageSize }: any) =>
     `https://${
       process.env.VTEX_ACCOUNT
-    }.vtexcommercestable.com.br/api/checkout/pub/pickup-points?countryCode=${country}&postalCode=${postalCode}&page=${
+    }.vtexcommercestable.com.br/api/checkout/pub/pickup-points?countryCode=${countryCode}&postalCode=${postalCode}&page=${
       pageNumber ?? 1
     }&pageSize=${pageSize ?? 50}`,
 }
@@ -31,18 +27,11 @@ export default class RequestHub extends ExternalClient {
     })
   }
 
-  public getAllStores(data?: any) {
+  public getAllStores(data: any) {
     return this.http.getRaw(routes.getAll(data))
   }
 
-  public getByLocation(data?: any) {
-    return this.http.getRaw(
-      routes.getByLocation(
-        data.postalCode,
-        data.countryCode,
-        data.pageNumber,
-        data.pageSize
-      )
-    )
+  public getByLocation(data: any) {
+    return this.http.getRaw(routes.getByLocation(data))
   }
 }

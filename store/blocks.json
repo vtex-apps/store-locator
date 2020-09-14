@@ -1,9 +1,12 @@
 {
   "store.storelocator": {
-    "blocks": ["flex-layout.row#title"]
+    "blocks": ["flex-layout.row#title", "flex-layout.row#container"]
   },
   "flex-layout.row#title": {
-    "children": ["flex-layout.col#title", "store-list"]
+    "children": ["flex-layout.col#title"]
+  },
+  "flex-layout.row#container": {
+    "children": ["store-list"]
   },
   "flex-layout.col#title": {
     "children": ["rich-text#title"],
@@ -17,7 +20,7 @@
       "text": "## Store Locator"
     }
   },
-  "store.storelocator.store": {
+  "store.storedetail": {
     "blocks": ["flex-layout.row#titleStore"]
   },
   "flex-layout.row#titleStore": {

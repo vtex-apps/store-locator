@@ -15,7 +15,9 @@
   "dependencies": {
     "vtex.store": "2.x",
     "vtex.flex-layout": "0.x",
-    "vtex.rich-text": "0.x"
+    "vtex.rich-text": "0.x",
+    "vtex.store-graphql": "2.x",
+    "vtex.styleguide": "9.x"
   },
   "registries": [
     "smartcheckout"

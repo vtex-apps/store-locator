@@ -1,0 +1,10 @@
+query {
+  orderForm @context(provider: "vtex.store-graphql") {
+    shippingData {
+      address {
+        postalCode
+        geoCoordinates
+      }
+    }
+  }
+}
