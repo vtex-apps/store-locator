@@ -32,34 +32,36 @@ export const resolvers = {
       return data
         ? {
             items: data.items.map((item: any) => {
+              console.log('ITEM =>', item)
+
               return {
-                id: item.id || item.pickupPoint.id,
-                name: item.name || item.pickupPoint.friendlyName,
+                id: item.pickupPoint?.id || item.id,
+                name: item.pickupPoint?.friendlyName || item.name,
                 instructions:
-                  item.instructions || item.pickupPoint.additionalInfo,
+                  item.pickupPoint?.additionalInfo || item.instructions,
                 distance: item.distance,
                 isActive:
                   typeof item.isActive === 'boolean' ? item.isActive : true,
                 address: {
                   postalCode:
-                    item.address?.postalCode ||
-                    item.pickupPoint.address.postalCode,
+                    item.pickupPoint?.address.postalCode ||
+                    item.address?.postalCode,
                   country:
-                    item.address?.country.acronym ||
-                    item.pickupPoint.address.country,
-                  city: item.address?.city || item.pickupPoint.address.city,
-                  state: item.address?.state || item.pickupPoint.address.state,
+                    item.pickupPoint?.address.country ||
+                    item.address?.country.acronym,
+                  city: item.pickupPoint?.address.city || item.address?.city,
+                  state: item.pickupPoint?.address.state || item.address?.state,
                   neighborhood:
-                    item.address?.neighborhood ||
-                    item.pickupPoint.address.neighborhood,
+                    item.pickupPoint?.address.neighborhood ||
+                    item.address?.neighborhood,
                   street:
-                    item.address?.street || item.pickupPoint.address.street,
+                    item.pickupPoint?.address.street || item.address?.street,
                   complement:
-                    item.address?.complement ||
-                    item.pickupPoint.address.complement,
+                    item.pickupPoint?.address.complement ||
+                    item.address?.complement,
                   reference:
-                    item.address?.reference ??
-                    item.pickupPoint.address.reference,
+                    item.pickupPoint?.address.reference ||
+                    item.address?.reference,
                   location: item.pickupPoint
                     ? {
                         latitude: item.pickupPoint.address.geoCoordinates[1],
