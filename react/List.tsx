@@ -18,6 +18,7 @@ const StoreList = ({
 
   const [state, setState] = useState({
     allLoaded: false,
+    center: null,
   })
 
   console.log('ofData =>', ofData)
@@ -27,6 +28,7 @@ const StoreList = ({
     console.log('loadAll')
 
     setState({
+      ...state,
       allLoaded: true,
     })
     getStores({
@@ -52,9 +54,27 @@ const StoreList = ({
     }
   }
 
+  const handleCenter = (center: any) => {
+    setState({
+      ...state,
+      center,
+    })
+  }
+
   if (called) {
     if (!loading && !!data && data.getStores.items.length === 0) {
       loadAll()
+    }
+
+    if (!state.center && data?.getStores?.items.length) {
+      const [firstResult] = data.getStores.items
+      const { latitude, longitude } = firstResult.address.location
+      const center = ofData.shippingData?.address?.geoCoordinates ?? [
+        longitude,
+        latitude,
+      ]
+
+      handleCenter(center)
     }
 
     return (
@@ -62,8 +82,11 @@ const StoreList = ({
         <div className="flex-col w-30">
           {loading && <Spinner />}
           {!loading && !!data && data.getStores.items.length > 0 && (
-            <div>
-              <Listing items={data.getStores.items} />
+            <div className="overflow-auto h-100">
+              <Listing
+                items={data.getStores.items}
+                onChangeCenter={handleCenter}
+              />
               {!state.allLoaded && (
                 <Button
                   variation="tertiary"
@@ -95,7 +118,7 @@ const StoreList = ({
                 containerElement={<div style={{ height: `400px` }} />}
                 mapElement={<div style={{ height: `100%` }} />}
                 items={data.getStores.items}
-                location={ofData.shippingData?.address}
+                center={state.center}
               />
             )}
         </div>

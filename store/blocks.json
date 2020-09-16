@@ -20,11 +20,15 @@
       "text": "## Store Locator"
     }
   },
+
   "store.storedetail": {
-    "blocks": ["flex-layout.row#titleStore"]
+    "blocks": ["flex-layout.row#titleStore", "flex-layout.row#containerStore"]
   },
   "flex-layout.row#titleStore": {
-    "children": ["flex-layout.col#titleStore", "store-detail"]
+    "children": ["flex-layout.col#titleStore"]
+  },
+  "flex-layout.row#containerStore": {
+    "children": ["flex-layout.col#detail", "flex-layout.col#store"]
   },
   "flex-layout.col#titleStore": {
     "children": ["rich-text#titleStore"],
@@ -37,5 +41,11 @@
     "props": {
       "text": "## Store Detail"
     }
+  },
+  "flex-layout.col#detail": {
+    "children": ["store-back-link", "store-address", "store-hours"]
+  },
+  "flex-layout.col#store": {
+    "children": ["store-name"]
   }
 }

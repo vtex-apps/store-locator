@@ -4,7 +4,7 @@
 import React from 'react'
 import { useRuntime } from 'vtex.render-runtime'
 
-const StoreDetail = () => {
+const StoreBackLink = () => {
   const { navigate, history } = useRuntime()
 
   console.log('history =>', history)
@@ -29,4 +29,4 @@ const StoreDetail = () => {
   )
 }
 
-export default StoreDetail
+export default StoreBackLink

@@ -32,8 +32,6 @@ export const resolvers = {
       return data
         ? {
             items: data.items.map((item: any) => {
-              console.log('ITEM =>', item)
-
               return {
                 id: item.pickupPoint?.id || item.id,
                 name: item.pickupPoint?.friendlyName || item.name,

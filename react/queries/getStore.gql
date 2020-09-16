@@ -1,0 +1,34 @@
+query getStore($id: String!) @context(provider: "vtex.store-graphql") {
+  pickupPoint(id: $id) {
+    businessHours {
+      openingTime
+      dayOfWeek
+      closingTime
+    }
+    isActive
+    distance
+    friendlyName
+    id
+    instructions
+    seller
+    address {
+      addressId
+      cacheId
+      id
+      userId
+      receiverName
+      complement
+      neighborhood
+      country
+      state
+      number
+      street
+      geoCoordinates
+      postalCode
+      city
+      reference
+      addressName
+      addressType
+    }
+  }
+}

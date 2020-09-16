@@ -5,6 +5,18 @@
   "store-detail": {
     "component": "Store"
   },
+  "store-name": {
+    "component": "StoreName"
+  },
+  "store-address": {
+    "component": "StoreAddress"
+  },
+  "store-back-link": {
+    "component": "StoreBackLink"
+  },
+  "store-hours": {
+    "component": "StoreHours"
+  },
   "store.storelocator": {},
   "store.storedetail": {}
 }
