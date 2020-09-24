@@ -2,21 +2,35 @@
   "store-list": {
     "component": "List"
   },
-  "store-detail": {
-    "component": "Store"
+  "store-group": {
+    "component": "StoreGroup",
+    "composition": "children"
   },
   "store-name": {
-    "component": "StoreName"
+    "component": "StoreName",
+    "composition": "children"
+  },
+  "store-instructions": {
+    "component": "StoreInstructions",
+    "composition": "children"
   },
   "store-address": {
-    "component": "StoreAddress"
+    "component": "StoreAddress",
+    "composition": "children"
   },
   "store-back-link": {
-    "component": "StoreBackLink"
+    "component": "StoreBackLink",
+    "composition": "children"
   },
   "store-hours": {
-    "component": "StoreHours"
+    "component": "StoreHours",
+    "composition": "children"
   },
+  "store-map": {
+    "component": "StoreMap",
+    "composition": "children"
+  },
+
   "store.storelocator": {},
   "store.storedetail": {}
 }

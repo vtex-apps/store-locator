@@ -1,4 +1,16 @@
 {
-  "admin/test": "teste",
-  "store/test": "teste"
+  "store/more-details": "Más detalles",
+  "store/none-stores": "Ninguna tienda cercana",
+  "store/load-all": "Cargar todas las tiendas",
+  "store/back-link": "Volver a todas las tiendas",
+  "store/address-label": "Dirección de la tienda",
+  "store/information-label": "Información",
+  "store/hours-label": "Horario de la tienda",
+  "store/day-of-week-sunday": "Domingo",
+  "store/day-of-week-monday": "Lunes",
+  "store/day-of-week-tuesday": "Martes",
+  "store/day-of-week-wednesday": "Miércoles",
+  "store/day-of-week-thursday": "Jueves",
+  "store/day-of-week-friday": "Viernes",
+  "store/day-of-week-saturday": "Sábado"
 }

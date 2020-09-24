@@ -1,49 +1,45 @@
-/* eslint-disable no-console */
-import React from 'react'
-import { useLazyQuery } from 'react-apollo'
-import { useRuntime } from 'vtex.render-runtime'
-import { Spinner } from 'vtex.styleguide'
+import React, { FC } from 'react'
+import { defineMessages, WrappedComponentProps, injectIntl } from 'react-intl'
+import { useCssHandles } from 'vtex.css-handles'
 
-import GET_STORE from './queries/getStore.gql'
+import { useStoreGroup } from './StoreGroup'
 
-const StoreAddress = () => {
-  const { history } = useRuntime()
-  const [getStore, { data, loading, called }] = useLazyQuery(GET_STORE)
+const CSS_HANDLES = ['addressContainer', 'addressLabel'] as const
+const messages = defineMessages({
+  address: {
+    defaultMessage: 'Store address',
+    id: 'store/address-label',
+  },
+})
 
-  if (history && !called) {
-    const pathArr = history.location.pathname.split('-')
-    const id = pathArr[pathArr.length - 1]
+interface StoreAddressProps {
+  label: string
+}
 
-    getStore({
-      variables: {
-        id,
-      },
-    })
+const StoreAddress: FC<StoreAddressProps & WrappedComponentProps> = ({
+  label,
+  intl,
+}) => {
+  const handles = useCssHandles(CSS_HANDLES)
+  const group = useStoreGroup()
+
+  if (!group) {
+    return null
   }
 
   return (
-    <div>
-      {loading && <Spinner />}
-      {data?.pickupPoint && (
-        <p>
-          <span className="b">Store Address:</span>
-          <br />
-          {data.pickupPoint.address.number || ''}
-          {data.pickupPoint.address.street}
-          <br />
-          {data.pickupPoint.address.city
-            ? `${data.pickupPoint.address.city}`
-            : ''}
-          {data.pickupPoint.address.state
-            ? `, ${data.pickupPoint.address.state}`
-            : ''}
-          {data.pickupPoint.address.postalCode
-            ? `, ${data.pickupPoint.address.postalCode}`
-            : ''}
-        </p>
-      )}
+    <div className={handles.addressContainer}>
+      <span className={handles.addressLabel}>
+        {label ?? intl.formatMessage(messages.address)}
+      </span>
+      <br />
+      {group.address.number || ''} {group.address.street}
+      <br />
+      {group.address.city ? `${group.address.city}` : ''}
+      {group.address.state ? `, ${group.address.state}` : ''}
+      {group.address.postalCode ? `, ${group.address.postalCode}` : ''}
     </div>
   )
 }
 
-export default StoreAddress
+export default injectIntl(StoreAddress)

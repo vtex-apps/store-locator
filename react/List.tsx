@@ -1,14 +1,23 @@
-/* eslint-disable no-console */
 import React, { useState } from 'react'
-import { injectIntl } from 'react-intl'
+import { injectIntl, FormattedMessage } from 'react-intl'
 import { graphql, compose, useLazyQuery } from 'react-apollo'
 import { Spinner, Button } from 'vtex.styleguide'
+import { useCssHandles } from 'vtex.css-handles'
 
 import ORDER_FORM from './queries/orderForm.gql'
 import GET_STORES from './queries/getStores.gql'
 import GOOGLE_KEYS from './queries/GetGoogleMapsKey.graphql'
 import Listing from './components/Listing'
 import Pinpoints from './components/Pinpoints'
+
+const CSS_HANDLES = [
+  'container',
+  'storesListCol',
+  'storesList',
+  'storesMapCol',
+  'noResults',
+  'loadAll',
+] as const
 
 const StoreList = ({
   orderForm: { called: ofCalled, loading: ofLoading, orderForm: ofData },
@@ -21,12 +30,9 @@ const StoreList = ({
     center: null,
   })
 
-  console.log('ofData =>', ofData)
-  console.log('getStores data =>', data)
+  const handles = useCssHandles(CSS_HANDLES)
 
   const loadAll = () => {
-    console.log('loadAll')
-
     setState({
       ...state,
       allLoaded: true,
@@ -78,11 +84,11 @@ const StoreList = ({
     }
 
     return (
-      <div className="flex flex-row">
-        <div className="flex-col w-30">
+      <div className={`flex flex-row ${handles.container}`}>
+        <div className={`flex-col w-30 ${handles.storesListCol}`}>
           {loading && <Spinner />}
           {!loading && !!data && data.getStores.items.length > 0 && (
-            <div className="overflow-auto h-100">
+            <div className={`overflow-auto h-100 ${handles.storesList}`}>
               <Listing
                 items={data.getStores.items}
                 onChangeCenter={handleCenter}
@@ -90,24 +96,23 @@ const StoreList = ({
               {!state.allLoaded && (
                 <Button
                   variation="tertiary"
+                  className={handles.loadAll}
                   onClick={() => {
                     loadAll()
                   }}
                 >
-                  Load all stores
+                  <FormattedMessage id="store/load-all" />
                 </Button>
               )}
             </div>
           )}
           {!loading && !!data && data.getStores.items.length === 0 && (
-            <div>
-              <span>None stores nearby.</span>
-              <br />
-              Loading all stores
+            <div className={handles.noResults}>
+              <FormattedMessage id="store/none-stores" />
             </div>
           )}
         </div>
-        <div className="flex-col w-70">
+        <div className={`flex-col w-70 ${handles.storesMapCol}`}>
           {!loading &&
             !!data &&
             data.getStores.items.length > 0 &&

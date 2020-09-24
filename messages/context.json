@@ -1,0 +1,16 @@
+{
+  "store/more-details": "store/more-details",
+  "store/none-stores": "store/none-stores",
+  "store/load-all": "store/load-all",
+  "store/back-link": "store/back-link",
+  "store/address-label": "store/address-label",
+  "store/information-label": "store/information-label",
+  "store/hours-label": "store/hours-label",
+  "store/day-of-week-sunday": "store/day-of-week-sunday",
+  "store/day-of-week-monday": "store/day-of-week-monday",
+  "store/day-of-week-tuesday": "store/day-of-week-tuesday",
+  "store/day-of-week-wednesday": "store/day-of-week-wednesday",
+  "store/day-of-week-thursday": "store/day-of-week-thursday",
+  "store/day-of-week-friday": "store/day-of-week-friday",
+  "store/day-of-week-saturday": "store/day-of-week-saturday"
+}

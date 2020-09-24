@@ -1,32 +1,19 @@
-/* eslint-disable no-console */
 import React from 'react'
-import { useLazyQuery } from 'react-apollo'
-import { useRuntime } from 'vtex.render-runtime'
-import { Spinner } from 'vtex.styleguide'
+import { useCssHandles } from 'vtex.css-handles'
 
-import GET_STORE from './queries/getStore.gql'
+import { useStoreGroup } from './StoreGroup'
+
+const CSS_HANDLES = ['storeName'] as const
 
 const StoreName = () => {
-  const { history } = useRuntime()
-  const [getStore, { data, loading, called }] = useLazyQuery(GET_STORE)
+  const handles = useCssHandles(CSS_HANDLES)
+  const group = useStoreGroup()
 
-  if (history && !called) {
-    const pathArr = history.location.pathname.split('-')
-    const id = pathArr[pathArr.length - 1]
-
-    getStore({
-      variables: {
-        id,
-      },
-    })
+  if (!group) {
+    return null
   }
 
-  return (
-    <div>
-      {loading && <Spinner />}
-      {data?.pickupPoint.friendlyName}
-    </div>
-  )
+  return <div className={handles.storeName}>{group.friendlyName}</div>
 }
 
 export default StoreName

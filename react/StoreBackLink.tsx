@@ -1,13 +1,29 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable no-console */
-import React from 'react'
+import React, { FC } from 'react'
+import { defineMessages, WrappedComponentProps, injectIntl } from 'react-intl'
 import { useRuntime } from 'vtex.render-runtime'
+import { useCssHandles } from 'vtex.css-handles'
+import { Button } from 'vtex.styleguide'
 
-const StoreBackLink = () => {
-  const { navigate, history } = useRuntime()
+const CSS_HANDLES = ['backlinkContainer', 'backlink'] as const
+const messages = defineMessages({
+  backlink: {
+    defaultMessage: 'Back to all stores',
+    id: 'store/back-link',
+  },
+})
 
-  console.log('history =>', history)
+interface StoreBackLinkProps {
+  label: string
+}
+
+const StoreBackLink: FC<StoreBackLinkProps & WrappedComponentProps> = ({
+  label,
+  intl,
+}) => {
+  const handles = useCssHandles(CSS_HANDLES)
+  const { navigate } = useRuntime()
 
   const goBack = () => {
     navigate({
@@ -16,17 +32,17 @@ const StoreBackLink = () => {
   }
 
   return (
-    <div>
-      <span
-        className="link c-link underline-hover pointer"
+    <div className={handles.backlinkContainer}>
+      <Button
+        className={handles.backlinkContainer}
         onClick={() => {
           goBack()
         }}
       >
-        Back to all locations
-      </span>
+        {label ?? intl.formatMessage(messages.backlink)}
+      </Button>
     </div>
   )
 }
 
-export default StoreBackLink
+export default injectIntl(StoreBackLink)

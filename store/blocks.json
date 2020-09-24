@@ -43,9 +43,42 @@
     }
   },
   "flex-layout.col#detail": {
-    "children": ["store-back-link", "store-address", "store-hours"]
+    "children": ["store-group#left"],
+    "props": {
+      "width": "30%"
+    }
   },
   "flex-layout.col#store": {
+    "children": ["store-group#right"],
+    "props": {
+      "width": "70%"
+    }
+  },
+  "store-group#left": {
+    "children": [
+      "store-back-link",
+      "store-map",
+      "store-address",
+      "store-hours",
+      "store-instructions"
+    ]
+  },
+  "store-hours": {
+    "props": {
+      "label": "Business hours:"
+    }
+  },
+  "store-group#right": {
     "children": ["store-name"]
+  },
+  "store-back-link": {
+    "props": {
+      "label": "Back to all stores"
+    }
+  },
+  "store-instructions": {
+    "props": {
+      "label": ""
+    }
   }
 }

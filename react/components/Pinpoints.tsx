@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable no-console */
 import React, { useState } from 'react'
+import { FormattedMessage } from 'react-intl'
 import {
   GoogleMap,
   Marker,
@@ -11,12 +11,27 @@ import {
 } from 'react-google-maps'
 import slugify from 'slugify'
 import { useRuntime } from 'vtex.render-runtime'
+import { Button } from 'vtex.styleguide'
+import { useCssHandles } from 'vtex.css-handles'
+
+const Slugify = (str: string) => {
+  return slugify(str, { lower: true, remove: /[*+~.()'"!:@]/g })
+}
+
+const CSS_HANDLES = [
+  'markerInfo',
+  'markerInfoStoreName',
+  'markerInfoAddress',
+  'markerInfoLink',
+] as const
 
 const Pinpoints = withScriptjs(
   withGoogleMap((props: any) => {
     const [state, setState] = useState({
       markerState: {},
     })
+
+    const handles = useCssHandles(CSS_HANDLES)
 
     const { navigate } = useRuntime()
 
@@ -32,12 +47,7 @@ const Pinpoints = withScriptjs(
       })
     }
 
-    const Slugify = (str: string) => {
-      return slugify(str, { lower: true, remove: /[*+~.()'"!:@]/g })
-    }
-
     const goTo = (item: any) => {
-      console.log('goTo =>', item)
       navigate({
         page: 'store.storedetail',
         params: {
@@ -46,7 +56,6 @@ const Pinpoints = withScriptjs(
       })
     }
 
-    console.log('State =>', state)
     const [lng, lat] = props.center
 
     return (
@@ -69,23 +78,23 @@ const Pinpoints = withScriptjs(
                       handleMarkState(item.id)
                     }}
                   >
-                    <div className="t-mini">
-                      <span className="b">{item.name}</span> <br />
-                      <span>
-                        {item.address.number || ''}
-                        {item.address.street}
+                    <div className={handles.markerInfo}>
+                      <span className={handles.markerInfoStoreName}>
+                        {item.name}
+                      </span>
+                      <span className={handles.markerInfoAddress}>
+                        {item.address.number || ''} {item.address.street}
                         {item.address.city ? `, ${item.address.city}` : ''}
                         {item.address.state ? `, ${item.address.state}` : ''}
                       </span>
-                      <br />
-                      <span
-                        className="t-mini link c-link underline-hover pointer"
+                      <Button
+                        className={handles.markerInfoLink}
                         onClick={() => {
                           goTo(item)
                         }}
                       >
-                        More details
-                      </span>
+                        <FormattedMessage id="store/more-details" />
+                      </Button>
                     </div>
                   </InfoWindow>
                 ))}
