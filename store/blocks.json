@@ -65,7 +65,8 @@
   },
   "store-hours": {
     "props": {
-      "label": "Business hours:"
+      "label": "Business hours:",
+      "format": "12h"
     }
   },
   "store-group#right": {
