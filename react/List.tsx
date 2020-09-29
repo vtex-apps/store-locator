@@ -83,16 +83,18 @@ const StoreList = ({
       handleCenter(center)
     }
 
+    const stores =
+      data?.getStores?.items.filter((item: any) => {
+        return item.isActive
+      }) ?? []
+
     return (
       <div className={`flex flex-row ${handles.container}`}>
         <div className={`flex-col w-30 ${handles.storesListCol}`}>
           {loading && <Spinner />}
-          {!loading && !!data && data.getStores.items.length > 0 && (
+          {!loading && !!data && stores.length > 0 && (
             <div className={`overflow-auto h-100 ${handles.storesList}`}>
-              <Listing
-                items={data.getStores.items}
-                onChangeCenter={handleCenter}
-              />
+              <Listing items={stores} onChangeCenter={handleCenter} />
               {!state.allLoaded && (
                 <Button
                   variation="tertiary"
@@ -106,7 +108,7 @@ const StoreList = ({
               )}
             </div>
           )}
-          {!loading && !!data && data.getStores.items.length === 0 && (
+          {!loading && !!data && stores.length === 0 && (
             <div className={handles.noResults}>
               <FormattedMessage id="store/none-stores" />
             </div>
@@ -115,7 +117,7 @@ const StoreList = ({
         <div className={`flex-col w-70 ${handles.storesMapCol}`}>
           {!loading &&
             !!data &&
-            data.getStores.items.length > 0 &&
+            stores.length > 0 &&
             googleMapsKeys?.logistics?.googleMapsKey && (
               <Pinpoints
                 googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${googleMapsKeys.logistics.googleMapsKey}&v=3.exp&libraries=geometry,drawing,places`}

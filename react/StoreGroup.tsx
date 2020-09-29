@@ -65,8 +65,7 @@ const StoreGroup: FC<StoreGroupProps> = ({ children }) => {
   const [getStore, { data, called }] = useLazyQuery(GET_STORE)
 
   if (history && !called) {
-    const pathArr = history.location.pathname.split('-')
-    const id = pathArr[pathArr.length - 1]
+    const id = history.location.state.navigationRoute.params.store_id
 
     getStore({
       variables: {

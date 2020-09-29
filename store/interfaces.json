@@ -30,7 +30,6 @@
     "component": "StoreMap",
     "composition": "children"
   },
-
   "store.storelocator": {},
   "store.storedetail": {}
 }
