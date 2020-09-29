@@ -41,7 +41,7 @@ const Listing: FC<WrappedComponentProps & any> = ({
       page: 'store.storedetail',
       params: {
         slug: `${Slugify(`${item.name} ${_state} ${postalCode}`)}`,
-        store_id: item.id,
+        store_id: String(item.id).replace('1_', ''),
       },
     })
   }
