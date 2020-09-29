@@ -28,7 +28,7 @@ export const resolvers = {
         }
       )
 
-      return data
+      const ret = data
         ? {
             items: data.items.map((item: any) => {
               return {
@@ -80,6 +80,8 @@ export const resolvers = {
             paging: data.paging,
           }
         : []
+
+      return ret
     },
   },
 }

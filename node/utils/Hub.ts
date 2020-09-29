@@ -1,14 +1,15 @@
 import { ExternalClient, InstanceOptions, IOContext } from '@vtex/api'
 
 const routes = {
-  getAll: ({ pageNumber, pageSize }: any) =>
-    `https://logistics.vtexcommercestable.com.br/api/logistics/pvt/configuration/pickuppoints/_search?an=${
-      process.env.VTEX_ACCOUNT
-    }&page=${pageNumber ?? 1}&pageSize=${pageSize ?? 50}`,
-  getByLocation: ({ postalCode, countryCode, pageNumber, pageSize }: any) =>
-    `https://${
-      process.env.VTEX_ACCOUNT
-    }.vtexcommercestable.com.br/api/checkout/pub/pickup-points?countryCode=${countryCode}&postalCode=${postalCode}&page=${
+  getAll: ({ pageNumber, pageSize }: any, account: string) =>
+    `https://logistics.vtexcommercestable.com.br/api/logistics/pvt/configuration/pickuppoints/_search?an=${account}&page=${
+      pageNumber ?? 1
+    }&pageSize=${pageSize ?? 50}`,
+  getByLocation: (
+    { postalCode, countryCode, pageNumber, pageSize }: any,
+    account: string
+  ) =>
+    `https://${account}.vtexcommercestable.com.br/api/checkout/pub/pickup-points?countryCode=${countryCode}&postalCode=${postalCode}&page=${
       pageNumber ?? 1
     }&pageSize=${pageSize ?? 50}`,
 }
@@ -27,10 +28,10 @@ export default class RequestHub extends ExternalClient {
   }
 
   public getAllStores(data: any) {
-    return this.http.getRaw(routes.getAll(data))
+    return this.http.getRaw(routes.getAll(data, this.context.account))
   }
 
   public getByLocation(data: any) {
-    return this.http.getRaw(routes.getByLocation(data))
+    return this.http.getRaw(routes.getByLocation(data, this.context.account))
   }
 }
