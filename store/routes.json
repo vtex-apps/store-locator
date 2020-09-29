@@ -5,6 +5,6 @@
   },
   "store.storedetail": {
     "title": "Store Locator",
-    "path": "/store/:slug"
+    "path": "/store/:slug/:store_id"
   }
 }

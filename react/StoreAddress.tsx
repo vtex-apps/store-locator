@@ -29,7 +29,7 @@ const StoreAddress: FC<StoreAddressProps & WrappedComponentProps> = ({
 
   return (
     <div className={handles.addressContainer}>
-      <span className={handles.addressLabel}>
+      <span className={`b ${handles.addressLabel}`}>
         {label ?? intl.formatMessage(messages.address)}
       </span>
       <br />

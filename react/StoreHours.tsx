@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import React, { FC } from 'react'
 import { defineMessages, WrappedComponentProps, injectIntl } from 'react-intl'
 import PropTypes from 'prop-types'
@@ -41,7 +40,14 @@ const messages = defineMessages({
   },
 })
 
-const CSS_HANDLES = ['hoursContainer', 'hoursLabel', 'hourRow'] as const
+const CSS_HANDLES = [
+  'hoursContainer',
+  'hoursLabel',
+  'hourRow',
+  'dayOfWeek',
+  'divider',
+  'businessHours',
+] as const
 
 const timeFormat = (time: string, format?: string) => {
   const [hour, minute] = time.split(':')
@@ -49,7 +55,7 @@ const timeFormat = (time: string, format?: string) => {
   if (format?.toLocaleLowerCase() === '12h') {
     return `${
       parseInt(hour, 10) > 12 ? parseInt(hour, 10) - 12 : hour
-    }:${minute}${parseInt(hour, 10) > 12 ? 'PM' : 'AM'}`
+    }:${minute}${parseInt(hour, 10) > 12 ? 'pm' : 'am'}`
   }
 
   return `${hour}:${minute}`
@@ -69,7 +75,7 @@ const StoreHours: FC<WrappedComponentProps & StoreHoursProps> = ({
 
   return (
     <div className={handles.hoursContainer}>
-      <span className={handles.hoursLabel}>
+      <span className={`b ${handles.hoursLabel}`}>
         {label ?? intl.formatMessage(messages.hoursLabel)}
       </span>
       <br />

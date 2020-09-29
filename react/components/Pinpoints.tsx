@@ -11,7 +11,6 @@ import {
 } from 'react-google-maps'
 import slugify from 'slugify'
 import { useRuntime } from 'vtex.render-runtime'
-import { Button } from 'vtex.styleguide'
 import { useCssHandles } from 'vtex.css-handles'
 
 const Slugify = (str: string) => {
@@ -38,20 +37,19 @@ const Pinpoints = withScriptjs(
     const handleMarkState = (id: string) => {
       setState({
         markerState: {
-          ...state.markerState,
-          [id]:
-            typeof state.markerState[id] === 'undefined'
-              ? true
-              : !state.markerState[id],
+          [id]: !state.markerState[id],
         },
       })
     }
 
     const goTo = (item: any) => {
+      const { state: _state, postalCode } = item.address
+
       navigate({
         page: 'store.storedetail',
         params: {
-          slug: Slugify(`${item.name} ${item.id}`),
+          slug: `${Slugify(`${item.name} ${_state} ${postalCode}`)}`,
+          store_id: item.id,
         },
       })
     }
@@ -59,7 +57,7 @@ const Pinpoints = withScriptjs(
     const [lng, lat] = props.center
 
     return (
-      <GoogleMap defaultZoom={12} center={{ lat, lng }}>
+      <GoogleMap defaultZoom={10} center={{ lat, lng }}>
         {props.items.map((item: any, i: number) => {
           const { latitude, longitude } = item.address.location
 
@@ -71,33 +69,35 @@ const Pinpoints = withScriptjs(
                 handleMarkState(item.id)
               }}
             >
-              {state.markerState[item.id] ||
-                (lat === latitude && lng === longitude && (
-                  <InfoWindow
-                    onCloseClick={() => {
-                      handleMarkState(item.id)
-                    }}
-                  >
-                    <div className={handles.markerInfo}>
-                      <span className={handles.markerInfoStoreName}>
-                        {item.name}
-                      </span>
-                      <span className={handles.markerInfoAddress}>
-                        {item.address.number || ''} {item.address.street}
-                        {item.address.city ? `, ${item.address.city}` : ''}
-                        {item.address.state ? `, ${item.address.state}` : ''}
-                      </span>
-                      <Button
-                        className={handles.markerInfoLink}
-                        onClick={() => {
-                          goTo(item)
-                        }}
-                      >
-                        <FormattedMessage id="store/more-details" />
-                      </Button>
-                    </div>
-                  </InfoWindow>
-                ))}
+              {state.markerState[item.id] && (
+                <InfoWindow
+                  onCloseClick={() => {
+                    handleMarkState(item.id)
+                  }}
+                >
+                  <div className={`t-mini ${handles.markerInfo}`}>
+                    <span className={`b ${handles.markerInfoStoreName}`}>
+                      {item.name}
+                    </span>
+                    <br />
+                    <span className={handles.markerInfoAddress}>
+                      {item.address.number || ''} {item.address.street}
+                      {item.address.city ? `, ${item.address.city}` : ''}
+                      {item.address.state ? `, ${item.address.state}` : ''}
+                    </span>
+                    <br />
+                    <span
+                      className={`mt2 link c-link underline-hover pointer ${handles.markerInfoLink}`}
+                      onClick={(e) => {
+                        e.preventDefault()
+                        goTo(item)
+                      }}
+                    >
+                      <FormattedMessage id="store/more-details" />
+                    </span>
+                  </div>
+                </InfoWindow>
+              )}
             </Marker>
           )
         })}

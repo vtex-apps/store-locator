@@ -4,7 +4,6 @@ import React, { FC } from 'react'
 import { defineMessages, WrappedComponentProps, injectIntl } from 'react-intl'
 import { useRuntime } from 'vtex.render-runtime'
 import { useCssHandles } from 'vtex.css-handles'
-import { Button } from 'vtex.styleguide'
 
 const CSS_HANDLES = ['backlinkContainer', 'backlink'] as const
 const messages = defineMessages({
@@ -33,14 +32,14 @@ const StoreBackLink: FC<StoreBackLinkProps & WrappedComponentProps> = ({
 
   return (
     <div className={handles.backlinkContainer}>
-      <Button
-        className={handles.backlinkContainer}
+      <span
+        className={`link c-link underline-hover pointer ${handles.backlink}`}
         onClick={() => {
           goBack()
         }}
       >
         {label ?? intl.formatMessage(messages.backlink)}
-      </Button>
+      </span>
     </div>
   )
 }

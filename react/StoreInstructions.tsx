@@ -23,7 +23,7 @@ const StoreInstructions: FC<StoreInstructionsProps & WrappedComponentProps> = ({
   const group = useStoreGroup()
   const handles = useCssHandles(CSS_HANDLES)
 
-  if (!group) {
+  if (!group?.instructions) {
     return null
   }
 
