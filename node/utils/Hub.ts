@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { ExternalClient, InstanceOptions, IOContext } from '@vtex/api'
 
 const routes = {
