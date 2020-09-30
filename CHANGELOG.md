@@ -20,12 +20,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Hours showing 12am instead of 12pm
 
-## [0.0.4] - 2020-09-29
-
-### Fixed
-
-- Invalid store ID
-
 ## [0.0.3] - 2020-09-29
 
 ### Fixed
