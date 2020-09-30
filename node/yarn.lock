@@ -1619,10 +1619,6 @@ vary@^1.1.2:
   version "2.134.0"
   resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.store-graphql@2.134.0/public/@types/vtex.store-graphql#b063516516353a5c7476699d1399c4582a4427b7"
 
-"vtex.store-locator@https://storelocator--eriksbikeshop.myvtex.com/_v/private/typings/linked/v1/vtex.store-locator@0.0.4+build1601502211/public/@types/vtex.store-locator":
-  version "0.0.4"
-  resolved "https://storelocator--eriksbikeshop.myvtex.com/_v/private/typings/linked/v1/vtex.store-locator@0.0.4+build1601502211/public/@types/vtex.store-locator#94f3d2a87b38205eab0713c241e02aec5ed67e9d"
-
 "vtex.store@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.store@2.105.0/public/@types/vtex.store":
   version "2.105.0"
   resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.store@2.105.0/public/@types/vtex.store#06765f582427a95706c0cbdf101723ccb7e4b9dc"
