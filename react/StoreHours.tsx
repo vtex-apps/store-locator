@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { FC } from 'react'
 import { defineMessages, WrappedComponentProps, injectIntl } from 'react-intl'
 import PropTypes from 'prop-types'
@@ -55,7 +56,7 @@ const timeFormat = (time: string, format?: string) => {
   if (format?.toLocaleLowerCase() === '12h') {
     return `${
       parseInt(hour, 10) > 12 ? parseInt(hour, 10) - 12 : hour
-    }:${minute}${parseInt(hour, 10) > 12 ? 'pm' : 'am'}`
+    }:${minute}${parseInt(hour, 10) >= 12 ? 'pm' : 'am'}`
   }
 
   return `${hour}:${minute}`

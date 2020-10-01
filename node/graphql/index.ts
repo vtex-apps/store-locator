@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Segment } from '@vtex/api'
 
 const getCountry = async (segment: Segment) => {

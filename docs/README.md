@@ -10,82 +10,101 @@
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 <!-- DOCS-IGNORE:end -->
 
-Uses the logistics information to add the Store Locator functionality to the Store.
+Uses the **Pickup points** information to add the Store Locator functionality to the Store.
 
 ![List](./images/store-list.png)
 ![Detail](./images/store-detail.png)
 
 ## Configuration
 
-🔴DOC UNDER DEVELOPMENT
+1. [Install](https://vtex.io/docs/recipes/development/installing-an-app/) the Store Locator app by running `vtex install vtex.store-locator`.
+2. Open your store's Store Theme app directory in your code editor.
+3. Add the Store Locator app as a `peerDependency` in the `manifest.json` file:
 
-In this section, you first must **add the primary instructions** that will allow users to use the app's blocks in their store, such as:
+```diff
+ "peerDependencies": {
++  "vtex.store-locator": "0.x"
+ }
+```
 
-1. Adding the app as a theme dependency in the `manifest.json` file;
-2. Declaring the app's main block in a given theme template or inside another block from the theme.
+Now, your store already have a `/stores` route that will list the stores that are registered under **Admin > Orders > Inventory & shipping > Pickup points**, this app install a full solution, but you can customize according to your needs.
 
-Remember to add a table with all blocks exported by the app and their descriptions. You can verify an example of it on the [Search Result documentation](https://vtex.io/docs/components/all/vtex.search-result@3.56.1/).
+This app exports a few interfaces that you can use on your theme, `store-list` that contains a list of stores and a map with all the markers,
+You also have `store-group` which provides a context to other small interfaces, `store-back-link`, `store-map`, `store-address`, `store-hours`, `store-instructions` and `store-name`
 
-Next, add the **props table** containing your block's props.
+A few interfaces may have properties available for extra customization.
 
-If the app exports more than one block, create several tables - one for each block. For example:
+### `store-back-link` props
 
-### `block-1` props
+| Prop name | Type     | Description | Default value        |
+| --------- | -------- | ----------- | -------------------- |
+| `label`   | `string` | Link text   | `Back to all stores` |
 
-| Prop name | Type     | Description | Default value |
-| --------- | -------- | ----------- | ------------- |
-| `XXXXX`   | `XXXXXX` | XXXXXXXX    | `XXXXXX`      |
-
-### `block-2` props
-
-| Prop name | Type     | Description | Default value |
-| --------- | -------- | ----------- | ------------- |
-| `XXXXX`   | `XXXXXX` | XXXXXXXX    | `XXXXXX`      |
-
-Prop types are:
-
-- `string`
-- `enum`
-- `number`
-- `boolean`
-- `object`
-- `array`
-
-When documenting a prop whose type is `object` or `array` another prop table will be needed. You can create it following the example below:
-
-- `propName` object:
+### `store-map` props
 
 | Prop name | Type     | Description | Default value |
 | --------- | -------- | ----------- | ------------- |
-| `XXXXX`   | `XXXXXX` | XXXXXXXX    | `XXXXXX`      |
+| `width`   | `string` | Map width   | `100%`        |
+| `height`  | `string` | Map height  | `200px`       |
 
-Remember to also use this Configuration section to **showcase any necessary disclaimer** related to the app and its blocks, such as the different behavior it may display during its configuration.
+### `store-address` props
 
-## Modus Operandi _(not mandatory)_
+| Prop name | Type     | Description                 | Default value   |
+| --------- | -------- | --------------------------- | --------------- |
+| `label`   | `string` | Label for the address block | `Store address` |
 
-There are scenarios in which an app can behave differently in a store, according to how it was added to the catalog, for example. It's crucial to go through these **behavioral changes** in this section, allowing users to fully understand the **practical application** of the app in their store.
+### `store-hours` props
 
-If you feel compelled to give further details about the app, such as it's **relationship with the VTEX admin**, don't hesitate to use this section.
+| Prop name | Type     | Description                  | Default value |
+| --------- | -------- | ---------------------------- | ------------- |
+| `label`   | `string` | Label for the hours block    | `Store hours` |
+| `format`  | `enum`   | Hour format (`12h` or `24h`) | `24h`         |
+
+### `store-instructions` props
+
+| Prop name | Type     | Description                      | Default value |
+| --------- | -------- | -------------------------------- | ------------- |
+| `label`   | `string` | Label for the instructions block | `Information` |
+
+### Example
+
+You can use our default [blocks.json](https://github.com/vtex-apps/store-locator/blob/master/store/blocks.json) as an example
 
 ## Customization
 
-The first thing that should be present in this section is the sentence below, showing users the recipe pertaining to CSS customization in apps:
-
 `In order to apply CSS customizations in this and other blocks, follow the instructions given in the recipe on [Using CSS Handles for store customization](https://vtex.io/docs/recipes/style/using-css-handles-for-store-customization).`
 
-Thereafter, you should add a single column table with the available CSS handles for the app, like the one below. Note that the Handles must be ordered alphabetically.
-
-| CSS Handles |
-| ----------- |
-| `XXXXX`     |
-| `XXXXX`     |
-| `XXXXX`     |
-| `XXXXX`     |
-| `XXXXX`     |
-
-If there are none, add the following sentence instead:
-
-`No CSS Handles are available yet for the app customization.`
+| CSS Handles             |
+| ----------------------- |
+| `addressContainer`      |
+| `addressLabel`          |
+| `addressListFirstItem`  |
+| `addressListItem`       |
+| `addressListLink`       |
+| `addressList`           |
+| `addressStoreAddress`   |
+| `addressStoreName`      |
+| `backlinkContainer`     |
+| `backlink`              |
+| `businessHours`         |
+| `container`             |
+| `dayOfWeek`             |
+| `divider`               |
+| `hourRow`               |
+| `hoursContainer`        |
+| `hoursLabel`            |
+| `instructionsContainer` |
+| `instructionsLabel`     |
+| `loadAll`               |
+| `markerInfoAddress`     |
+| `markerInfoLink`        |
+| `markerInfoStoreName`   |
+| `markerInfo`            |
+| `noResults`             |
+| `storeName`             |
+| `storesListCol`         |
+| `storesList`            |
+| `storesMapCol`          |
 
 <!-- DOCS-IGNORE:start -->
 
@@ -104,13 +123,3 @@ Thanks goes to these wonderful people:
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind are welcome!
 
 <!-- DOCS-IGNORE:end -->
-
----
-
-Check out some documentation models that are already live:
-
-- [Breadcrumb](https://github.com/vtex-apps/breadcrumb)
-- [Image](https://vtex.io/docs/components/general/vtex.store-components/image)
-- [Condition Layout](https://vtex.io/docs/components/all/vtex.condition-layout@1.1.6/)
-- [Add To Cart Button](https://vtex.io/docs/components/content-blocks/vtex.add-to-cart-button@0.9.0/)
-- [Store Form](https://vtex.io/docs/components/all/vtex.store-form@0.3.4/)

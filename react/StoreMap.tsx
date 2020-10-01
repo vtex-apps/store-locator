@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { FC } from 'react'
 import { injectIntl } from 'react-intl'
 import { graphql, compose } from 'react-apollo'

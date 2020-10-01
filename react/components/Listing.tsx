@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
@@ -28,10 +29,10 @@ const Listing: FC<WrappedComponentProps & any> = ({
   const handles = useCssHandles(CSS_HANDLES)
   const { navigate } = useRuntime()
 
-  const handleChangeCenter = (item: any) => {
+  const handleChangeCenter = (item: any, zoom: number) => {
     const { latitude, longitude } = item.address.location
 
-    onChangeCenter([longitude, latitude])
+    onChangeCenter([longitude, latitude], zoom)
   }
 
   const goTo = (item: any) => {
@@ -48,10 +49,7 @@ const Listing: FC<WrappedComponentProps & any> = ({
 
   return (
     items.length && (
-      <ul
-        className={`list ph3 mt0 ${handles.addressList}`}
-        style={{ maxHeight: '500px' }}
-      >
+      <ul className={`list ph3 mt0 ${handles.addressList}`}>
         {items.map((item: any, i: number) => {
           return (
             <li
@@ -62,7 +60,7 @@ const Listing: FC<WrappedComponentProps & any> = ({
                 !i ? 'bt' : ''
               } bb bl br b--light-gray hover-bg-light-gray`}
               onClick={() => {
-                handleChangeCenter(item)
+                handleChangeCenter(item, 12)
               }}
             >
               <span className={`t-mini b ${handles.addressStoreName}`}>
@@ -74,6 +72,7 @@ const Listing: FC<WrappedComponentProps & any> = ({
                 {item.address.street}
                 {item.address.city ? `, ${item.address.city}` : ''}
                 {item.address.state ? `, ${item.address.state}` : ''}
+                {item.address.postalCode ? ` - ${item.address.postalCode}` : ''}
               </span>
               <br />
               <span

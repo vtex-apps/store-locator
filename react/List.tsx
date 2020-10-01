@@ -1,7 +1,10 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useState } from 'react'
 import { injectIntl, FormattedMessage } from 'react-intl'
 import { graphql, compose, useLazyQuery } from 'react-apollo'
-import { Spinner, Button } from 'vtex.styleguide'
+import { Spinner } from 'vtex.styleguide'
 import { useCssHandles } from 'vtex.css-handles'
 
 import ORDER_FORM from './queries/orderForm.gql'
@@ -28,6 +31,7 @@ const StoreList = ({
   const [state, setState] = useState({
     allLoaded: false,
     center: null,
+    zoom: 10,
   })
 
   const handles = useCssHandles(CSS_HANDLES)
@@ -60,10 +64,11 @@ const StoreList = ({
     }
   }
 
-  const handleCenter = (center: any) => {
+  const handleCenter = (center: any, zoom: number) => {
     setState({
       ...state,
       center,
+      zoom,
     })
   }
 
@@ -80,13 +85,25 @@ const StoreList = ({
         latitude,
       ]
 
-      handleCenter(center)
+      handleCenter(center, 10)
     }
 
     const stores =
-      data?.getStores?.items.filter((item: any) => {
-        return item.isActive
-      }) ?? []
+      data?.getStores?.items
+        .filter((item: any) => {
+          return item.isActive
+        })
+        .sort((a, b) => {
+          if (a.distance < b.distance) {
+            return -1
+          }
+
+          if (a.distance > b.distance) {
+            return 1
+          }
+
+          return 0
+        }) ?? []
 
     return (
       <div className={`flex flex-row ${handles.container}`}>
@@ -96,15 +113,14 @@ const StoreList = ({
             <div className={`overflow-auto h-100 ${handles.storesList}`}>
               <Listing items={stores} onChangeCenter={handleCenter} />
               {!state.allLoaded && (
-                <Button
-                  variation="tertiary"
-                  className={handles.loadAll}
+                <span
+                  className={`mt2 link c-link underline-hover pointer ${handles.loadAll}`}
                   onClick={() => {
                     loadAll()
                   }}
                 >
                   <FormattedMessage id="store/load-all" />
-                </Button>
+                </span>
               )}
             </div>
           )}
@@ -122,9 +138,10 @@ const StoreList = ({
               <Pinpoints
                 googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${googleMapsKeys.logistics.googleMapsKey}&v=3.exp&libraries=geometry,drawing,places`}
                 loadingElement={<div style={{ height: `100%` }} />}
-                containerElement={<div style={{ height: `400px` }} />}
+                containerElement={<div style={{ height: `100%` }} />}
                 mapElement={<div style={{ height: `100%` }} />}
                 items={data.getStores.items}
+                zoom={state.zoom}
                 center={state.center}
               />
             )}

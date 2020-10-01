@@ -7,19 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.0.4] - 2020-09-29
+### Updated
 
-## [0.0.3] - 2020-09-29
+- Doc update
 
-## [0.0.2] - 2020-09-29
+### Added
+
+- Postal Code to the listing
+- Tooltip to the centered marker
 
 ### Fixed
 
-- Invalid store ID
-
-### Fixed
-
-- Loading stores
+- Hours showing 12am instead of 12pm
 
 ## [0.0.1] - 2020-09-29
 

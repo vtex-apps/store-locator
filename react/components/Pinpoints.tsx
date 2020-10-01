@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 import React, { useState } from 'react'
@@ -24,6 +25,7 @@ const CSS_HANDLES = [
   'markerInfoLink',
 ] as const
 
+// let initialLoad = false
 const Pinpoints = withScriptjs(
   withGoogleMap((props: any) => {
     const [state, setState] = useState({
@@ -35,12 +37,19 @@ const Pinpoints = withScriptjs(
     const { navigate } = useRuntime()
 
     const handleMarkState = (id: string) => {
+      const markerState = !state.markerState[id]
+        ? {
+            [id]: true,
+          }
+        : {}
+
       setState({
-        markerState: {
-          [id]: !state.markerState[id],
-        },
+        markerState,
       })
     }
+
+    const [lng, lat] = props.center
+    const { zoom } = props
 
     const goTo = (item: any) => {
       const { state: _state, postalCode } = item.address
@@ -54,10 +63,8 @@ const Pinpoints = withScriptjs(
       })
     }
 
-    const [lng, lat] = props.center
-
     return (
-      <GoogleMap defaultZoom={10} center={{ lat, lng }}>
+      <GoogleMap defaultZoom={10} zoom={zoom} center={{ lat, lng }}>
         {props.items.map((item: any, i: number) => {
           const { latitude, longitude } = item.address.location
 
@@ -69,7 +76,10 @@ const Pinpoints = withScriptjs(
                 handleMarkState(item.id)
               }}
             >
-              {state.markerState[item.id] && (
+              {(state.markerState[item.id] ||
+                (Object.getOwnPropertyNames(state.markerState).length === 0 &&
+                  lat === latitude &&
+                  lng === longitude)) && (
                 <InfoWindow
                   onCloseClick={() => {
                     handleMarkState(item.id)
@@ -84,6 +94,9 @@ const Pinpoints = withScriptjs(
                       {item.address.number || ''} {item.address.street}
                       {item.address.city ? `, ${item.address.city}` : ''}
                       {item.address.state ? `, ${item.address.state}` : ''}
+                      {item.address.postalCode
+                        ? ` - ${item.address.postalCode}`
+                        : ''}
                     </span>
                     <br />
                     <span

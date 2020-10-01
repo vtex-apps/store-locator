@@ -1397,7 +1397,7 @@ sprintf-js@~1.0.2:
   resolved "https://registry.yarnpkg.com/sprintf-js/-/sprintf-js-1.0.3.tgz#04e6926f662895354f3dd015203633b857297e2c"
   integrity sha1-BOaSb2YolTVPPdAVIDYzuFcpfiw=
 
-"stats-lite@github:vtex/node-stats-lite#dist":
+stats-lite@vtex/node-stats-lite#dist:
   version "2.2.0"
   resolved "https://codeload.github.com/vtex/node-stats-lite/tar.gz/1b0d39cc41ef7aaecfd541191f877887a2044797"
   dependencies:
@@ -1599,21 +1599,33 @@ vary@^1.1.2:
   resolved "https://registry.yarnpkg.com/vary/-/vary-1.1.2.tgz#2299f02c6ded30d4a5961b0b9f74524a18f634fc"
   integrity sha1-IpnwLG3tMNSllhsLn3RSShj2NPw=
 
+"vtex.css-handles@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.css-handles@0.4.4/public/@types/vtex.css-handles":
+  version "0.4.4"
+  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.css-handles@0.4.4/public/@types/vtex.css-handles#8c45c6decf9acd2b944e07261686decff93d6422"
+
 "vtex.flex-layout@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.flex-layout@0.15.1/public/@types/vtex.flex-layout":
   version "0.15.1"
   resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.flex-layout@0.15.1/public/@types/vtex.flex-layout#b5e99e063dc79cf86c4a1167383e6661cfbc8e61"
 
-"vtex.rich-text@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.rich-text@0.10.2/public/@types/vtex.rich-text":
-  version "0.10.2"
-  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.rich-text@0.10.2/public/@types/vtex.rich-text#d372d3d25d02ade63cfb51732599b8a00ecf40bd"
+"vtex.render-runtime@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.render-runtime@8.122.1/public/@types/vtex.render-runtime":
+  version "8.122.1"
+  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.render-runtime@8.122.1/public/@types/vtex.render-runtime#d790c20d157b42a08f1b90085e1347a52b87441e"
 
-"vtex.store-locator@https://wender--sandboxusdev.myvtex.com/_v/private/typings/linked/v1/vtex.store-locator@0.0.0+build1599752168/public/@types/vtex.store-locator":
-  version "0.0.0"
-  resolved "https://wender--sandboxusdev.myvtex.com/_v/private/typings/linked/v1/vtex.store-locator@0.0.0+build1599752168/public/@types/vtex.store-locator#ff3844706cc2d2b5c091e506e2492434c8489162"
+"vtex.rich-text@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.rich-text@0.11.1/public/@types/vtex.rich-text":
+  version "0.11.1"
+  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.rich-text@0.11.1/public/@types/vtex.rich-text#9d6f392c658404d36b00106557922d751e574611"
 
-"vtex.store@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.store@2.102.0/public/@types/vtex.store":
-  version "2.102.0"
-  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.store@2.102.0/public/@types/vtex.store#c9e64b4f466db65bb5d8daab9b560edac42c4041"
+"vtex.store-graphql@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.store-graphql@2.134.0/public/@types/vtex.store-graphql":
+  version "2.134.0"
+  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.store-graphql@2.134.0/public/@types/vtex.store-graphql#b063516516353a5c7476699d1399c4582a4427b7"
+
+"vtex.store@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.store@2.105.0/public/@types/vtex.store":
+  version "2.105.0"
+  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.store@2.105.0/public/@types/vtex.store#06765f582427a95706c0cbdf101723ccb7e4b9dc"
+
+"vtex.styleguide@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.styleguide@9.130.1/public/@types/vtex.styleguide":
+  version "9.130.1"
+  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.styleguide@9.130.1/public/@types/vtex.styleguide#d17c33aefdd56143d42e6a15598c0a800de80813"
 
 wrappy@1:
   version "1.0.2"
