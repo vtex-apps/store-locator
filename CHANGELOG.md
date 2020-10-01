@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- CSS Handle `listingMapContainer`
+
 ## [0.0.5] - 2020-10-01
 
 ### Updated

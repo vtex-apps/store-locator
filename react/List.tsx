@@ -19,6 +19,7 @@ const CSS_HANDLES = [
   'storesList',
   'storesMapCol',
   'noResults',
+  'listingMapContainer',
   'loadAll',
 ] as const
 
@@ -138,7 +139,12 @@ const StoreList = ({
               <Pinpoints
                 googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${googleMapsKeys.logistics.googleMapsKey}&v=3.exp&libraries=geometry,drawing,places`}
                 loadingElement={<div style={{ height: `100%` }} />}
-                containerElement={<div style={{ height: `100%` }} />}
+                containerElement={
+                  <div
+                    className={handles.listingMapContainer}
+                    style={{ height: `100%` }}
+                  />
+                }
                 mapElement={<div style={{ height: `100%` }} />}
                 items={data.getStores.items}
                 zoom={state.zoom}
