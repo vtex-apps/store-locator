@@ -56,7 +56,8 @@
       "store-instructions"
     ],
     "props": {
-      "width": "30%"
+      "width": "30%",
+      "preventVerticalStretch": true
     }
   },
   "flex-layout.col#store": {
