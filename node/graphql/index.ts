@@ -54,6 +54,8 @@ export const resolvers = {
                     item.address?.neighborhood,
                   street:
                     item.pickupPoint?.address.street || item.address?.street,
+                  number:
+                    item.pickupPoint?.address.number || item.address?.number,
                   complement:
                     item.pickupPoint?.address.complement ||
                     item.address?.complement,

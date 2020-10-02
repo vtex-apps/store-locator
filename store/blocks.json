@@ -20,9 +20,14 @@
       "text": "## Store Locator"
     }
   },
-
   "store.storedetail": {
-    "blocks": ["flex-layout.row#titleStore", "flex-layout.row#containerStore"]
+    "blocks": ["flex-layout.row#titleStore", "store-group"]
+  },
+  "store-group": {
+    "children": ["flex-layout.row#containerStore"],
+    "props": {
+      "title": "{storeName} Store"
+    }
   },
   "flex-layout.row#titleStore": {
     "children": ["flex-layout.col#titleStore"]
@@ -43,34 +48,28 @@
     }
   },
   "flex-layout.col#detail": {
-    "children": ["store-group#left"],
-    "props": {
-      "width": "30%"
-    }
-  },
-  "flex-layout.col#store": {
-    "children": ["store-group#right"],
-    "props": {
-      "width": "70%"
-    }
-  },
-  "store-group#left": {
     "children": [
       "store-back-link",
       "store-map",
       "store-address",
       "store-hours",
       "store-instructions"
-    ]
+    ],
+    "props": {
+      "width": "30%"
+    }
+  },
+  "flex-layout.col#store": {
+    "children": ["store-name"],
+    "props": {
+      "width": "70%"
+    }
   },
   "store-hours": {
     "props": {
       "label": "Business hours:",
       "format": "12h"
     }
-  },
-  "store-group#right": {
-    "children": ["store-name"]
   },
   "store-back-link": {
     "props": {
