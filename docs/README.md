@@ -34,6 +34,22 @@ You also have `store-group` which provides a context to other small interfaces, 
 
 A few interfaces may have properties available for extra customization.
 
+### `store-group` props
+
+| Prop name       | Type     | Description                                                | Default value |
+| --------------- | -------- | ---------------------------------------------------------- | ------------- |
+| `title`         | `string` | Store page title                                           | `{storeName}` |
+| `imageSelector` | `string` | CSS Selector that will reach all the desired images        | ``            |
+| `phoneSelector` | `string` | CSS Selector that will reach all the desired phone numbers | ``            |
+
+### `store-list` and `store-map` props
+
+| Prop name    | Type     | Description               | Default value          |
+| ------------ | -------- | ------------------------- | ---------------------- |
+| `icon`       | `string` | Icon url (`svg` or `png`) | `Google's default`     |
+| `iconWidth`  | `number` | Number in pixels          | `Image default width`  |
+| `iconHeight` | `number` | Number in pixels          | `Image default height` |
+
 ### `store-back-link` props
 
 | Prop name | Type     | Description | Default value        |

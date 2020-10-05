@@ -10,10 +10,23 @@ import {
 const Map = withScriptjs(
   withGoogleMap((props: any) => {
     const [lng, lat] = props.center
+    let icon: any = {
+      url: props.icon ?? null,
+    }
+
+    if (props.iconWidth && props.iconHeight) {
+      icon = {
+        ...icon,
+        scaledSize: {
+          width: props.iconWidth,
+          height: props.iconHeight,
+        },
+      }
+    }
 
     return (
       <GoogleMap defaultZoom={14} center={{ lat, lng }}>
-        <Marker position={{ lat, lng }} />
+        <Marker icon={icon} position={{ lat, lng }} />
       </GoogleMap>
     )
   })

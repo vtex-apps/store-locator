@@ -15,10 +15,20 @@ const DEFAULT = {
 interface StoreMapProps {
   width: string
   height: string
+  icon?: string
+  iconWidth?: number
+  iconHeight?: number
   googleMapsKeys: any
 }
 
-const StoreMap: FC<StoreMapProps> = ({ width, height, googleMapsKeys }) => {
+const StoreMap: FC<StoreMapProps> = ({
+  width,
+  height,
+  googleMapsKeys,
+  icon,
+  iconWidth,
+  iconHeight,
+}) => {
   const group = useStoreGroup()
 
   if (!group || !googleMapsKeys?.logistics?.googleMapsKey) {
@@ -31,6 +41,9 @@ const StoreMap: FC<StoreMapProps> = ({ width, height, googleMapsKeys }) => {
       loadingElement={<div style={{ height: `100%` }} />}
       containerElement={<div style={{ height, width }} />}
       mapElement={<div style={{ height: `100%` }} />}
+      icon={icon}
+      iconWidth={iconWidth}
+      iconHeight={iconHeight}
       center={group.address.geoCoordinates}
     />
   )

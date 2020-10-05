@@ -26,6 +26,9 @@ const CSS_HANDLES = [
 const StoreList = ({
   orderForm: { called: ofCalled, loading: ofLoading, orderForm: ofData },
   googleMapsKeys,
+  icon,
+  iconWidth,
+  iconHeight,
 }) => {
   const [getStores, { data, loading, called }] = useLazyQuery(GET_STORES)
 
@@ -149,6 +152,9 @@ const StoreList = ({
                 items={data.getStores.items}
                 zoom={state.zoom}
                 center={state.center}
+                icon={icon}
+                iconWidth={iconWidth}
+                iconHeight={iconHeight}
               />
             )}
         </div>

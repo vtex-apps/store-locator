@@ -68,7 +68,7 @@ const Listing: FC<WrappedComponentProps & any> = ({
               </span>
               <br />
               <span className={`t-mini ${handles.addressStoreAddress}`}>
-                {item.address.number || ''}
+                {item.address.number ? `${item.address.number} ` : ''}
                 {item.address.street}
                 {item.address.city ? `, ${item.address.city}` : ''}
                 {item.address.state ? `, ${item.address.state}` : ''}

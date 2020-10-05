@@ -33,7 +33,8 @@ const StoreAddress: FC<StoreAddressProps & WrappedComponentProps> = ({
         {label ?? intl.formatMessage(messages.address)}
       </span>
       <br />
-      {group.address.number || ''} {group.address.street}
+      {group.address.number ? `${group.address.number} ` : ''}
+      {`${group.address.street}`}
       <br />
       {group.address.city ? `${group.address.city}` : ''}
       {group.address.state ? `, ${group.address.state}` : ''}

@@ -63,6 +63,20 @@ const Pinpoints = withScriptjs(
       })
     }
 
+    let icon: any = {
+      url: props.icon ?? null,
+    }
+
+    if (props.iconWidth && props.iconHeight) {
+      icon = {
+        ...icon,
+        scaledSize: {
+          width: props.iconWidth,
+          height: props.iconHeight,
+        },
+      }
+    }
+
     return (
       <GoogleMap defaultZoom={10} zoom={zoom} center={{ lat, lng }}>
         {props.items.map((item: any, i: number) => {
@@ -71,6 +85,7 @@ const Pinpoints = withScriptjs(
           return (
             <Marker
               key={`marker_${i}`}
+              icon={icon}
               position={{ lat: latitude, lng: longitude }}
               onClick={() => {
                 handleMarkState(item.id)
@@ -91,7 +106,8 @@ const Pinpoints = withScriptjs(
                     </span>
                     <br />
                     <span className={handles.markerInfoAddress}>
-                      {item.address.number || ''} {item.address.street}
+                      {item.address.number ? `${item.address.number} ` : ''}
+                      {item.address.street}
                       {item.address.city ? `, ${item.address.city}` : ''}
                       {item.address.state ? `, ${item.address.state}` : ''}
                       {item.address.postalCode

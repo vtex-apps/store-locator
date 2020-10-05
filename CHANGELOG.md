@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- `icon`, `iconWidth` and `iconHeight` props to the interfaces `store-list` and `store-map`
+- `title`, `imageSelector` and `phoneSelector` props to the `store-group` interface
+- Local Business **Structured Data** for SEO
+
+### Fixed
+
+- Address number not showing on the listing component
+
 ## [0.0.6] - 2020-10-01
 
 ### Added
