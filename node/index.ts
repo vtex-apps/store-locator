@@ -41,4 +41,5 @@ export default new Service<Clients, RecorderState, ParamsContext>({
       Query: resolvers.Query,
     },
   },
+  routes: resolvers.Routes,
 })

@@ -2,5 +2,11 @@
   "stack": "nodejs",
   "memory": 1024,
   "ttl": 300,
-  "timeout": 60
+  "timeout": 60,
+  "routes": {
+    "getSitemap": {
+      "path": "/sitemap/store-locator.xml",
+      "public": true
+    }
+  }
 }
