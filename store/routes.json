@@ -7,6 +7,6 @@
   "store.storedetail": {
     "title": "Store Locator",
     "path": "/store/:slug/:store_id",
-    "isSitemapEntry": true
+    "isSitemapEntry": false
   }
 }

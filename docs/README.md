@@ -42,6 +42,8 @@ A few interfaces may have properties available for extra customization.
 | `imageSelector` | `string` | CSS Selector that will reach all the desired images        | ``            |
 | `phoneSelector` | `string` | CSS Selector that will reach all the desired phone numbers | ``            |
 
+**Important: Both `imageSelector` and `phoneSelector` are required to provide Structured Data for SEO**
+
 ### `store-list` and `store-map` props
 
 | Prop name    | Type     | Description               | Default value          |
