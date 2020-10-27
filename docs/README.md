@@ -46,11 +46,12 @@ A few interfaces may have properties available for extra customization.
 
 ### `store-list` and `store-map` props
 
-| Prop name    | Type     | Description               | Default value          |
-| ------------ | -------- | ------------------------- | ---------------------- |
-| `icon`       | `string` | Icon url (`svg` or `png`) | `Google's default`     |
-| `iconWidth`  | `number` | Number in pixels          | `Image default width`  |
-| `iconHeight` | `number` | Number in pixels          | `Image default height` |
+| Prop name     | Type     | Description                               | Default value          |
+| ------------- | -------- | ----------------------------------------- | ---------------------- |
+| `filterByTag` | `string` | Filter returned Pickup Points by tag name | `undefined`            |
+| `icon`        | `string` | Icon url (`svg` or `png`)                 | `Google's default`     |
+| `iconWidth`   | `number` | Number in pixels                          | `Image default width`  |
+| `iconHeight`  | `number` | Number in pixels                          | `Image default height` |
 
 ### `store-back-link` props
 

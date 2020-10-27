@@ -65,17 +65,38 @@ export const resolvers = {
       } = ctx
 
       const { countryCode } = await getCountry(segment)
+      const { postalCode, keyword } = param
 
-      const { postalCode, pageNumber, pageSize } = param
+      let data: any
 
-      const { data } = await hub[postalCode ? 'getByLocation' : 'getAllStores'](
-        {
-          postalCode,
-          countryCode,
-          pageNumber,
-          pageSize,
-        }
-      )
+      if (!postalCode) {
+        const response = await hub.getAllStores(param)
+
+        data = response.data
+      }
+
+      if (postalCode && !keyword) {
+        const response = await hub.getByLocation({ ...param, countryCode })
+
+        data = response.data
+      }
+
+      if (postalCode && keyword) {
+        const result = await Promise.all([
+          hub.getByLocation({ ...param, countryCode }),
+          hub.getAllStores(param),
+        ])
+
+        const [{ data: pickupPoints }, { data: stores }] = result
+
+        const items = pickupPoints.items.filter((item: any) => {
+          const pickupPointId = item.pickupPoint.id.replace('1_', '')
+
+          return stores.items.some((store: any) => pickupPointId === store.id)
+        })
+
+        data = { items }
+      }
 
       const ret = data
         ? {

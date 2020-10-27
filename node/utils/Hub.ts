@@ -2,10 +2,10 @@
 import { ExternalClient, InstanceOptions, IOContext } from '@vtex/api'
 
 const routes = {
-  getAll: ({ pageNumber, pageSize }: any, account: string) =>
+  getAll: ({ pageNumber, pageSize, keyword }: any, account: string) =>
     `http://logistics.vtexcommercestable.com.br/api/logistics/pvt/configuration/pickuppoints/_search?an=${account}&page=${
       pageNumber ?? 1
-    }&pageSize=${pageSize ?? 50}`,
+    }&pageSize=${pageSize ?? 50}&keyword=${keyword ?? ''}`,
   getByLocation: (
     { postalCode, countryCode, pageNumber, pageSize }: any,
     account: string
