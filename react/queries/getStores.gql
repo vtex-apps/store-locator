@@ -3,7 +3,7 @@ query getStores(
   $pageNumber: Int
   $pageSize: Int
   $filterByTag: String
-) {
+) @context(provider: "vtex.store-locator") {
   getStores(
     postalCode: $postalCode
     pageNumber: $pageNumber
