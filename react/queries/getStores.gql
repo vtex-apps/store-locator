@@ -1,8 +1,14 @@
-query getStores($postalCode: String, $pageNumber: Int, $pageSize: Int) {
+query getStores(
+  $postalCode: String
+  $pageNumber: Int
+  $pageSize: Int
+  $filterByTag: String
+) @context(provider: "vtex.store-locator") {
   getStores(
     postalCode: $postalCode
     pageNumber: $pageNumber
     pageSize: $pageSize
+    keyword: $filterByTag
   ) {
     items {
       distance

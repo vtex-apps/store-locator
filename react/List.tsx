@@ -26,6 +26,7 @@ const CSS_HANDLES = [
 const StoreList = ({
   orderForm: { called: ofCalled, loading: ofLoading, orderForm: ofData },
   googleMapsKeys,
+  filterByTag,
   icon,
   iconWidth,
   iconHeight,
@@ -50,6 +51,7 @@ const StoreList = ({
         postalCode: null,
         pageNumber: 1,
         pageSize: 50,
+        filterByTag,
       },
     })
   }
@@ -61,6 +63,7 @@ const StoreList = ({
           postalCode: ofData.shippingData.address.postalCode,
           pageNumber: 1,
           pageSize: 50,
+          filterByTag,
         },
       })
     } else {

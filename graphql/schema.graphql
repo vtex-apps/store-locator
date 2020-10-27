@@ -1,6 +1,10 @@
 type Query {
-  getStores(postalCode: String, pageNumber: Int, pageSize: Int): StoreResponse
-    @cacheControl(scope: PRIVATE)
+  getStores(
+    postalCode: String
+    pageNumber: Int
+    pageSize: Int
+    keyword: String
+  ): StoreResponse @cacheControl(scope: PRIVATE)
 }
 
 type StoreResponse {
