@@ -68,9 +68,10 @@ A few interfaces may have properties available for extra customization.
 
 ### `store-name` props
 
-| Prop name | Type     | Description                                                                             | Default value |
-| --------- | -------- | --------------------------------------------------------------------------------------- | ------------- |
-| `text`    | `string` | Optional text to display with store name. Use `{storeName}` to display the store's name | `{storeName}` |
+| Prop name | Type     | Description                                                                                     | Default value |
+| --------- | -------- | ----------------------------------------------------------------------------------------------- | ------------- |
+| `text`    | `string` | Text to display with store name. Use `{storeName}` to display the store's name within your text | `{storeName}` |
+| `tag`     | `string` | HTML element to wrap store name block                                                           | `div`         |
 
 ### `store-address` props
 
