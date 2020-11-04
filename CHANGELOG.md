@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- CSS selector for Store Instructions text
+- Display closed days in Store Hours
+- Add optional text prop to Store Name
+
 ## [0.3.0] - 2020-10-27
 
 ### Added
