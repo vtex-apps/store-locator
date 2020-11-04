@@ -1,11 +1,12 @@
-import React from 'react'
+import React, { FC } from 'react'
+import PropTypes from 'prop-types'
 import { useCssHandles } from 'vtex.css-handles'
 
 import { useStoreGroup } from './StoreGroup'
 
 const CSS_HANDLES = ['storeName'] as const
 
-const StoreName = () => {
+const StoreName: FC<StoreNameProps> = ({ text, tag }) => {
   const handles = useCssHandles(CSS_HANDLES)
   const group = useStoreGroup()
 
@@ -13,7 +14,30 @@ const StoreName = () => {
     return null
   }
 
-  return <div className={handles.storeName}>{group.friendlyName}</div>
+  const Wrapper = tag as keyof JSX.IntrinsicElements
+  const parseText = (string: string) => {
+    return string.replace(/{storeName}/gi, group.friendlyName)
+  }
+
+  return (
+    <Wrapper className={handles.storeName}>
+      {text ? parseText(text) : group.friendlyName}
+    </Wrapper>
+  )
+}
+
+interface StoreNameProps {
+  text?: string
+  tag?: string
+}
+
+StoreName.defaultProps = {
+  tag: 'div',
+}
+
+StoreName.propTypes = {
+  text: PropTypes.string,
+  tag: PropTypes.string,
 }
 
 export default StoreName

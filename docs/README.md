@@ -66,6 +66,13 @@ A few interfaces may have properties available for extra customization.
 | `width`   | `string` | Map width   | `100%`        |
 | `height`  | `string` | Map height  | `200px`       |
 
+### `store-name` props
+
+| Prop name | Type     | Description                                                                                     | Default value |
+| --------- | -------- | ----------------------------------------------------------------------------------------------- | ------------- |
+| `text`    | `string` | Text to display with store name. Use `{storeName}` to display the store's name within your text | `{storeName}` |
+| `tag`     | `string` | HTML element to wrap store name block                                                           | `div`         |
+
 ### `store-address` props
 
 | Prop name | Type     | Description                 | Default value   |
@@ -114,6 +121,7 @@ You can use our default [blocks.json](https://github.com/vtex-apps/store-locator
 | `hoursLabel`            |
 | `instructionsContainer` |
 | `instructionsLabel`     |
+| `instructionsText`      |
 | `listingMapContainer`   |
 | `loadAll`               |
 | `markerInfoAddress`     |

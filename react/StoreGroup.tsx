@@ -1,10 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { FC, useContext, ReactNode } from 'react'
+import React, { FC, useContext, ReactNode, useState } from 'react'
 import { useLazyQuery } from 'react-apollo'
 import { Helmet } from 'react-helmet'
 import { useRuntime } from 'vtex.render-runtime'
 
 import GET_STORE from './queries/getStore.gql'
+
+const DAYS = [0, 1, 2, 3, 4, 5, 6]
 
 interface BusinessHours {
   openingTime: string
@@ -172,6 +174,7 @@ const StoreGroup: FC<StoreGroupProps> = ({
   phoneSelector,
 }) => {
   const { history } = useRuntime()
+  const [pickupPoint, setPickupPoint] = useState<any>(null)
   const [getStore, { data, called }] = useLazyQuery(GET_STORE)
 
   if (history && !called) {
@@ -182,6 +185,26 @@ const StoreGroup: FC<StoreGroupProps> = ({
         id,
       },
     })
+  }
+
+  if (pickupPoint?.id !== data?.pickupPoint.id) {
+    const businessHours = DAYS.map((day) => {
+      const openHours = data.pickupPoint.businessHours.find(
+        (hours) => hours.dayOfWeek === day
+      )
+
+      if (!openHours) {
+        return {
+          closingTime: null,
+          dayOfWeek: day,
+          openingTime: null,
+        }
+      }
+
+      return openHours
+    })
+
+    setPickupPoint({ ...data.pickupPoint, businessHours })
   }
 
   return (
@@ -206,7 +229,7 @@ const StoreGroup: FC<StoreGroupProps> = ({
           )}
         </Helmet>
       )}
-      <StoreGroupProvider group={data?.pickupPoint} title={title}>
+      <StoreGroupProvider group={pickupPoint} title={title}>
         {children}
       </StoreGroupProvider>
     </>
