@@ -5,6 +5,7 @@
   "store/back-link": "store/back-link",
   "store/address-label": "store/address-label",
   "store/information-label": "store/information-label",
+  "store/store-closed": "store/store-closed",
   "store/hours-label": "store/hours-label",
   "store/day-of-week-sunday": "store/day-of-week-sunday",
   "store/day-of-week-monday": "store/day-of-week-monday",
