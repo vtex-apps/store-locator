@@ -66,6 +66,12 @@ A few interfaces may have properties available for extra customization.
 | `width`   | `string` | Map width   | `100%`        |
 | `height`  | `string` | Map height  | `200px`       |
 
+### `store-name` props
+
+| Prop name | Type     | Description                                                                             | Default value |
+| --------- | -------- | --------------------------------------------------------------------------------------- | ------------- |
+| `text`    | `string` | Optional text to display with store name. Use `{storeName}` to display the store's name | `{storeName}` |
+
 ### `store-address` props
 
 | Prop name | Type     | Description                 | Default value   |

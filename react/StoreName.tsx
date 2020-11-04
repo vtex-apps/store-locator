@@ -1,11 +1,15 @@
-import React from 'react'
+import React, { FC } from 'react'
 import { useCssHandles } from 'vtex.css-handles'
 
 import { useStoreGroup } from './StoreGroup'
 
 const CSS_HANDLES = ['storeName'] as const
 
-const StoreName = () => {
+interface StoreNameProps {
+  text: string
+}
+
+const StoreName: FC<StoreNameProps> = ({ text }) => {
   const handles = useCssHandles(CSS_HANDLES)
   const group = useStoreGroup()
 
@@ -13,7 +17,15 @@ const StoreName = () => {
     return null
   }
 
-  return <div className={handles.storeName}>{group.friendlyName}</div>
+  const parseText = (string: string) => {
+    return string.replace(/{store-name}/gi, group.friendlyName)
+  }
+
+  return (
+    <h1 className={handles.storeName}>
+      {text ? parseText(text) : group.friendlyName}
+    </h1>
+  )
 }
 
 export default StoreName
