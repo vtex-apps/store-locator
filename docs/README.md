@@ -120,6 +120,7 @@ You can use our default [blocks.json](https://github.com/vtex-apps/store-locator
 | `hoursLabel`            |
 | `instructionsContainer` |
 | `instructionsLabel`     |
+| `instructionsText`      |
 | `listingMapContainer`   |
 | `loadAll`               |
 | `markerInfoAddress`     |

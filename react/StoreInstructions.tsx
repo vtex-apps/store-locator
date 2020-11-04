@@ -4,7 +4,12 @@ import { useCssHandles } from 'vtex.css-handles'
 
 import { useStoreGroup } from './StoreGroup'
 
-const CSS_HANDLES = ['instructionsContainer', 'instructionsLabel'] as const
+const CSS_HANDLES = [
+  'instructionsContainer',
+  'instructionsLabel',
+  'instructionsText',
+] as const
+
 const messages = defineMessages({
   information: {
     defaultMessage: 'Information',
@@ -32,7 +37,7 @@ const StoreInstructions: FC<StoreInstructionsProps & WrappedComponentProps> = ({
       <span className={handles.instructionsLabel}>
         {label ?? intl.formatMessage(messages.information)}
       </span>
-      {group.instructions}
+      <span className={handles.instructionsText}>{group.instructions}</span>
     </div>
   )
 }
