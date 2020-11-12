@@ -18,8 +18,9 @@ Uses the **Pickup points** information to add the Store Locator functionality to
 ## Configuration
 
 1. [Install](https://vtex.io/docs/recipes/development/installing-an-app/) the Store Locator app by running `vtex install vtex.store-locator`.
-2. Open your store's Store Theme app directory in your code editor.
-3. Add the Store Locator app as a `peerDependency` in the `manifest.json` file:
+2. The app requires the Google Geolocation API key in the Inventory & Shipping settings in your store admin to be entered.
+3. Open your store's Store Theme app directory in your code editor.
+4. Add the Store Locator app as a `peerDependency` in the `manifest.json` file:
 
 ```diff
  "peerDependencies": {
