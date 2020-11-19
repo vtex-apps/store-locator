@@ -57,7 +57,10 @@ const StoreList = ({
   }
 
   if (ofCalled && !ofLoading && !called) {
-    if (ofData.shippingData?.address?.postalCode) {
+    if (
+      ofData.shippingData?.address?.postalCode &&
+      ofData.shippingData.address.postalCode.indexOf('*') !== -1
+    ) {
       getStores({
         variables: {
           postalCode: ofData.shippingData.address.postalCode,
