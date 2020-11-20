@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Falls back to Load All Stores if there's an error loading the closest stores
+
 ## [0.4.2] - 2020-11-19
 
 ### Fixed

@@ -31,7 +31,12 @@ const StoreList = ({
   iconWidth,
   iconHeight,
 }) => {
-  const [getStores, { data, loading, called }] = useLazyQuery(GET_STORES)
+  const [getStores, { data, loading, called, error }] = useLazyQuery(
+    GET_STORES,
+    {
+      fetchPolicy: 'cache-first',
+    }
+  )
 
   const [state, setState] = useState({
     allLoaded: false,
@@ -59,7 +64,7 @@ const StoreList = ({
   if (ofCalled && !ofLoading && !called) {
     if (
       ofData.shippingData?.address?.postalCode &&
-      ofData.shippingData.address.postalCode.indexOf('*') !== -1
+      ofData.shippingData.address.postalCode.indexOf('*') === -1
     ) {
       getStores({
         variables: {
@@ -72,6 +77,10 @@ const StoreList = ({
     } else {
       loadAll()
     }
+  }
+
+  if (!loading && called && error && !state.allLoaded) {
+    loadAll()
   }
 
   const handleCenter = (center: any, zoom: number) => {
