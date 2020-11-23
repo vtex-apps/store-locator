@@ -10,7 +10,7 @@
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 <!-- DOCS-IGNORE:end -->
 
-The Store Locator app fetches the Pickup point data in order to display locators for the retail stores.
+The Store Locator app fetches the Pickup point data in order to display address location for retail stores.
 
 ![store-list](https://user-images.githubusercontent.com/52087100/99975140-9f809500-2d80-11eb-87ce-2f9cfcf567d6.png)
 ![store-detail](https://user-images.githubusercontent.com/52087100/99975130-9abbe100-2d80-11eb-95ac-49ea37490c50.png)
