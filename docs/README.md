@@ -35,7 +35,7 @@ The new page already contains a default template with all blocks exported by the
 
 This app will also add a new entry to the `/sitemap.xml` file to make all your Stores accessible to the Search Engines.
 
-Make sure you have the `vtex.store-sitemap@2.x` installed on your account to make use of the sitemap feature.
+Make sure you have the `vtex.store-sitemap@2.x` App installed on your account to make use of the sitemap feature.
 
 ### Advanced configuration
 
