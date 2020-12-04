@@ -33,20 +33,24 @@ Once installed, the app will generate a new route called `/stores` for your stor
 
 The new page already contains a default template with all blocks exported by the Store Locator app, meaning that the `/stores` page is ready to be rendered and no further actions are required. However, you can **customize the new page overwriting the template by creating a brand new one as you wish**. To do so, check the **Advanced configurations** section below.
 
+This app will also add a new entry to the `/sitemap.xml` file to make all your Stores accessible to the Search Engines.
+
+Make sure you have the `vtex.store-sitemap@2.x` installed on your account to make use of the sitemap feature.
+
 ### Advanced configuration
 
 In order to define the Quickorder custom page UI, you must use the blocks exported by the `vtex.quickorder` app. Namely, they are:
 
-| Block name | Description |
-| :--------: | :---------: |
-| `store-list` | Renders a list of retail stores and a map with all their localization. | 
-| `store-group` |  Provides the pickup point data to other blocks exported by the app, such as the ones listed below. |
-| `store-name` | Renders the store name. | 
-| `store-back-link` |  Renders a link to return to the previous page. | 
-| `store-map` | Renders a map with the retail store localization. | 
-| `store-address` | Renders the store's address. | 
-| `store-hours` | Renders the store's opening hours. | 
-| `store-instructions` | Renders the desired instructions to access the retail store. | 
+|      Block name      |                                            Description                                             |
+| :------------------: | :------------------------------------------------------------------------------------------------: |
+|     `store-list`     |               Renders a list of retail stores and a map with all their localization.               |
+|    `store-group`     | Provides the pickup point data to other blocks exported by the app, such as the ones listed below. |
+|     `store-name`     |                                      Renders the store name.                                       |
+|  `store-back-link`   |                           Renders a link to return to the previous page.                           |
+|     `store-map`      |                         Renders a map with the retail store localization.                          |
+|   `store-address`    |                                    Renders the store's address.                                    |
+|    `store-hours`     |                                 Renders the store's opening hours.                                 |
+| `store-instructions` |                    Renders the desired instructions to access the retail store.                    |
 
 1. Open your Store Theme app directory in your code editor.
 2. In the `store` folder of your Store Theme app, create a new file called `storelocator.json`.
@@ -140,103 +144,103 @@ In order to define the Quickorder custom page UI, you must use the blocks export
 }
 ```
 
-4. Configure each one of the blocks previously declared as you wish using their props (check out the following tables). 
+4. Configure each one of the blocks previously declared as you wish using their props (check out the following tables).
 
 #### `store-list`
 
-| Prop name | Type | Description | Default value |
-| :-------: | :--: | :---------: | :-----------: |
-| `filterByTag` | `string` | Desired tags to filter the Pickup Points fetched and displayed. You can | `undefined` |
-| `icon` | `string` | Icon URL (`svg` or `png`) to be displayed alongside with the `store-list` blocks. | Google's default. |
-| `iconWidth` | `number` | Icon width in pixels (`px`). | Image default width. |
-| `iconHeight` | `number` | Icon height in pixels (`px`). | Image default height. |
+|   Prop name   |   Type   |                                    Description                                    |     Default value     |
+| :-----------: | :------: | :-------------------------------------------------------------------------------: | :-------------------: |
+| `filterByTag` | `string` |      Desired tags to filter the Pickup Points fetched and displayed. You can      |      `undefined`      |
+|    `icon`     | `string` | Icon URL (`svg` or `png`) to be displayed alongside with the `store-list` blocks. |   Google's default.   |
+|  `iconWidth`  | `number` |                           Icon width in pixels (`px`).                            | Image default width.  |
+| `iconHeight`  | `number` |                           Icon height in pixels (`px`).                           | Image default height. |
 
 #### `store-group` props
 
-| Prop name | Type | Description | Default value |
-| :-------: | :--: | :---------: | :-----------: |
-| `title` | `string` | Text to be displayed alongside with the store name. Use `{storeName}` as value to display the store's accurate name on the UI. | `{storeName}` |
-| `imageSelector` | `string` | CSS Selector that will wrap all the images displayed on the UI. | `undefined` |
-| `phoneSelector` | `string` | CSS Selector that will wrap all the phone numbers displayed on the UI. | `undefined` |
+|    Prop name    |   Type   |                                                          Description                                                           | Default value |
+| :-------------: | :------: | :----------------------------------------------------------------------------------------------------------------------------: | :-----------: |
+|     `title`     | `string` | Text to be displayed alongside with the store name. Use `{storeName}` as value to display the store's accurate name on the UI. | `{storeName}` |
+| `imageSelector` | `string` |                                CSS Selector that will wrap all the images displayed on the UI.                                 |  `undefined`  |
+| `phoneSelector` | `string` |                             CSS Selector that will wrap all the phone numbers displayed on the UI.                             |  `undefined`  |
 
-> ⚠️ *Both `imageSelector` and `phoneSelector` must be declared with valid values in order to provide Structured Data for SEO purposes.*
+> ⚠️ _Both `imageSelector` and `phoneSelector` must be declared with valid values in order to provide Structured Data for SEO purposes._
 
 #### `store-name` props
 
-| Prop name | Type | Description | Default value |
-| :-------: | :--: | :---------: | :-----------: |
-| `text` | `string` | Text to be displayed alongside with the store name. Use `{storeName}` as value to display the store's accurate name on the UI. | `{storeName}` |
-| `tag` | `string` | HTML element to wrap the `store-name` block when rendered on the UI. | `div` |
+| Prop name |   Type   |                                                          Description                                                           | Default value |
+| :-------: | :------: | :----------------------------------------------------------------------------------------------------------------------------: | :-----------: |
+|  `text`   | `string` | Text to be displayed alongside with the store name. Use `{storeName}` as value to display the store's accurate name on the UI. | `{storeName}` |
+|   `tag`   | `string` |                              HTML element to wrap the `store-name` block when rendered on the UI.                              |     `div`     |
 
 #### `store-back-link` props
 
-| Prop name | Type | Description | Default value |
-| :-------: | :--: | :---------: | :-----------: |
-| `label` | `string` | Entitles the `store-back-link` block when rendered on the UI. | `Back to all stores` |
+| Prop name |   Type   |                          Description                          |    Default value     |
+| :-------: | :------: | :-----------------------------------------------------------: | :------------------: |
+|  `label`  | `string` | Entitles the `store-back-link` block when rendered on the UI. | `Back to all stores` |
 
 #### `store-map` props
 
-| Prop name | Type | Description | Default value |
-| :-------: | :--: | :---------: | :-----------: |
-| `width` | `string` | Map width in pixels (`px`). | `100%` |
-| `height` | `string` | Map height in pixels (`px`). | `200px` |
+| Prop name |   Type   |         Description          | Default value |
+| :-------: | :------: | :--------------------------: | :-----------: |
+|  `width`  | `string` | Map width in pixels (`px`).  |    `100%`     |
+| `height`  | `string` | Map height in pixels (`px`). |    `200px`    |
 
 #### `store-address` props
 
-| Prop name | Type | Description | Default value     |
-| :-------: | :--: | :---------: | :---------------: |
-| `label` | `string` | Entitles the `store-address` block when rendered on the UI. | `Store address` |
+| Prop name |   Type   |                         Description                         |  Default value  |
+| :-------: | :------: | :---------------------------------------------------------: | :-------------: |
+|  `label`  | `string` | Entitles the `store-address` block when rendered on the UI. | `Store address` |
 
 #### `store-hours` props
 
-| Prop name | Type | Description | Default value. |
-| :--------:| :--: | :---------: | :------------: |
-| `label` | `string` | Entitles the `store-hours` block when rendered on the UI. | `Store hours` |
-| `format` | `enum` | Hour format. Possible values are : `12h` and `24h`. | `24h` |
+| Prop name |   Type   |                        Description                        | Default value. |
+| :-------: | :------: | :-------------------------------------------------------: | :------------: |
+|  `label`  | `string` | Entitles the `store-hours` block when rendered on the UI. | `Store hours`  |
+| `format`  |  `enum`  |    Hour format. Possible values are : `12h` and `24h`.    |     `24h`      |
 
 #### `store-instructions` props
 
-| Prop name | Type | Description | Default value |
-| :------ : | :--: | :---------: | :-----------: |
-| `label` | `string` | Entitles the `store-instructions` block when rendered on the UI. | `Information` |
+| Prop name |   Type   |                           Description                            | Default value |
+| :-------: | :------: | :--------------------------------------------------------------: | :-----------: |
+|  `label`  | `string` | Entitles the `store-instructions` block when rendered on the UI. | `Information` |
 
 ## Customization
 
 In order to apply CSS customizations in this and other blocks, follow the instructions given in the recipe on [Using CSS Handles for store customization](https://vtex.io/docs/recipes/style/using-css-handles-for-store-customization).
 
-| CSS Handles               |
-| :-----------------------: |
-| `addressContainer`        |
-| `addressLabel`            |
-| `addressListFirstItem`    |
-| `addressListItem`         |
-| `addressListLink`         |
-| `addressList`             |
-| `addressStoreAddress`     |
-| `addressStoreName`        |
-| `backlinkContainer`       |
-| `backlink`                |
-| `businessHours`           |
-| `container`               |
-| `dayOfWeek`               |
-| `divider`                 |
-| `hourRow`                 |
-| `hoursContainer`          |
-| `hoursLabel`              |
-| `instructionsContainer`   |
-| `instructionsLabel`       |
-| `instructionsText`        |
-| `listingMapContainer`     |
-| `loadAll`                 |
-| `markerInfoAddress`       |
-| `markerInfoLink`          |
-| `markerInfoStoreName`     |
-| `markerInfo`              |
-| `noResults`               |
-| `storeName`               |
-| `storesListCol`           |
-| `storesList`              |
-| `storesMapCol`            |
+|       CSS Handles       |
+| :---------------------: |
+|   `addressContainer`    |
+|     `addressLabel`      |
+| `addressListFirstItem`  |
+|    `addressListItem`    |
+|    `addressListLink`    |
+|      `addressList`      |
+|  `addressStoreAddress`  |
+|   `addressStoreName`    |
+|   `backlinkContainer`   |
+|       `backlink`        |
+|     `businessHours`     |
+|       `container`       |
+|       `dayOfWeek`       |
+|        `divider`        |
+|        `hourRow`        |
+|    `hoursContainer`     |
+|      `hoursLabel`       |
+| `instructionsContainer` |
+|   `instructionsLabel`   |
+|   `instructionsText`    |
+|  `listingMapContainer`  |
+|        `loadAll`        |
+|   `markerInfoAddress`   |
+|    `markerInfoLink`     |
+|  `markerInfoStoreName`  |
+|      `markerInfo`       |
+|       `noResults`       |
+|       `storeName`       |
+|     `storesListCol`     |
+|      `storesList`       |
+|     `storesMapCol`      |
 
 <!-- DOCS-IGNORE:start -->
 

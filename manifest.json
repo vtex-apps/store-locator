@@ -19,11 +19,10 @@
     "vtex.store-graphql": "2.x",
     "vtex.styleguide": "9.x",
     "vtex.render-runtime": "8.x",
-    "vtex.css-handles": "0.x"
+    "vtex.css-handles": "0.x",
+    "vtex.store-sitemap": "2.x"
   },
-  "registries": [
-    "smartcheckout"
-  ],
+  "registries": ["smartcheckout"],
   "billingOptions": {
     "termsURL": "https://compliance.vtex.com/gdpr/policies/vtex-privacy-policy",
     "support": {
@@ -31,9 +30,7 @@
     },
     "free": true,
     "type": "free",
-    "availableCountries": [
-      "*"
-    ]
+    "availableCountries": ["*"]
   },
   "policies": [
     {
@@ -56,6 +53,9 @@
         "host": "portal.vtexcommercestable.com.br",
         "path": "/api/segments/*"
       }
+    },
+    {
+      "name": "vtex.store-sitemap:resolve-graphql"
     },
     {
       "name": "LogisticsViewer"

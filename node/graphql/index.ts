@@ -61,13 +61,24 @@ export const resolvers = {
   Query: {
     getStores: async (_: any, param: any, ctx: any) => {
       const {
-        clients: { hub, segment },
+        clients: { hub, sitemap, segment },
+        vtex: { logger },
       } = ctx
 
       const { countryCode } = await getCountry(segment)
       const { postalCode, keyword } = param
 
       let data: any
+
+      try {
+        sitemap.hasSitemap().then((has: any) => {
+          if (has === false) {
+            sitemap.saveIndex()
+          }
+        })
+      } catch (err) {
+        logger.log(err)
+      }
 
       if (!postalCode) {
         const response = await hub.getAllStores(param)
