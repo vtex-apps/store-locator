@@ -7,8 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Creates new index on the `sitemap.xml` for the list of stores
+
+### Updated
+
+- Document update
+
 ## [0.4.4] - 2020-11-23
+
 ### Fixed
+
 - Update app documentation
 
 ## [0.4.3] - 2020-11-20
