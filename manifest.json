@@ -1,7 +1,7 @@
 {
   "vendor": "vtex",
   "name": "store-locator",
-  "version": "0.4.4",
+  "version": "0.5.0",
   "title": "Store Locator",
   "description": "Integrates with the logistics module to provide Store Locator pages",
   "builders": {
@@ -22,7 +22,9 @@
     "vtex.css-handles": "0.x",
     "vtex.store-sitemap": "2.x"
   },
-  "registries": ["smartcheckout"],
+  "registries": [
+    "smartcheckout"
+  ],
   "billingOptions": {
     "termsURL": "https://compliance.vtex.com/gdpr/policies/vtex-privacy-policy",
     "support": {
@@ -30,7 +32,9 @@
     },
     "free": true,
     "type": "free",
-    "availableCountries": ["*"]
+    "availableCountries": [
+      "*"
+    ]
   },
   "policies": [
     {
