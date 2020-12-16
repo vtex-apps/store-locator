@@ -33,9 +33,7 @@ Once installed, the app will generate a new route called `/stores` for your stor
 
 The new page already contains a default template with all blocks exported by the Store Locator app, meaning that the `/stores` page is ready to be rendered and no further actions are required. However, you can **customize the new page overwriting the template by creating a brand new one as you wish**. To do so, check the **Advanced configurations** section below.
 
-This app will also add a new entry to the `/sitemap.xml` file to make all your Stores accessible to the Search Engines.
-
-Make sure you have the `vtex.store-sitemap@2.x` App installed on your account to make use of the sitemap feature.
+> ℹ️ *This app will also **add a new entry to your store's `/sitemap.xml` file in order to have all the pickup points available to the search engines** - make sure you already have the `vtex.store-sitemap@2.x` app installed in your VTEX account!*
 
 ### Advanced configuration
 
