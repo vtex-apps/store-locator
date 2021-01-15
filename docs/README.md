@@ -37,7 +37,7 @@ The new page already contains a default template with all blocks exported by the
 
 ### Advanced configuration
 
-In order to define the Quickorder custom page UI, you must use the blocks exported by the `vtex.quickorder` app. Namely, they are:
+In order to define the Store Locator custom page UI, you must use the blocks exported by the `vtex.store-locator` app. Namely, they are:
 
 |      Block name      |                                            Description                                             |
 | :------------------: | :------------------------------------------------------------------------------------------------: |
