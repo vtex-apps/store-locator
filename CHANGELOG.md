@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.1] - 2021-01-21
+
 ### Removed
 
 - Removed default title from the App's `routes.json`
