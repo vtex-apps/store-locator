@@ -1,11 +1,9 @@
 {
   "store.storelocator": {
-    "title": "Store Locator",
     "path": "/stores",
     "isSitemapEntry": true
   },
   "store.storedetail": {
-    "title": "Store Locator",
     "path": "/store/:slug/:store_id",
     "isSitemapEntry": false
   }
