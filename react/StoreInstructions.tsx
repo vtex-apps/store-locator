@@ -1,13 +1,15 @@
-import React, { FC } from 'react'
+import React, { FC, useContext } from 'react'
 import { defineMessages, WrappedComponentProps, injectIntl } from 'react-intl'
 import { useCssHandles } from 'vtex.css-handles'
 
+import { OptionsContext } from './contexts/OptionsContext'
 import { useStoreGroup } from './StoreGroup'
 
 const CSS_HANDLES = [
   'instructionsContainer',
   'instructionsLabel',
   'instructionsText',
+  'instructionsLink',
 ] as const
 
 const messages = defineMessages({
@@ -26,6 +28,8 @@ const StoreInstructions: FC<StoreInstructionsProps & WrappedComponentProps> = ({
   intl,
 }) => {
   const group = useStoreGroup()
+  const hasPhone = useContext(OptionsContext)
+
   const handles = useCssHandles(CSS_HANDLES)
 
   if (!group?.instructions) {
@@ -37,7 +41,16 @@ const StoreInstructions: FC<StoreInstructionsProps & WrappedComponentProps> = ({
       <span className={handles.instructionsLabel}>
         {label ?? intl.formatMessage(messages.information)}
       </span>
-      <span className={handles.instructionsText}>{group.instructions}</span>
+      {hasPhone ? (
+        <a
+          className={`${handles.instructionsLink} underline-hover no-underline`}
+          href={`tel:${group.instructions}`}
+        >
+          {group.instructions}
+        </a>
+      ) : (
+        <span className={handles.instructionsText}>{group.instructions}</span>
+      )}
     </div>
   )
 }

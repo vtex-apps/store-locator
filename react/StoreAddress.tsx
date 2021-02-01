@@ -4,7 +4,7 @@ import { useCssHandles } from 'vtex.css-handles'
 
 import { useStoreGroup } from './StoreGroup'
 
-const CSS_HANDLES = ['addressContainer', 'addressLabel'] as const
+const CSS_HANDLES = ['addressContainer', 'addressLink', 'addressLabel'] as const
 const messages = defineMessages({
   address: {
     defaultMessage: 'Store address',
@@ -27,18 +27,27 @@ const StoreAddress: FC<StoreAddressProps & WrappedComponentProps> = ({
     return null
   }
 
+  const [lng, lat] = group.address.geoCoordinates
+
   return (
     <div className={handles.addressContainer}>
       <span className={`b ${handles.addressLabel}`}>
         {label ?? intl.formatMessage(messages.address)}
       </span>
-      <br />
-      {group.address.number ? `${group.address.number} ` : ''}
-      {`${group.address.street}`}
-      <br />
-      {group.address.city ? `${group.address.city}` : ''}
-      {group.address.state ? `, ${group.address.state}` : ''}
-      {group.address.postalCode ? `, ${group.address.postalCode}` : ''}
+      <a
+        className={`${handles.addressLink} underline-hover no-underline`}
+        target="_blank"
+        rel="noreferrer"
+        href={`https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`}
+      >
+        <br />
+        {group.address.number ? `${group.address.number} ` : ''}
+        {`${group.address.street}`}
+        <br />
+        {group.address.city ? `${group.address.city}` : ''}
+        {group.address.state ? `, ${group.address.state}` : ''}
+        {group.address.postalCode ? `, ${group.address.postalCode}` : ''}
+      </a>
     </div>
   )
 }

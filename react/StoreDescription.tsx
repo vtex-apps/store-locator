@@ -4,13 +4,13 @@ import { useCssHandles } from 'vtex.css-handles'
 
 import { useStoreGroup } from './StoreGroup'
 
-const CSS_HANDLES = ['storeName'] as const
+const CSS_HANDLES = ['storeDescription'] as const
 
-const StoreName: FC<StoreNameProps> = ({ text, tag }) => {
+const StoreDescription: FC<StoreNameProps> = ({ text, tag }) => {
   const handles = useCssHandles(CSS_HANDLES)
   const group = useStoreGroup()
 
-  if (!group) {
+  if (!group || !text) {
     return null
   }
 
@@ -26,9 +26,7 @@ const StoreName: FC<StoreNameProps> = ({ text, tag }) => {
   }
 
   return (
-    <Wrapper className={handles.storeName}>
-      {text ? parseText(text) : group.friendlyName}
-    </Wrapper>
+    <Wrapper className={handles.storeDescription}>{parseText(text)}</Wrapper>
   )
 }
 
@@ -37,13 +35,13 @@ interface StoreNameProps {
   tag?: string
 }
 
-StoreName.defaultProps = {
+StoreDescription.defaultProps = {
   tag: 'div',
 }
 
-StoreName.propTypes = {
+StoreDescription.propTypes = {
   text: PropTypes.string,
   tag: PropTypes.string,
 }
 
-export default StoreName
+export default StoreDescription

@@ -33,7 +33,7 @@ Once installed, the app will generate a new route called `/stores` for your stor
 
 The new page already contains a default template with all blocks exported by the Store Locator app, meaning that the `/stores` page is ready to be rendered and no further actions are required. However, you can **customize the new page overwriting the template by creating a brand new one as you wish**. To do so, check the **Advanced configurations** section below.
 
-> ℹ️ *This app will also **add a new entry to your store's `/sitemap.xml` file in order to have all the pickup points available to the search engines** - make sure you already have the `vtex.store-sitemap@2.x` app installed in your VTEX account!*
+> ℹ️ _This app will also **add a new entry to your store's `/sitemap.xml` file in order to have all the pickup points available to the search engines** - make sure you already have the `vtex.store-sitemap@2.x` app installed in your VTEX account!_
 
 ### Advanced configuration
 
@@ -155,20 +155,20 @@ In order to define the Store Locator custom page UI, you must use the blocks exp
 
 #### `store-group` props
 
-|    Prop name    |   Type   |                                                          Description                                                           | Default value |
-| :-------------: | :------: | :----------------------------------------------------------------------------------------------------------------------------: | :-----------: |
-|     `title`     | `string` | Text to be displayed alongside with the store name. Use `{storeName}` as value to display the store's accurate name on the UI. | `{storeName}` |
-| `imageSelector` | `string` |                                CSS Selector that will wrap all the images displayed on the UI.                                 |  `undefined`  |
-| `phoneSelector` | `string` |                             CSS Selector that will wrap all the phone numbers displayed on the UI.                             |  `undefined`  |
+|       Prop name       |   Type    |                                                                                                                     Description                                                                                                                      | Default value |
+| :-------------------: | :-------: | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :-----------: |
+|        `title`        | `string`  |                                                            Text to be displayed alongside with the store name. Use `{storeName}` as value to display the store's accurate name on the UI.                                                            | `{storeName}` |
+|    `imageSelector`    | `string`  |                                                                                           CSS Selector that will wrap all the images displayed on the UI.                                                                                            |  `undefined`  |
+| `instructionsAsPhone` | `boolean` | To provide a unique phone number for each store, a phone number can be entered in the `Instructions` field in the Pickup Points section. The `store-instructions` will display a phone number and it will be included in the page's Structured Data. |    `false`    |
 
-> ⚠️ _Both `imageSelector` and `phoneSelector` must be declared with valid values in order to provide Structured Data for SEO purposes._
+> ⚠️ _Both `imageSelector` and `instructionsAsPhone` must be declared with valid values in order to provide Structured Data for SEO purposes._
 
 #### `store-name` props
 
-| Prop name |   Type   |                                                          Description                                                           | Default value |
-| :-------: | :------: | :----------------------------------------------------------------------------------------------------------------------------: | :-----------: |
-|  `text`   | `string` | Text to be displayed alongside with the store name. Use `{storeName}` as value to display the store's accurate name on the UI. | `{storeName}` |
-|   `tag`   | `string` |                              HTML element to wrap the `store-name` block when rendered on the UI.                              |     `div`     |
+| Prop name |   Type   |                                                                           Description                                                                            | Default value |
+| :-------: | :------: | :--------------------------------------------------------------------------------------------------------------------------------------------------------------: | :-----------: |
+|  `text`   | `string` | Text to be displayed alongside with the store name. Use `{storeName}`, `{storeCity}`, or `{storeState}` as value to display the store's accurate data on the UI. |               |
+|   `tag`   | `string` |                                               HTML element to wrap the `store-name` block when rendered on the UI.                                               |     `div`     |
 
 #### `store-back-link` props
 
@@ -195,6 +195,13 @@ In order to define the Store Locator custom page UI, you must use the blocks exp
 | :-------: | :------: | :-------------------------------------------------------: | :------------: |
 |  `label`  | `string` | Entitles the `store-hours` block when rendered on the UI. | `Store hours`  |
 | `format`  |  `enum`  |    Hour format. Possible values are : `12h` and `24h`.    |     `24h`      |
+
+#### `store-description` props
+
+| Prop name |   Type   |                                                                     Description                                                                      | Default value |
+| :-------: | :------: | :--------------------------------------------------------------------------------------------------------------------------------------------------: | :-----------: |
+|  `text`   | `string` | Text to be displayed on the store page. Use `{storeName}`, `{storeCity}`, or `{storeState}` within your text to display that store's specific value. |               |
+|   `tag`   | `string` |                                         HTML element to wrap the `store-name` block when rendered on the UI.                                         |     `div`     |
 
 #### `store-instructions` props
 
