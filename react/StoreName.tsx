@@ -15,8 +15,14 @@ const StoreName: FC<StoreNameProps> = ({ text, tag }) => {
   }
 
   const Wrapper = tag as keyof JSX.IntrinsicElements
+
   const parseText = (string: string) => {
-    return string.replace(/{storeName}/gi, group.friendlyName)
+    const { city, state } = group.address
+
+    return string
+      .replace(/{storeName}/gi, group.friendlyName)
+      .replace(/{storeCity}/gi, city ?? '')
+      .replace(/{storeState}/gi, state ?? '')
   }
 
   return (
