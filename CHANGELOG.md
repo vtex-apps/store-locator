@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Store adress as Google map link
+- Store Description block
+- Replace phone number css selector with optional boolean in theme
+- Provide store City and State as dynamic values in Store Name block
+
 ## [0.5.1] - 2021-01-21
 
 ### Removed
