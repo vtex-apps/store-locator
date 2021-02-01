@@ -4,17 +4,15 @@ import { useCssHandles } from 'vtex.css-handles'
 
 import { useStoreGroup } from './StoreGroup'
 
-const CSS_HANDLES = ['storeDescription'] as const
+const CSS_HANDLES = ['descriptionContainer', 'descriptionText'] as const
 
-const StoreDescription: FC<StoreNameProps> = ({ text, tag }) => {
+const StoreDescription: FC<StoreNameProps> = ({ text }) => {
   const handles = useCssHandles(CSS_HANDLES)
   const group = useStoreGroup()
 
   if (!group || !text) {
     return null
   }
-
-  const Wrapper = tag as keyof JSX.IntrinsicElements
 
   const parseText = (string: string) => {
     const { city, state } = group.address
@@ -26,22 +24,18 @@ const StoreDescription: FC<StoreNameProps> = ({ text, tag }) => {
   }
 
   return (
-    <Wrapper className={handles.storeDescription}>{parseText(text)}</Wrapper>
+    <div className={handles.descriptionContainer}>
+      <div className={handles.descriptionText}>{parseText(text)}</div>
+    </div>
   )
 }
 
 interface StoreNameProps {
   text?: string
-  tag?: string
-}
-
-StoreDescription.defaultProps = {
-  tag: 'div',
 }
 
 StoreDescription.propTypes = {
   text: PropTypes.string,
-  tag: PropTypes.string,
 }
 
 export default StoreDescription

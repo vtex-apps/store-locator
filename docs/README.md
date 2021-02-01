@@ -201,7 +201,6 @@ In order to define the Store Locator custom page UI, you must use the blocks exp
 | Prop name |   Type   |                                                                     Description                                                                      | Default value |
 | :-------: | :------: | :--------------------------------------------------------------------------------------------------------------------------------------------------: | :-----------: |
 |  `text`   | `string` | Text to be displayed on the store page. Use `{storeName}`, `{storeCity}`, or `{storeState}` within your text to display that store's specific value. |               |
-|   `tag`   | `string` |                                         HTML element to wrap the `store-name` block when rendered on the UI.                                         |     `div`     |
 
 #### `store-instructions` props
 
@@ -227,6 +226,8 @@ In order to apply CSS customizations in this and other blocks, follow the instru
 |       `backlink`        |
 |     `businessHours`     |
 |       `container`       |
+| `descriptionContainer`  |
+|    `descriptionText`    |
 |       `dayOfWeek`       |
 |        `divider`        |
 |        `hourRow`        |

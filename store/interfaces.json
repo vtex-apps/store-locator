@@ -10,6 +10,10 @@
     "component": "StoreName",
     "composition": "children"
   },
+  "store-description": {
+    "component": "StoreDescription",
+    "composition": "children"
+  },
   "store-instructions": {
     "component": "StoreInstructions",
     "composition": "children"

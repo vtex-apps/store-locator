@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Missing Store Description interface
+
 ## [0.6.0] - 2021-02-01
 
 ### Added
