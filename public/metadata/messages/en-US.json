@@ -1,0 +1,14 @@
+{
+  "name": "Store Locator",
+  "headline": "Displays shopper stores based on the Pickup points.",
+  "overview": "The Store Locator app fetches the Pickup point data in order to display address location for retail stores.",
+  "features": [
+    "Automatically import locations and its info from the pickup point",
+    "Generate pages and routes for each store",
+    "Handful \"blocks\" to use in any template"
+  ],
+  "websiteURL": "https://vtex.com/",
+  "support": {
+    "url": "https://help-tickets.vtex.com/en/support?app=vtex.store-locator"
+  }
+}

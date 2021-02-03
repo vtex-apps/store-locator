@@ -1,0 +1,14 @@
+{
+  "name": "Store Locator",
+  "headline": "Muestra las tiendas de los compradores según los puntos de recogida.",
+  "overview": "La aplicación Store Locator obtiene los datos del punto de recogida para mostrar la ubicación de la dirección de las tiendas minoristas.",
+  "features": [
+    "Importar automáticamente ubicaciones y su información desde el punto de recogida",
+    "Generar páginas y rutas para cada tienda",
+    "Un puñado de \"bloques\" para usar en cualquier plantilla"
+  ],
+  "websiteURL": "https://vtex.com/",
+  "support": {
+    "url": "https://help-tickets.vtex.com/en/support?app=vtex.store-locator"
+  }
+}

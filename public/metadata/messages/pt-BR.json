@@ -1,0 +1,14 @@
+{
+  "name": "Store Locator",
+  "headline": "Exibe mapa de lojas com base nos pickup points.",
+  "overview": "O aplicativo Store Locator busca os dados do pickup points para exibir a localização das lojas.",
+  "features": [
+    "Importa automaticamente os locais e suas informações do pickup points",
+    "Gera páginas e rotas para cada loja",
+    "Gera \"blocos\" para usar em qualquer modelo no template"
+  ],
+  "websiteURL": "https://vtex.com/",
+  "support": {
+    "url": "https://help-tickets.vtex.com/en/support?app=vtex.store-locator"
+  }
+}
