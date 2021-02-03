@@ -1,47 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { FC, useContext, ReactNode, useState } from 'react'
+import React, { FC, useContext, ReactNode, useState, useEffect } from 'react'
 import { useLazyQuery } from 'react-apollo'
 import { Helmet } from 'react-helmet'
 import { useRuntime } from 'vtex.render-runtime'
 
+import { OptionsContext } from './contexts/OptionsContext'
 import GET_STORE from './queries/getStore.gql'
 
 const DAYS = [0, 1, 2, 3, 4, 5, 6]
-
-interface BusinessHours {
-  openingTime: string
-  dayOfWeek: string
-  closingTime: string
-}
-interface Address {
-  addressId: string
-  cacheId: string
-  id: string
-  userId: string
-  receiverName: string
-  complement: string
-  neighborhood: string
-  country: string
-  state: string
-  number: string
-  street: string
-  geoCoordinates: [number]
-  postalCode: string
-  city: string
-  reference: string
-  addressName: string
-  addressType: string
-}
-interface SpecificationGroup {
-  businessHours: [BusinessHours]
-  isActive: boolean
-  distance: number
-  friendlyName: string
-  id: string
-  instructions: string
-  seller: string
-  address: Address
-}
 
 const StoreGroupContext = React.createContext<SpecificationGroup | undefined>(
   undefined
@@ -49,16 +15,19 @@ const StoreGroupContext = React.createContext<SpecificationGroup | undefined>(
 
 interface StoreGroupProviderProps {
   group: SpecificationGroup
-  title: string
+  hasPhone: boolean
 }
 const StoreGroupProvider: FC<StoreGroupProviderProps> = ({
   group,
   children,
+  hasPhone,
 }) => {
   return (
-    <StoreGroupContext.Provider value={group}>
-      {children}
-    </StoreGroupContext.Provider>
+    <OptionsContext.Provider value={hasPhone}>
+      <StoreGroupContext.Provider value={group}>
+        {children}
+      </StoreGroupContext.Provider>
+    </OptionsContext.Provider>
   )
 }
 
@@ -67,6 +36,7 @@ interface StoreGroupProps {
   title: string
   imageSelector: string
   phoneSelector: string
+  instructionsAsPhone?: boolean
 }
 
 const getImages = (imageSelector: string) => {
@@ -88,34 +58,11 @@ const getImages = (imageSelector: string) => {
   return images
 }
 
-const getPhone = (phoneSelector: string) => {
-  if (!phoneSelector) {
-    return ''
-  }
-
-  const phones: string[] = []
-  const elements: NodeListOf<HTMLElement> = document.querySelectorAll(
-    phoneSelector
-  )
-
-  if (elements.length) {
-    for (let i = 0; i < elements.length; i++) {
-      const { innerText } = elements[i]
-
-      if (innerText) {
-        phones.push(innerText.replace(/[^\d+]/gi, ''))
-      }
-    }
-  }
-
-  return phones.length ? phones[0] : phones
-}
-
 const buildDataType = (
   data: any,
   title: string,
   imageSelector: string,
-  phoneSelector: string
+  hasPhone: boolean
 ) => {
   const [longitude, latitude] = data.address.geoCoordinates
   const weekDays = [
@@ -132,9 +79,9 @@ const buildDataType = (
     '@context': 'https://schema.org',
     '@type': 'Store',
     '@id': data.id,
-    name: title ?? data.friendlyName,
+    name: title,
     image: getImages(imageSelector),
-    telephone: getPhone(phoneSelector),
+    telephone: hasPhone ? data.instructions : '',
     address: {
       '@type': 'PostalAddress',
       streetAddress: `${data.address.number} ${data.address.street}`,
@@ -163,8 +110,17 @@ const buildDataType = (
   }
 }
 
-const titleParser = (title: string, storeName: string) => {
-  return title.replace(/{storeName}/gi, storeName)
+const titleParser = (title: string, group: SpecificationGroup) => {
+  if (!title) {
+    return group.friendlyName
+  }
+
+  const { city, state } = group.address
+
+  return title
+    .replace(/{storeName}/gi, group.friendlyName)
+    .replace(/{storeCity}/gi, city ?? '')
+    .replace(/{storeState}/gi, state ?? '')
 }
 
 const StoreGroup: FC<StoreGroupProps> = ({
@@ -172,9 +128,11 @@ const StoreGroup: FC<StoreGroupProps> = ({
   title,
   imageSelector,
   phoneSelector,
+  instructionsAsPhone,
 }) => {
   const { history } = useRuntime()
   const [pickupPoint, setPickupPoint] = useState<any>(null)
+  const [parsedTitle, setParsedTitle] = useState<string>('')
   const [getStore, { data, called }] = useLazyQuery(GET_STORE)
 
   if (history && !called) {
@@ -207,29 +165,37 @@ const StoreGroup: FC<StoreGroupProps> = ({
     setPickupPoint({ ...data.pickupPoint, businessHours })
   }
 
+  useEffect(() => {
+    if (!pickupPoint) {
+      return
+    }
+
+    setParsedTitle(titleParser(title, pickupPoint))
+  }, [pickupPoint, title])
+
   return (
     <>
-      {data?.pickupPoint && (
+      {pickupPoint && (
         <Helmet>
-          <title>{`${titleParser(
-            title,
-            data.pickupPoint.friendlyName
-          )}`}</title>
+          <title>{parsedTitle}</title>
           {!!imageSelector && (
             <script type="application/ld+json">
               {JSON.stringify(
                 buildDataType(
                   data.pickupPoint,
-                  titleParser(title, data.pickupPoint.friendlyName),
+                  parsedTitle,
                   imageSelector,
-                  phoneSelector
+                  instructionsAsPhone ?? phoneSelector?.length > 0
                 )
               )}
             </script>
           )}
         </Helmet>
       )}
-      <StoreGroupProvider group={pickupPoint} title={title}>
+      <StoreGroupProvider
+        group={pickupPoint}
+        hasPhone={instructionsAsPhone ?? phoneSelector.length > 0}
+      >
         {children}
       </StoreGroupProvider>
     </>
@@ -246,6 +212,7 @@ StoreGroup.defaultProps = {
   title: '{storeName}',
   imageSelector: '',
   phoneSelector: '',
+  instructionsAsPhone: false,
 }
 
 export default StoreGroup

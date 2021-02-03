@@ -8,8 +8,34 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
-
 - Metadata to app store
+
+## [0.6.2] - 2021-02-03
+
+### Added
+
+- Additional dynamic data available in Page Title
+
+## [0.6.1] - 2021-02-01
+
+### Fixed
+
+- Missing Store Description interface
+
+## [0.6.0] - 2021-02-01
+
+### Added
+
+- Store adress as Google map link
+- Store Description block
+- Replace phone number css selector with optional boolean in theme
+- Provide store City and State as dynamic values in Store Name block
+
+## [0.5.1] - 2021-01-21
+
+### Removed
+
+- Removed default title from the App's `routes.json`
 
 ## [0.5.0] - 2020-12-16
 
