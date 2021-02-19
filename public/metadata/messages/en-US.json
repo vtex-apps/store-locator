@@ -1,7 +1,7 @@
 {
   "name": "Store Locator",
-  "headline": "Displays shopper stores based on the Pickup points.",
-  "overview": "The Store Locator app fetches the Pickup point data in order to display address location for retail stores.",
+  "headline": "Displays merchant stores based on the pickup points.",
+  "overview": "The Store Locator app fetches the pickup point data in order to display address location for retail stores.",
   "features": [
     "Automatically import locations and its info from the pickup point",
     "Generate pages and routes for each store",
