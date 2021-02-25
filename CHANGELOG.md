@@ -7,9 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- App description
+- Unused code
+
 ## [0.6.3] - 2021-02-03
 
 ### Added
+
 - Metadata to app store
 
 ## [0.6.2] - 2021-02-03
