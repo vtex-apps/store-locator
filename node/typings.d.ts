@@ -1,19 +1,10 @@
-interface ReqContext {
-  account: string
-  workspace: string
-  authToken: string
-  region: string
-  production: boolean
-  userAgent: string
-}
-
 interface Logger {
   log(content: string, level: LogLevel, details?: {}): PromiseLike<void>
 }
 
 interface OperationState {
   orderFormId: string
-  ctx: ReqContext
+  ctx: Context
   data?: OperationData
   logger: Logger
 }

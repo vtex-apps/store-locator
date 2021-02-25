@@ -1,6 +1,6 @@
 {
   "name": "Store Locator",
-  "headline": "Muestra las tiendas de los compradores según los puntos de recogida.",
+  "headline": "Muestra las tiendas comerciales según los puntos de recogida.",
   "overview": "La aplicación Store Locator obtiene los datos del punto de recogida para mostrar la ubicación de la dirección de las tiendas minoristas.",
   "features": [
     "Importar automáticamente ubicaciones y su información desde el punto de recogida",

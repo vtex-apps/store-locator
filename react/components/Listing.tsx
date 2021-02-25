@@ -3,7 +3,7 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { FC } from 'react'
-import { injectIntl, WrappedComponentProps, FormattedMessage } from 'react-intl'
+import { injectIntl, FormattedMessage } from 'react-intl'
 import PropTypes from 'prop-types'
 import slugify from 'slugify'
 import { useRuntime } from 'vtex.render-runtime'
@@ -22,10 +22,7 @@ const Slugify = (str: string) => {
   return slugify(str, { lower: true, remove: /[*+~.()'"!:@]/g })
 }
 
-const Listing: FC<WrappedComponentProps & any> = ({
-  items,
-  onChangeCenter,
-}) => {
+const Listing: FC<any> = ({ items, onChangeCenter }) => {
   const handles = useCssHandles(CSS_HANDLES)
   const { navigate } = useRuntime()
 
