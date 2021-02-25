@@ -22,10 +22,7 @@ const Slugify = (str: string) => {
   return slugify(str, { lower: true, remove: /[*+~.()'"!:@]/g })
 }
 
-const Listing: FC<WrappedComponentProps & any> = ({
-  items,
-  onChangeCenter,
-}) => {
+const Listing: FC<any> = ({ items, onChangeCenter }) => {
   const handles = useCssHandles(CSS_HANDLES)
   const { navigate } = useRuntime()
 
