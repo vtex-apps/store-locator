@@ -53,9 +53,8 @@ const StoreList = ({
     })
     getStores({
       variables: {
-        postalCode: null,
-        pageNumber: 1,
-        pageSize: 50,
+        latitude: null,
+        longitude: null,
         filterByTag,
       },
     })
@@ -66,11 +65,12 @@ const StoreList = ({
       ofData.shippingData?.address?.postalCode &&
       ofData.shippingData.address.postalCode.indexOf('*') === -1
     ) {
+      const [longitude, latitude] = ofData.shippingData.address.geoCoordinates
+
       getStores({
         variables: {
-          postalCode: ofData.shippingData.address.postalCode,
-          pageNumber: 1,
-          pageSize: 50,
+          latitude,
+          longitude,
           filterByTag,
         },
       })

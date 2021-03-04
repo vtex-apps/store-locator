@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Disabled pickup points being displayed
+
 ## [0.6.4] - 2021-02-25
 
 ### Fixed

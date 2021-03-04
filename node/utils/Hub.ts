@@ -1,21 +1,27 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { ExternalClient, InstanceOptions, IOContext } from '@vtex/api'
+import { ExternalClient, InstanceOptions, IOContext, Logger } from '@vtex/api'
+
+const BASE_PATH =
+  'http://logistics.vtexcommercestable.com.br/api/logistics/pvt/configuration/pickuppoints/'
 
 const routes = {
-  getAll: ({ pageNumber, pageSize, keyword }: any, account: string) =>
-    `http://logistics.vtexcommercestable.com.br/api/logistics/pvt/configuration/pickuppoints/_search?an=${account}&page=${
-      pageNumber ?? 1
-    }&pageSize=${pageSize ?? 50}&keyword=${keyword ?? ''}`,
-  getByLocation: (
-    { postalCode, countryCode, pageNumber, pageSize }: any,
-    account: string
-  ) =>
-    `http://${account}.vtexcommercestable.com.br/api/checkout/pub/pickup-points?countryCode=${countryCode}&postalCode=${postalCode}&page=${
-      pageNumber ?? 1
-    }&pageSize=${pageSize ?? 50}`,
+  getAll: ({ keyword, latitude, longitude }: any, account: string) => {
+    let path = `_search?an=${account}&pageSize=100`
+
+    if (keyword) {
+      path = `_search?an=${account}&keyword=${keyword}&pageSize=100`
+    } else if (latitude && longitude) {
+      path = `_searchsellers?an=${account}&lat=${Number(latitude).toFixed(
+        2
+      )}&lon=${Number(longitude).toFixed(2)}`
+    }
+
+    return `${BASE_PATH + path}`
+  },
 }
 
 export default class RequestHub extends ExternalClient {
+  public logger: Logger
   constructor(context: IOContext, options?: InstanceOptions) {
     super('', context, {
       ...options,
@@ -26,13 +32,14 @@ export default class RequestHub extends ExternalClient {
         VtexIdclientAutCookie: context.authToken,
       },
     })
+    this.logger = new Logger(context)
   }
 
-  public getAllStores(data: any) {
-    return this.http.getRaw(routes.getAll(data, this.context.account))
-  }
-
-  public getByLocation(data: any) {
-    return this.http.getRaw(routes.getByLocation(data, this.context.account))
+  public getStores(data: any) {
+    return this.http
+      .getRaw(routes.getAll(data, this.context.account))
+      .catch((e) => {
+        this.logger.error(e)
+      })
   }
 }

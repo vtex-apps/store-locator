@@ -1,14 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Segment, method } from '@vtex/api'
+import { method } from '@vtex/api'
 import slugify from 'slugify'
-
-const getCountry = async (segment: Segment) => {
-  const segmentData: any = await segment.getSegment()
-
-  return {
-    countryCode: segmentData?.countryCode,
-  }
-}
 
 const Slugify = (str: string) => {
   return slugify(str, { lower: true, remove: /[*+~.()'"!:@]/g })
@@ -22,7 +14,11 @@ export const resolvers = {
           try {
             const stores: any = await resolvers.Query.getStores(
               null,
-              { postalCode: null, pageNumber: 1, pageSize: 99 },
+              {
+                keyword: null,
+                latitude: null,
+                longitude: null,
+              },
               ctx
             )
 
@@ -61,14 +57,9 @@ export const resolvers = {
   Query: {
     getStores: async (_: any, param: any, ctx: any) => {
       const {
-        clients: { hub, sitemap, segment },
+        clients: { hub, sitemap },
         vtex: { logger },
       } = ctx
-
-      const { countryCode } = await getCountry(segment)
-      const { postalCode, keyword } = param
-
-      let data: any
 
       try {
         sitemap.hasSitemap().then((has: any) => {
@@ -80,91 +71,27 @@ export const resolvers = {
         logger.log(err)
       }
 
-      if (!postalCode) {
-        const response = await hub.getAllStores(param)
+      let result = await hub.getStores(param)
 
-        data = response.data
+      if (!result?.data.length && !param.keyword) {
+        result = await hub.getStores({})
       }
 
-      if (postalCode && !keyword) {
-        const response = await hub.getByLocation({ ...param, countryCode })
+      const { data } = result
 
-        data = response.data
-      }
+      const pickuppoints = data.items ? data : { items: data }
 
-      if (postalCode && keyword) {
-        const result = await Promise.all([
-          hub.getByLocation({ ...param, countryCode }),
-          hub.getAllStores(param),
-        ])
-
-        const [{ data: pickupPoints }, { data: stores }] = result
-
-        const items = pickupPoints.items.filter((item: any) => {
-          const pickupPointId = item.pickupPoint.id.replace('1_', '')
-
-          return stores.items.some((store: any) => pickupPointId === store.id)
-        })
-
-        data = { items }
-      }
-
-      const ret = data
-        ? {
-            items: data.items.map((item: any) => {
-              return {
-                id: item.pickupPoint?.id || item.id,
-                name: item.pickupPoint?.friendlyName || item.name,
-                instructions:
-                  item.pickupPoint?.additionalInfo || item.instructions,
-                distance: item.distance,
-                isActive:
-                  typeof item.isActive === 'boolean' ? item.isActive : true,
-                address: {
-                  postalCode:
-                    item.pickupPoint?.address.postalCode ||
-                    item.address?.postalCode,
-                  country:
-                    item.pickupPoint?.address.country ||
-                    item.address?.country.acronym,
-                  city: item.pickupPoint?.address.city || item.address?.city,
-                  state: item.pickupPoint?.address.state || item.address?.state,
-                  neighborhood:
-                    item.pickupPoint?.address.neighborhood ||
-                    item.address?.neighborhood,
-                  street:
-                    item.pickupPoint?.address.street || item.address?.street,
-                  number:
-                    item.pickupPoint?.address.number || item.address?.number,
-                  complement:
-                    item.pickupPoint?.address.complement ||
-                    item.address?.complement,
-                  reference:
-                    item.pickupPoint?.address.reference ||
-                    item.address?.reference,
-                  location: item.pickupPoint
-                    ? {
-                        latitude: item.pickupPoint.address.geoCoordinates[1],
-                        longitude: item.pickupPoint.address.geoCoordinates[0],
-                      }
-                    : item.address.location,
-                },
-                businessHours:
-                  item.pickupPoint?.businessHours.map((hour: any) => {
-                    return {
-                      dayOfWeek: hour.dayOfWeek || hour.DayOfWeek,
-                      openingTime: hour.openingTime || hour.OpeningTime,
-                      closingTime: hour.closingTime || hour.ClosingTime,
-                    }
-                  }) || item.businessHours,
-                pickupHolidays: item.pickupHolidays || [],
-              }
-            }),
-            paging: data.paging,
+      return {
+        items: pickuppoints.items.map((item: any) => {
+          return {
+            ...item,
+            address: {
+              ...item.address,
+              country: item.address.acronym,
+            },
           }
-        : []
-
-      return ret
+        }),
+      }
     },
   },
 }
