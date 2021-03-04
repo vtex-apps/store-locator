@@ -1,6 +1,6 @@
 {
   "name": "store-locator",
-  "version": "0.6.4",
+  "version": "0.7.0",
   "scripts": {
     "test": "vtex-test-tools test"
   },
