@@ -82,15 +82,19 @@ export const resolvers = {
       const pickuppoints = data.items ? data : { items: data }
 
       return {
-        items: pickuppoints.items.map((item: any) => {
-          return {
-            ...item,
-            address: {
-              ...item.address,
-              country: item.address.acronym,
-            },
-          }
-        }),
+        items: pickuppoints.items
+          .map((item: any) => {
+            return {
+              ...item,
+              address: {
+                ...item.address,
+                country: item.address.acronym,
+              },
+            }
+          })
+          .filter((item: any) => {
+            return !!item.isActive
+          }),
       }
     },
   },

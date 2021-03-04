@@ -108,21 +108,17 @@ const StoreList = ({
     }
 
     const stores =
-      data?.getStores?.items
-        .filter((item: any) => {
-          return item.isActive
-        })
-        .sort((a, b) => {
-          if (a.distance < b.distance) {
-            return -1
-          }
+      data?.getStores?.items.sort((a, b) => {
+        if (a.distance < b.distance) {
+          return -1
+        }
 
-          if (a.distance > b.distance) {
-            return 1
-          }
+        if (a.distance > b.distance) {
+          return 1
+        }
 
-          return 0
-        }) ?? []
+        return 0
+      }) ?? []
 
     return (
       <div className={`flex flex-row ${handles.container}`}>
