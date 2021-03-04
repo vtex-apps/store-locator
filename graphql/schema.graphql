@@ -1,15 +1,10 @@
 type Query {
-  getStores(
-    postalCode: String
-    pageNumber: Int
-    pageSize: Int
-    keyword: String
-  ): StoreResponse @cacheControl(scope: PRIVATE)
+  getStores(latitude: Float, longitude: Float, keyword: String): StoreResponse
+    @cacheControl(scope: PRIVATE)
 }
 
 type StoreResponse {
   items: [StoreItemType]
-  paging: Paging
 }
 type StoreItemType {
   id: String
@@ -49,11 +44,4 @@ type Hours {
   dayOfWeek: Int
   openingTime: String
   closingTime: String
-}
-
-type Paging {
-  page: Int
-  pageSize: Int
-  total: Int
-  pages: Int
 }

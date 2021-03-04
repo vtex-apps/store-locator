@@ -1,15 +1,6 @@
-query getStores(
-  $postalCode: String
-  $pageNumber: Int
-  $pageSize: Int
-  $filterByTag: String
-) @context(provider: "vtex.store-locator") {
-  getStores(
-    postalCode: $postalCode
-    pageNumber: $pageNumber
-    pageSize: $pageSize
-    keyword: $filterByTag
-  ) {
+query getStores($latitude: Float, $longitude: Float, $filterByTag: String)
+  @context(provider: "vtex.store-locator") {
+  getStores(latitude: $latitude, longitude: $longitude, keyword: $filterByTag) {
     items {
       distance
       name
@@ -41,12 +32,6 @@ query getStores(
         openingTime
         closingTime
       }
-    }
-    paging {
-      page
-      pageSize
-      total
-      pages
     }
   }
 }
