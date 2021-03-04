@@ -13,7 +13,7 @@ const routes = {
     } else if (latitude && longitude) {
       path = `_searchsellers?an=${account}&lat=${Number(latitude).toFixed(
         2
-      )}&lon=${Number(longitude).toFixed(2)}`
+      )}&lon=${Number(longitude).toFixed(2)}&maxDistance=200`
     }
 
     return `${BASE_PATH + path}`
