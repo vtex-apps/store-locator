@@ -1,8 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { FC, useContext, ReactNode, useState, useEffect } from 'react'
 import { useLazyQuery } from 'react-apollo'
-import { Helmet } from 'react-helmet'
-import { useRuntime } from 'vtex.render-runtime'
+import { useRuntime, Helmet } from 'vtex.render-runtime'
 
 import { OptionsContext } from './contexts/OptionsContext'
 import GET_STORE from './queries/getStore.gql'
@@ -34,6 +33,7 @@ const StoreGroupProvider: FC<StoreGroupProviderProps> = ({
 interface StoreGroupProps {
   children: ReactNode
   title: string
+  description: string
   imageSelector: string
   phoneSelector: string
   instructionsAsPhone?: boolean
@@ -58,9 +58,22 @@ const getImages = (imageSelector: string) => {
   return images
 }
 
+const textParser = (text: string, group: SpecificationGroup) => {
+  const {
+    friendlyName,
+    address: { city, state },
+  } = group
+
+  return text
+    .replace(/{storeName}/gi, friendlyName)
+    .replace(/{storeCity}/gi, city ?? '')
+    .replace(/{storeState}/gi, state ?? '')
+}
+
 const buildDataType = (
   data: any,
   title: string,
+  description: string,
   imageSelector: string,
   hasPhone: boolean
 ) => {
@@ -80,6 +93,7 @@ const buildDataType = (
     '@type': 'Store',
     '@id': data.id,
     name: title,
+    description,
     image: getImages(imageSelector),
     telephone: hasPhone ? data.instructions : '',
     address: {
@@ -110,22 +124,10 @@ const buildDataType = (
   }
 }
 
-const titleParser = (title: string, group: SpecificationGroup) => {
-  if (!title) {
-    return group.friendlyName
-  }
-
-  const { city, state } = group.address
-
-  return title
-    .replace(/{storeName}/gi, group.friendlyName)
-    .replace(/{storeCity}/gi, city ?? '')
-    .replace(/{storeState}/gi, state ?? '')
-}
-
 const StoreGroup: FC<StoreGroupProps> = ({
   children,
   title,
+  description,
   imageSelector,
   phoneSelector,
   instructionsAsPhone,
@@ -133,6 +135,7 @@ const StoreGroup: FC<StoreGroupProps> = ({
   const { history } = useRuntime()
   const [pickupPoint, setPickupPoint] = useState<any>(null)
   const [parsedTitle, setParsedTitle] = useState<string>('')
+  const [parsedDescription, setParsedDescription] = useState<string>('')
   const [getStore, { data, called }] = useLazyQuery(GET_STORE)
 
   if (history && !called) {
@@ -170,20 +173,31 @@ const StoreGroup: FC<StoreGroupProps> = ({
       return
     }
 
-    setParsedTitle(titleParser(title, pickupPoint))
-  }, [pickupPoint, title])
+    const pageTitle = title
+      ? textParser(title, pickupPoint)
+      : pickupPoint.friendlyName
+
+    const pageDescription = description
+      ? textParser(description, pickupPoint)
+      : ''
+
+    setParsedTitle(pageTitle)
+    setParsedDescription(pageDescription)
+  }, [pickupPoint, title, description])
 
   return (
     <>
       {pickupPoint && (
         <Helmet>
           <title>{parsedTitle}</title>
+          <meta name="description" content={parsedDescription} />
           {!!imageSelector && (
             <script type="application/ld+json">
               {JSON.stringify(
                 buildDataType(
                   data.pickupPoint,
                   parsedTitle,
+                  parsedDescription,
                   imageSelector,
                   instructionsAsPhone ?? phoneSelector?.length > 0
                 )
@@ -210,6 +224,7 @@ export const useStoreGroup = () => {
 
 StoreGroup.defaultProps = {
   title: '{storeName}',
+  description: '',
   imageSelector: '',
   phoneSelector: '',
   instructionsAsPhone: false,
