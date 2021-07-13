@@ -73,6 +73,7 @@ const timeFormat = (time: string, format?: string) => {
 const StoreHours: FC<WrappedComponentProps & StoreHoursProps> = ({
   label,
   format,
+  businessHours,
   intl,
 }) => {
   const handles = useCssHandles(CSS_HANDLES)
@@ -99,22 +100,39 @@ const StoreHours: FC<WrappedComponentProps & StoreHoursProps> = ({
         {label ?? intl.formatMessage(messages.hoursLabel)}
       </span>
       <br />
-      {group.businessHours.map((item: any, i: number) => {
+      {businessHours?.map((item: any, i: number) => {
         return (
           <div
             key={`hour_${i}`}
             className={`${handles.hourRow} mv1 flex flex-wrap`}
           >
             <div className={`${handles.dayOfWeek} w-30`}>
-              {intl.formatMessage(messages[item.dayOfWeek])}
+              {item.dayOfWeek}
               <span className={handles.divider}>:</span>
             </div>
             <div className={`${handles.businessHours} tc w-50`}>
-              {displayHours(item)}
+              {item.openingTime} - {item.closingTime}
             </div>
           </div>
         )
       })}
+      {!businessHours &&
+        group.businessHours.map((item: any, i: number) => {
+          return (
+            <div
+              key={`hour_${i}`}
+              className={`${handles.hourRow} mv1 flex flex-wrap`}
+            >
+              <div className={`${handles.dayOfWeek} w-30`}>
+                {intl.formatMessage(messages[item.dayOfWeek])}
+                <span className={handles.divider}>:</span>
+              </div>
+              <div className={`${handles.businessHours} tc w-50`}>
+                {displayHours(item)}
+              </div>
+            </div>
+          )
+        })}
     </div>
   )
 }
@@ -122,11 +140,19 @@ const StoreHours: FC<WrappedComponentProps & StoreHoursProps> = ({
 interface StoreHoursProps {
   label?: string
   format?: string
+  businessHours?: any
 }
 
 StoreHours.propTypes = {
   label: PropTypes.string,
   format: PropTypes.oneOf(['24h', '12h']),
+  businessHours: PropTypes.arrayOf(
+    PropTypes.shape({
+      dayOfWeek: PropTypes.string,
+      openingTime: PropTypes.string,
+      closingTime: PropTypes.string,
+    })
+  ),
   intl: PropTypes.any,
 }
 
