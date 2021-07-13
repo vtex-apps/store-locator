@@ -39,16 +39,16 @@ The new page already contains a default template with all blocks exported by the
 
 In order to define the Store Locator custom page UI, you must use the blocks exported by the `vtex.store-locator` app. Namely, they are:
 
-|      Block name      |                                            Description                                             |
-| :------------------: | :------------------------------------------------------------------------------------------------: |
-|     `store-list`     |               Renders a list of retail stores and a map with all their localization.               |
-|    `store-group`     | Provides the pickup point data to other blocks exported by the app, such as the ones listed below. |
-|     `store-name`     |                                      Renders the store name.                                       |
-|  `store-back-link`   |                           Renders a link to return to the previous page.                           |
-|     `store-map`      |                         Renders a map with the retail store localization.                          |
-|   `store-address`    |                                    Renders the store's address.                                    |
-|    `store-hours`     |                                 Renders the store's opening hours.                                 |
-| `store-instructions` |                    Renders the desired instructions to access the retail store.                    |
+|      Block name      |                                                                              Description                                                                              |
+| :------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+|     `store-list`     |                                                Renders a list of retail stores and a map with all their localization.                                                 |
+|    `store-group`     |                                  Provides the pickup point data to other blocks exported by the app, such as the ones listed below.                                   |
+|     `store-name`     |                                                                        Renders the store name.                                                                        |
+|  `store-back-link`   |                                                            Renders a link to return to the previous page.                                                             |
+|     `store-map`      |                                                           Renders a map with the retail store localization.                                                           |
+|   `store-address`    |                                                                     Renders the store's address.                                                                      |
+|    `store-hours`     | Renders the store's opening hours. This information comes by default from the Pickup Points configuration, but you can also define manually through the Store's theme |
+| `store-instructions` |                                                     Renders the desired instructions to access the retail store.                                                      |
 
 1. Open your Store Theme app directory in your code editor.
 2. In the `store` folder of your Store Theme app, create a new file called `storelocator.json`.
@@ -126,7 +126,44 @@ In order to define the Store Locator custom page UI, you must use the blocks exp
   "store-hours": {
     "props": {
       "label": "Business hours:",
-      "format": "12h"
+      "format": "12h",
+      "businessHours": [
+        {
+          "dayOfWeek": "Sunday",
+          "openingTime": "11:00am",
+          "closingTime": "5:00pm"
+        },
+        {
+          "dayOfWeek": "Monday",
+          "openingTime": "11:00am",
+          "closingTime": "6:00pm"
+        },
+        {
+          "dayOfWeek": "Tuesday",
+          "openingTime": "11:00am",
+          "closingTime": "6:00pm"
+        },
+        {
+          "dayOfWeek": "Wednesday",
+          "openingTime": "11:00am",
+          "closingTime": "6:00pm"
+        },
+        {
+          "dayOfWeek": "Thursday",
+          "openingTime": "11:00am",
+          "closingTime": "6:00pm"
+        },
+        {
+          "dayOfWeek": "Friday",
+          "openingTime": "11:00am",
+          "closingTime": "6:00pm"
+        },
+        {
+          "dayOfWeek": "Saturday",
+          "openingTime": "11:00am",
+          "closingTime": "5:00pm"
+        }
+      ]
     }
   },
   "store-back-link": {
@@ -191,10 +228,11 @@ In order to define the Store Locator custom page UI, you must use the blocks exp
 
 #### `store-hours` props
 
-| Prop name |   Type   |                        Description                        | Default value. |
-| :-------: | :------: | :-------------------------------------------------------: | :------------: |
-|  `label`  | `string` | Entitles the `store-hours` block when rendered on the UI. | `Store hours`  |
-| `format`  |  `enum`  |    Hour format. Possible values are : `12h` and `24h`.    |     `24h`      |
+|    Prop name    |       Type        |                                    Description                                    | Default value. |
+| :-------------: | :---------------: | :-------------------------------------------------------------------------------: | :------------: |
+|     `label`     |     `string`      |             Entitles the `store-hours` block when rendered on the UI.             | `Store hours`  |
+|    `format`     |      `enum`       |                Hour format. Possible values are : `12h` and `24h`.                |     `24h`      |
+| `businessHours` | `array of object` | format `{"dayOfWeek": "Sunday","openingTime": "11:00am","closingTime": "5:00pm"}` |  `undefined`   |
 
 #### `store-description` props
 

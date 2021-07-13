@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Property `businessHours` on the `store-hours` interface
+
 ## [0.7.1] - 2021-03-04
 
 ### Fixed
