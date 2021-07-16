@@ -5084,10 +5084,6 @@ verror@1.10.0:
   version "2.142.6"
   resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.store-graphql@2.142.6/public/@types/vtex.store-graphql#f68458d0aa93b264c881adc1d39bad652386e080"
 
-"vtex.store-locator@https://storelocator--rogamx.myvtex.com/_v/private/typings/linked/v1/vtex.store-locator@0.9.0+build1626459949/public/@types/vtex.store-locator":
-  version "0.9.0"
-  resolved "https://storelocator--rogamx.myvtex.com/_v/private/typings/linked/v1/vtex.store-locator@0.9.0+build1626459949/public/@types/vtex.store-locator#e14d0244636b20375344c93753324ca59ce3868a"
-
 "vtex.store-sitemap@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.store-sitemap@2.13.9/public/@types/vtex.store-sitemap":
   version "2.13.9"
   resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.store-sitemap@2.13.9/public/@types/vtex.store-sitemap#88060df3db5dedfa04e15f37a331340780822001"
