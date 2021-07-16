@@ -77,9 +77,28 @@ export const resolvers = {
         result = await hub.getStores({})
       }
 
-      const { data } = result
+      const {
+        data,
+        data: { paging },
+      } = result
 
       const pickuppoints = data.items ? data : { items: data }
+
+      if (paging?.pages > 1) {
+        let i = 2
+        const results = [] as any
+
+        while (i <= paging.pages) {
+          results.push(hub.getStores({ ...param, page: i }))
+          i++
+        }
+
+        const remainingData = await Promise.all(results)
+
+        remainingData.forEach((newResult: any) => {
+          pickuppoints.items.push(...newResult.data.items)
+        })
+      }
 
       return {
         items: pickuppoints.items

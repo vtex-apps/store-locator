@@ -1,5 +1,5 @@
-query getGoogleMapsKey @context(provider: "vtex.store-graphql") {
-  logistics {
+query getGoogleMapsKey {
+  logistics @context(provider: "vtex.store-graphql") {
     googleMapsKey
   }
 }

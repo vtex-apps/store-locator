@@ -1,6 +1,6 @@
-query getStores($latitude: Float, $longitude: Float, $filterByTag: String)
-  @context(provider: "vtex.store-locator") {
-  getStores(latitude: $latitude, longitude: $longitude, keyword: $filterByTag) {
+query getStores($latitude: Float, $longitude: Float, $filterByTag: String) {
+  getStores(latitude: $latitude, longitude: $longitude, keyword: $filterByTag)
+    @context(provider: "vtex.store-locator") {
     items {
       distance
       name

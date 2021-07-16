@@ -5,18 +5,23 @@ const BASE_PATH =
   'http://logistics.vtexcommercestable.com.br/api/logistics/pvt/configuration/pickuppoints/'
 
 const routes = {
-  getAll: ({ keyword, latitude, longitude }: any, account: string) => {
-    let path = `_search?an=${account}&pageSize=100`
+  getAll: (
+    { keyword, latitude, longitude, page = 1 }: any,
+    account: string
+  ) => {
+    let path = `_search?an=${account}`
 
     if (keyword) {
-      path = `_search?an=${account}&keyword=${keyword}&pageSize=100`
+      path += `&keyword=${keyword}`
     } else if (latitude && longitude) {
       path = `_searchsellers?an=${account}&lat=${Number(latitude).toFixed(
         2
       )}&lon=${Number(longitude).toFixed(2)}&maxDistance=200`
     }
 
-    return `${BASE_PATH + path}`
+    path += `&pageSize=100&page=${page}`
+
+    return `${BASE_PATH}${path}`
   },
 }
 
