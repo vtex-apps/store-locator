@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Type errors
 - Use newer `@react-google-maps/api` package instead of `react-google-maps`
 - Automatically fetch additional pages of pickup point API results when a store has more than the 100 per page limit
+- Sitemap domain not considering tenant building
 
 ## [0.9.0] - 2021-07-13
 

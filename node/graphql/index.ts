@@ -2,6 +2,8 @@
 import { method } from '@vtex/api'
 import slugify from 'slugify'
 
+import { getStoreBindings } from '../utils/Binding'
+
 const Slugify = (str: string) => {
   return slugify(str, { lower: true, remove: /[*+~.()'"!:@]/g })
 }
@@ -10,7 +12,11 @@ export const resolvers = {
   Routes: {
     getSitemap: [
       method({
-        GET: async (ctx: any) => {
+        GET: async (ctx: Context) => {
+          const {
+            clients: { tenant },
+          } = ctx
+
           try {
             const stores: any = await resolvers.Query.getStores(
               null,
@@ -22,7 +28,13 @@ export const resolvers = {
               ctx
             )
 
-            ctx.set('Content-Type', 'text/xml')
+            const [storeBindings] = await getStoreBindings(tenant)
+            const { canonicalBaseAddress } = storeBindings
+            const baseUrl = canonicalBaseAddress ?? ctx.vtex.host
+
+            const stripTrailingSlash = (str: string) => {
+              return str.endsWith('/') ? str.slice(0, -1) : str
+            }
 
             const lastMod = new Date().toISOString()
             const storesMap = `
@@ -33,7 +45,7 @@ export const resolvers = {
                   })
                   .map((item: any) => {
                     return `<url>
-                  <loc>https://${ctx.vtex.host}/store/${Slugify(
+                  <loc>https://${stripTrailingSlash(baseUrl)}/store/${Slugify(
                       `${item.name} ${item.address.state} ${item.address.postalCode}`
                     )}/${String(item.id).replace('1_', '')}</loc>
                   <lastmod>${lastMod}</lastmod>
@@ -44,6 +56,7 @@ export const resolvers = {
                   .join('')}
               </urlset>`
 
+            ctx.set('Content-Type', 'text/xml')
             ctx.body = storesMap
             ctx.status = 200
           } catch (e) {
