@@ -151,15 +151,8 @@ const StoreList = ({
             stores.length > 0 &&
             googleMapsKeys?.logistics?.googleMapsKey && (
               <Pinpoints
-                googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${googleMapsKeys.logistics.googleMapsKey}&v=3.exp&libraries=geometry,drawing,places`}
-                loadingElement={<div style={{ height: `100%` }} />}
-                containerElement={
-                  <div
-                    className={handles.listingMapContainer}
-                    style={{ height: `100%` }}
-                  />
-                }
-                mapElement={<div style={{ height: `100%` }} />}
+                apiKey={googleMapsKeys.logistics.googleMapsKey}
+                className={handles.listingMapContainer}
                 items={data.getStores.items}
                 zoom={state.zoom}
                 center={state.center}

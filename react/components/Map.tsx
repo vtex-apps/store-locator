@@ -1,35 +1,39 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react'
-import {
-  GoogleMap,
-  Marker,
-  withGoogleMap,
-  withScriptjs,
-} from 'react-google-maps'
+import { GoogleMap, Marker, useJsApiLoader } from '@react-google-maps/api'
 
-const Map = withScriptjs(
-  withGoogleMap((props: any) => {
-    const [lng, lat] = props.center
-    let icon: any = {
-      url: props.icon ?? null,
-    }
-
-    if (props.iconWidth && props.iconHeight) {
-      icon = {
-        ...icon,
-        scaledSize: {
-          width: props.iconWidth,
-          height: props.iconHeight,
-        },
-      }
-    }
-
-    return (
-      <GoogleMap defaultZoom={14} center={{ lat, lng }}>
-        <Marker icon={icon} position={{ lat, lng }} />
-      </GoogleMap>
-    )
+const Map = (props: any) => {
+  const { isLoaded } = useJsApiLoader({
+    id: 'google-map-script',
+    googleMapsApiKey: props.apiKey,
   })
-)
+
+  const [lng, lat] = props.center
+  let icon: any = {
+    url: props.icon ?? null,
+  }
+
+  if (props.iconWidth && props.iconHeight) {
+    icon = {
+      ...icon,
+      scaledSize: {
+        width: props.iconWidth,
+        height: props.iconHeight,
+      },
+    }
+  }
+
+  if (!isLoaded) return null
+
+  return (
+    <GoogleMap
+      zoom={14}
+      center={{ lat, lng }}
+      mapContainerStyle={{ height: '100%' }}
+    >
+      <Marker icon={icon} position={{ lat, lng }} />
+    </GoogleMap>
+  )
+}
 
 export default Map

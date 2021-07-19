@@ -36,16 +36,17 @@ const StoreMap: FC<StoreMapProps> = ({
   }
 
   return (
-    <Map
-      googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${googleMapsKeys.logistics.googleMapsKey}&v=3.exp&libraries=geometry,drawing,places`}
-      loadingElement={<div style={{ height: `100%` }} />}
-      containerElement={<div style={{ height, width }} />}
-      mapElement={<div style={{ height: `100%` }} />}
-      icon={icon}
-      iconWidth={iconWidth}
-      iconHeight={iconHeight}
-      center={group.address.geoCoordinates}
-    />
+    <div style={{ height, width }}>
+      <Map
+        apiKey={googleMapsKeys.logistics.googleMapsKey}
+        loadingElement={<div style={{ height: `100%` }} />}
+        mapElement={<div style={{ height: `100%` }} />}
+        icon={icon}
+        iconWidth={iconWidth}
+        iconHeight={iconHeight}
+        center={group.address.geoCoordinates}
+      />
+    </div>
   )
 }
 
