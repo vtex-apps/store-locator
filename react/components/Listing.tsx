@@ -18,7 +18,7 @@ const CSS_HANDLES = [
   'addressStoreAddressGroupA',
   'addressStoreAddressNumber',
   'addressStoreAddressStreet',
-  'addressListLink'
+  'addressListLink',
 ] as const
 
 const Slugify = (str: string) => {
@@ -69,8 +69,12 @@ const Listing: FC<any> = ({ items, onChangeCenter }) => {
               <br />
               <span className={`t-mini ${handles.addressStoreAddress}`}>
                 <span className={handles.addressStoreAddressGroupA}>
-                  <span className={ handles.addressStoreAddressNumber }>{item.address.number ? `${item.address.number} ` : ''}</span>
-                  <span className={ handles.addressStoreAddressStreet }>{item.address.street}</span>
+                  <span className={handles.addressStoreAddressNumber}>
+                    {item.address.number ? `${item.address.number} ` : ''}
+                  </span>
+                  <span className={handles.addressStoreAddressStreet}>
+                    {item.address.street}
+                  </span>
                 </span>
                 {item.address.city ? `, ${item.address.city}` : ''}
                 {item.address.state ? `, ${item.address.state}` : ''}
