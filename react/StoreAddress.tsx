@@ -4,14 +4,7 @@ import { useCssHandles } from 'vtex.css-handles'
 
 import { useStoreGroup } from './StoreGroup'
 
-const CSS_HANDLES = [
-  'addressContainer',
-  'addressLink',
-  'addressLabel',
-  'addressStoreAddressGroupA',
-  'addressStoreAddressNumber',
-  'addressStoreAddressStreet'
-] as const
+const CSS_HANDLES = ['addressContainer', 'addressLink', 'addressLabel'] as const
 const messages = defineMessages({
   address: {
     defaultMessage: 'Store address',
@@ -48,10 +41,8 @@ const StoreAddress: FC<StoreAddressProps & WrappedComponentProps> = ({
         href={`https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`}
       >
         <br />
-        <span className={handles.addressStoreAddressGroupA}>
-          <span className={ handles.addressStoreAddressNumber }>{group.address.number ? `${group.address.number} ` : ''}</span>
-          <span className={ handles.addressStoreAddressStreet }>{`${group.address.street}`}</span>
-        </span>
+        {group.address.number ? `${group.address.number} ` : ''}
+        {`${group.address.street}`}
         <br />
         {group.address.city ? `${group.address.city}` : ''}
         {group.address.state ? `, ${group.address.state}` : ''}
