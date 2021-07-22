@@ -1,7 +1,7 @@
 {
   "vendor": "vtex",
   "name": "store-locator",
-  "version": "0.9.1",
+  "version": "0.9.2",
   "title": "Store Locator",
   "description": "Integrates with the logistics module to provide Store Locator pages",
   "builders": {
@@ -22,13 +22,17 @@
     "vtex.css-handles": "0.x",
     "vtex.store-sitemap": "2.x"
   },
-  "registries": ["smartcheckout"],
+  "registries": [
+    "smartcheckout"
+  ],
   "billingOptions": {
     "type": "free",
     "support": {
       "url": "https://support.vtex.com/hc/requests"
     },
-    "availableCountries": ["*"]
+    "availableCountries": [
+      "*"
+    ]
   },
   "policies": [
     {
