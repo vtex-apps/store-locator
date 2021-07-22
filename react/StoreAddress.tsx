@@ -29,6 +29,7 @@ const StoreAddress: FC<StoreAddressProps & WrappedComponentProps> = ({
   intl,
 }) => {
   const handles = useCssHandles(CSS_HANDLES)
+
   const group = useStoreGroup()
 
   if (!group) {
