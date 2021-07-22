@@ -10,8 +10,9 @@ const CSS_HANDLES = [
   'addressLabel',
   'addressStoreAddressGroupA',
   'addressStoreAddressNumber',
-  'addressStoreAddressStreet'
+  'addressStoreAddressStreet',
 ] as const
+
 const messages = defineMessages({
   address: {
     defaultMessage: 'Store address',
@@ -49,8 +50,12 @@ const StoreAddress: FC<StoreAddressProps & WrappedComponentProps> = ({
       >
         <br />
         <span className={handles.addressStoreAddressGroupA}>
-          <span className={ handles.addressStoreAddressNumber }>{group.address.number ? `${group.address.number} ` : ''}</span>
-          <span className={ handles.addressStoreAddressStreet }>{`${group.address.street}`}</span>
+          <span className={handles.addressStoreAddressNumber}>
+            {group.address.number ? `${group.address.number} ` : ''}
+          </span>
+          <span
+            className={handles.addressStoreAddressStreet}
+          >{`${group.address.street}`}</span>
         </span>
         <br />
         {group.address.city ? `${group.address.city}` : ''}
