@@ -15,7 +15,6 @@ export const resolvers = {
         GET: async (ctx: Context) => {
           const {
             clients: { tenant },
-            vtex: { logger },
           } = ctx
 
           try {
