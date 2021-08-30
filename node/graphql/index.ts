@@ -29,8 +29,12 @@ export const resolvers = {
             )
 
             const [storeBindings] = await getStoreBindings(tenant)
+
             const { canonicalBaseAddress } = storeBindings
-            const baseUrl = canonicalBaseAddress ?? ctx.vtex.host
+            const baseUrl =
+              canonicalBaseAddress.indexOf('myvtex') === -1
+                ? String(canonicalBaseAddress)
+                : String(ctx.vtex.host)
 
             const stripTrailingSlash = (str: string) => {
               return str.endsWith('/') ? str.slice(0, -1) : str
