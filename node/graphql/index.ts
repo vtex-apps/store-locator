@@ -15,6 +15,7 @@ export const resolvers = {
         GET: async (ctx: Context) => {
           const {
             clients: { tenant },
+            vtex: { logger },
           } = ctx
 
           try {
@@ -28,7 +29,13 @@ export const resolvers = {
               ctx
             )
 
+            logger.info({ tenant })
+
             const [storeBindings] = await getStoreBindings(tenant)
+
+            logger.info({ storeBindings })
+            logger.info({ vtexHost: ctx.vtex.host })
+
             const { canonicalBaseAddress } = storeBindings
             const baseUrl = canonicalBaseAddress ?? ctx.vtex.host
 
