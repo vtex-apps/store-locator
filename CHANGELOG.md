@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Prevent infinite loop when calling stores
+
 ## [0.9.3] - 2021-08-30
 
 ### Fixed
