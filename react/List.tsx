@@ -1,7 +1,8 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { injectIntl, FormattedMessage } from 'react-intl'
 import { graphql, compose, useLazyQuery } from 'react-apollo'
 import { Spinner } from 'vtex.styleguide'
@@ -39,6 +40,7 @@ const StoreList = ({
   )
 
   const [state, setState] = useState({
+    strikes: 0,
     allLoaded: false,
     center: null,
     zoom: 10,
@@ -60,6 +62,10 @@ const StoreList = ({
     })
   }
 
+  useEffect(() => {
+    state.strikes < 4 && loadAll()
+  }, [loadAll, state.strikes])
+
   if (ofCalled && !ofLoading && !called) {
     if (
       ofData.shippingData?.address?.postalCode &&
@@ -75,12 +81,20 @@ const StoreList = ({
         },
       })
     } else {
-      loadAll()
+      state.strikes < 4 &&
+        setState((prev) => ({
+          ...prev,
+          strikes: ++prev.strikes,
+        }))
     }
   }
 
   if (!loading && called && error && !state.allLoaded) {
-    loadAll()
+    state.strikes < 4 &&
+      setState((prev) => ({
+        ...prev,
+        strikes: ++prev.strikes,
+      }))
   }
 
   const handleCenter = (center: any, zoom: number) => {
@@ -93,7 +107,11 @@ const StoreList = ({
 
   if (called) {
     if (!loading && !!data && data.getStores.items.length === 0) {
-      loadAll()
+      state.strikes < 4 &&
+        setState((prev) => ({
+          ...prev,
+          strikes: ++prev.strikes,
+        }))
     }
 
     if (!state.center && data?.getStores?.items.length) {
@@ -141,7 +159,9 @@ const StoreList = ({
           )}
           {!loading && !!data && stores.length === 0 && (
             <div className={handles.noResults}>
-              <FormattedMessage id="store/none-stores" />
+              <h3>
+                <FormattedMessage id="store/none-stores" />
+              </h3>
             </div>
           )}
         </div>
