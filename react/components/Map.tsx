@@ -3,6 +3,7 @@ import React from 'react'
 import { GoogleMap, Marker, useJsApiLoader } from '@react-google-maps/api'
 
 const Map = (props: any) => {
+  const zoom = props.zoom
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
     googleMapsApiKey: props.apiKey,
@@ -27,7 +28,7 @@ const Map = (props: any) => {
 
   return (
     <GoogleMap
-      zoom={14}
+      zoom={zoom}
       center={{ lat, lng }}
       mapContainerStyle={{ height: '100%' }}
     >
