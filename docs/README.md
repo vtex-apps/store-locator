@@ -51,7 +51,7 @@ In order to define the Store Locator custom page UI, you must use the blocks exp
 | `store-instructions` |                                                     Renders the desired instructions to access the retail store.                                                      |
 
 1. Open your Store Theme app directory in your code editor.
-2. In the `store` folder of your Store Theme app, create a new file called `storelocator.json`.
+2. In the `store/blocks` folder of your Store Theme app, create a new file called `storelocator.json`.
 3. Create a new store template in it called `store.storelocator`. In its blocks array, paste the default implementation stated below:
 
 ```json
