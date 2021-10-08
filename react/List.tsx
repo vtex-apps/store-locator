@@ -32,6 +32,8 @@ const StoreList = ({
   iconWidth,
   iconHeight,
   zoom,
+  lat,
+  long,
 }) => {
   const [getStores, { data, loading, called, error }] = useLazyQuery(
     GET_STORES,
@@ -50,22 +52,23 @@ const StoreList = ({
   const handles = useCssHandles(CSS_HANDLES)
 
   const loadAll = () => {
+    console.log(long, lat)
     setState({
       ...state,
       allLoaded: true,
     })
     getStores({
       variables: {
-        latitude: null,
-        longitude: null,
-        filterByTag,
+        latitude: lat,
+        longitude: long,
+        filterByTag: null,
       },
     })
   }
 
   useEffect(() => {
     state.strikes < 4 && loadAll()
-  }, [loadAll, state.strikes])
+  }, [state.strikes])
 
   if (ofCalled && !ofLoading && !called) {
     if (
