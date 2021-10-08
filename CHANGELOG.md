@@ -14,6 +14,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Prevent infinite loop when calling stores
 
+### Added
+- Add Zoom prop, so the user can alter the zoom of map
+
 ## [0.9.3] - 2021-08-30
 
 ### Fixed

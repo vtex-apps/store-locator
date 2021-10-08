@@ -189,6 +189,7 @@ In order to define the Store Locator custom page UI, you must use the blocks exp
 |    `icon`     | `string` | Icon URL (`svg` or `png`) to be displayed alongside with the `store-list` blocks. |   Google's default.   |
 |  `iconWidth`  | `number` |                           Icon width in pixels (`px`).                            | Image default width.  |
 | `iconHeight`  | `number` |                           Icon height in pixels (`px`).                           | Image default height. |
+|    `zoom`     | `number` |                                Map zoom as number.                                |          10           |
 
 #### `store-group` props
 
@@ -216,10 +217,11 @@ In order to define the Store Locator custom page UI, you must use the blocks exp
 
 #### `store-map` props
 
-| Prop name |   Type   |         Description          | Default value |
-| :-------: | :------: | :--------------------------: | :-----------: |
-|  `width`  | `string` | Map width in pixels (`px`).  |    `100%`     |
-| `height`  | `string` | Map height in pixels (`px`). |    `200px`    |
+| Prop name |   Type    |         Description          | Default value |
+|:---------:|:---------:|:----------------------------:|:-------------:|
+|  `width`  | `string`  | Map width in pixels (`px`).  |    `100%`     |
+| `height`  | `string`  | Map height in pixels (`px`). |    `200px`    |
+|  `zoom`   | `integer` |     Map zoom as `number`     |     `14`      |
 
 #### `store-address` props
 

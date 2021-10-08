@@ -10,6 +10,7 @@ import GOOGLE_KEYS from './queries/GetGoogleMapsKey.graphql'
 const DEFAULT = {
   WIDTH: '100%',
   HEIGHT: '200px',
+  ZOOM: 14,
 }
 
 interface StoreMapProps {
@@ -19,6 +20,7 @@ interface StoreMapProps {
   iconWidth?: number
   iconHeight?: number
   googleMapsKeys: any
+  zoom: number
 }
 
 const StoreMap: FC<StoreMapProps> = ({
@@ -28,6 +30,7 @@ const StoreMap: FC<StoreMapProps> = ({
   icon,
   iconWidth,
   iconHeight,
+  zoom,
 }) => {
   const group = useStoreGroup()
 
@@ -45,6 +48,7 @@ const StoreMap: FC<StoreMapProps> = ({
         iconWidth={iconWidth}
         iconHeight={iconHeight}
         center={group.address.geoCoordinates}
+        zoom={zoom}
       />
     </div>
   )
@@ -53,6 +57,7 @@ const StoreMap: FC<StoreMapProps> = ({
 StoreMap.defaultProps = {
   width: DEFAULT.WIDTH,
   height: DEFAULT.HEIGHT,
+  zoom: DEFAULT.ZOOM,
 }
 
 export default injectIntl(

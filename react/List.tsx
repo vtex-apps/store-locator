@@ -31,6 +31,7 @@ const StoreList = ({
   icon,
   iconWidth,
   iconHeight,
+  zoom,
 }) => {
   const [getStores, { data, loading, called, error }] = useLazyQuery(
     GET_STORES,
@@ -43,7 +44,7 @@ const StoreList = ({
     strikes: 0,
     allLoaded: false,
     center: null,
-    zoom: 10,
+    zoom: zoom || 10,
   })
 
   const handles = useCssHandles(CSS_HANDLES)
@@ -97,11 +98,10 @@ const StoreList = ({
       }))
   }
 
-  const handleCenter = (center: any, zoom: number) => {
+  const handleCenter = (center: any) => {
     setState({
       ...state,
       center,
-      zoom,
     })
   }
 
@@ -122,7 +122,7 @@ const StoreList = ({
         latitude,
       ]
 
-      handleCenter(center, 10)
+      handleCenter(center)
     }
 
     const stores =
