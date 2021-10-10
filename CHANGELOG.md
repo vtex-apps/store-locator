@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Add long and lat props, so the user can show all seller stores without any pick up point.
+
 ## [0.10.0] - 2021-10-08
 
 ## [0.9.5] - 2021-10-05

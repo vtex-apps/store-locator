@@ -21,8 +21,6 @@ const routes = {
 
     path += `&pageSize=100&page=${page}`
 
-    console.log(`${BASE_PATH}${path}`)
-
     return `${BASE_PATH}${path}`
   },
 }
