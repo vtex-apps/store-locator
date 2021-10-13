@@ -190,6 +190,11 @@ In order to define the Store Locator custom page UI, you must use the blocks exp
 |  `iconWidth`  | `number` |                           Icon width in pixels (`px`).                            | Image default width.  |
 | `iconHeight`  | `number` |                           Icon height in pixels (`px`).                           | Image default height. |
 |    `zoom`     | `number` |                                Map zoom as number.                                |          10           |
+| `long` | `number` | Longitude to be used as coordenates. | null |
+| `lat` | `number` | Lattitude to be used as coordenates. | null |
+
+ℹ️ _If you have all your pick up points as in seller accounts ** you should provide `long` and `lat` props to show all seller stores** - if you don't have this props and you neither have pick up points the app will not show nothing._
+
 
 #### `store-group` props
 

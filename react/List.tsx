@@ -1,10 +1,13 @@
+/* eslint-disable no-restricted-imports */
+/* eslint-disable no-console */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useState, useEffect } from 'react'
 import { injectIntl, FormattedMessage } from 'react-intl'
-import { graphql, compose, useLazyQuery } from 'react-apollo'
+import { graphql, useLazyQuery } from 'react-apollo'
+import { flowRight as compose } from 'lodash'
 import { Spinner } from 'vtex.styleguide'
 import { useCssHandles } from 'vtex.css-handles'
 
@@ -32,6 +35,8 @@ const StoreList = ({
   iconWidth,
   iconHeight,
   zoom,
+  lat,
+  long,
 }) => {
   const [getStores, { data, loading, called, error }] = useLazyQuery(
     GET_STORES,
@@ -56,16 +61,16 @@ const StoreList = ({
     })
     getStores({
       variables: {
-        latitude: null,
-        longitude: null,
-        filterByTag,
+        latitude: lat,
+        longitude: long,
+        filterByTag: lat && long ? null : filterByTag,
       },
     })
   }
 
   useEffect(() => {
     state.strikes < 4 && loadAll()
-  }, [loadAll, state.strikes])
+  }, [state.strikes])
 
   if (ofCalled && !ofLoading && !called) {
     if (
@@ -116,10 +121,12 @@ const StoreList = ({
 
     if (!state.center && data?.getStores?.items.length) {
       const [firstResult] = data.getStores.items
+
       const { latitude, longitude } = firstResult.address.location
+
       const center = ofData.shippingData?.address?.geoCoordinates ?? [
-        longitude,
-        latitude,
+        longitude || long,
+        latitude || lat,
       ]
 
       handleCenter(center)
