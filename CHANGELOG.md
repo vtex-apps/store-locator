@@ -9,6 +9,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.10.1] - 2021-10-13
 
+### Fixed
+
+- Set default URL for the icon if no provided by the user
+- Conditioning the reading of the OrderForm Data until it is fully readable.
+
 ### Added
 
 - Add long and lat props, so the user can show all seller stores without any pick up point.

@@ -77,7 +77,7 @@ const StoreList = ({
       ofData.shippingData?.address?.postalCode &&
       ofData.shippingData.address.postalCode.indexOf('*') === -1
     ) {
-      const [longitude, latitude] = ofData.shippingData.address.geoCoordinates
+      const [longitude, latitude] = ofData?.shippingData.address.geoCoordinates
 
       getStores({
         variables: {
