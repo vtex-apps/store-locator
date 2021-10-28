@@ -1,3 +1,5 @@
+/* eslint-disable vtex/prefer-early-return */
+/* eslint-disable padding-line-between-statements */
 /* eslint-disable no-restricted-imports */
 /* eslint-disable no-console */
 /* eslint-disable react-hooks/exhaustive-deps */
@@ -72,10 +74,10 @@ const StoreList = ({
     state.strikes < 4 && loadAll()
   }, [state.strikes])
 
-  if (ofCalled && !ofLoading && !called) {
+  useEffect(() => {
     if (
-      ofData.shippingData?.address?.postalCode &&
-      ofData.shippingData.address.postalCode.indexOf('*') === -1
+      ofData?.shippingData?.address?.postalCode &&
+      ofData?.shippingData?.address?.postalCode?.indexOf('*') === -1
     ) {
       const [longitude, latitude] = ofData?.shippingData.address.geoCoordinates
 
@@ -86,22 +88,14 @@ const StoreList = ({
           filterByTag,
         },
       })
-    } else {
+    } else if (!loading && called && error && !state.allLoaded) {
       state.strikes < 4 &&
         setState((prev) => ({
           ...prev,
           strikes: ++prev.strikes,
         }))
     }
-  }
-
-  if (!loading && called && error && !state.allLoaded) {
-    state.strikes < 4 &&
-      setState((prev) => ({
-        ...prev,
-        strikes: ++prev.strikes,
-      }))
-  }
+  }, [ofData, ofCalled, ofLoading])
 
   const handleCenter = (center: any) => {
     setState({

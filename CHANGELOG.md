@@ -13,6 +13,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- Update new geolocation from the Order Form Data every refresh to filter the stores list.
+
+### Fixed
+
 - Set default URL for the icon if no provided by the user
 - Conditioning the reading of the OrderForm Data until it is fully readable.
 
