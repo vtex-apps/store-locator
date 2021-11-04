@@ -10,7 +10,7 @@ import React, { useState, useEffect } from 'react'
 import { injectIntl, FormattedMessage } from 'react-intl'
 import { graphql, useLazyQuery } from 'react-apollo'
 import { flowRight as compose } from 'lodash'
-import { Spinner, Button } from 'vtex.styleguide'
+import { Spinner } from 'vtex.styleguide'
 import { useCssHandles } from 'vtex.css-handles'
 
 import ORDER_FORM from './queries/orderForm.gql'
@@ -145,17 +145,17 @@ const StoreList = ({
           {loading && <Spinner />}
           {!loading && !!data && stores.length > 0 && (
             <div className={`overflow-auto h-100 ${handles.storesList}`}>
-              <Listing items={stores} onChangeCenter={handleCenter} />
               {state.allLoaded && (
-                <Button
-                  className={`${handles.loadAll}`}
+                <span
+                  className={`mt2 link c-link underline-hover pointer ${handles.loadAll}`}
                   onClick={() => {
                     loadAll()
                   }}
                 >
                   <FormattedMessage id="store/load-all" />
-                </Button>
+                </span>
               )}
+              <Listing items={stores} onChangeCenter={handleCenter} />
             </div>
           )}
           {!loading && !!data && stores.length === 0 && (
