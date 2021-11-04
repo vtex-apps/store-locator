@@ -17,10 +17,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- Show the "load all stores button" to clean the user location filter.
-
-### Fixed
-
 - Update new geolocation from the Order Form Data every refresh to filter the stores list.
 
 ### Fixed
