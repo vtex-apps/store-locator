@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.10.5] - 2021-11-05
+
 ## [0.10.4] - 2021-11-04
 
 ## [0.10.3] - 2021-10-28
@@ -24,6 +26,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Show the "load all stores button" to clean the user location filter.
 
 ### Fixed
+
+=======
 
 - Update new geolocation from the Order Form Data every refresh to filter the stores list.
 

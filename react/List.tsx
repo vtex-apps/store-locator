@@ -145,7 +145,6 @@ const StoreList = ({
           {loading && <Spinner />}
           {!loading && !!data && stores.length > 0 && (
             <div className={`overflow-auto h-100 ${handles.storesList}`}>
-              <Listing items={stores} onChangeCenter={handleCenter} />
               {state.allLoaded && (
                 <span
                   className={`mt2 link c-link underline-hover pointer ${handles.loadAll}`}
@@ -156,6 +155,7 @@ const StoreList = ({
                   <FormattedMessage id="store/load-all" />
                 </span>
               )}
+              <Listing items={stores} onChangeCenter={handleCenter} />
             </div>
           )}
           {!loading && !!data && stores.length === 0 && (
