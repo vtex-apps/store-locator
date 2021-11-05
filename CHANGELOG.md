@@ -7,11 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.10.4] - 2021-11-04
+
 ## [0.10.3] - 2021-10-28
 
 ## [0.10.2] - 2021-10-27
 
 ## [0.10.1] - 2021-10-13
+
+### Fixed
+
+- Show the "load all stores button" to clean the user location filter.
 
 ### Fixed
 
