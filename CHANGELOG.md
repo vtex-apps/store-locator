@@ -21,6 +21,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Change the position of the "see all stores" button.
 
+### Removed
+
+- The position of "load all stores" button and how it shows were rolled back
+
 ### Fixed
 
 - Show the "load all stores button" to clean the user location filter.
