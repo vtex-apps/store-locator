@@ -25,6 +25,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.10.1] - 2021-10-13
 
+### Fixed
+
+- Move the "load all stores" button position to the right place (to the bottom).
+
 ### Removed
 
 - The position of "load all stores" button and how it shows were rolled back
