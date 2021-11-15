@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+- Rollback changes
+
+### Fixed
+- Changelog messages
+
 ## [0.10.5] - 2021-11-05
 
 ## [0.10.4] - 2021-11-04
@@ -17,26 +23,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.10.1] - 2021-10-13
 
-### Fixed
-
-- Change the position of the "see all stores" button.
-
 ### Removed
 
 - The position of "load all stores" button and how it shows were rolled back
 
 ### Fixed
-
+- Change the position of the "see all stores" button.
 - Show the "load all stores button" to clean the user location filter.
-
-### Fixed
-
-=======
-
 - Update new geolocation from the Order Form Data every refresh to filter the stores list.
-
-### Fixed
-
 - Set default URL for the icon if no provided by the user
 - Conditioning the reading of the OrderForm Data until it is fully readable.
 
