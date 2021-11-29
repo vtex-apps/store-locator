@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Added another validation for order form data.
+
 ## [0.10.7] - 2021-11-15
 
 ## [0.10.6] - 2021-11-15

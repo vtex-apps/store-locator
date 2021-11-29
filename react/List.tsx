@@ -118,7 +118,7 @@ const StoreList = ({
 
       const { latitude, longitude } = firstResult.address.location
 
-      const center = ofData.shippingData?.address?.geoCoordinates ?? [
+      const center = ofData?.shippingData?.address?.geoCoordinates ?? [
         longitude || long,
         latitude || lat,
       ]
