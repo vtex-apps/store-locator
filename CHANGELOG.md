@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Documentation update
+
+### Added
+
 - Quality engineering actions.
 
 ## [0.10.8] - 2021-11-29
@@ -22,9 +26,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.10.6] - 2021-11-15
 
 ### Changed
+
 - Rollback changes
 
 ### Fixed
+
 - Changelog messages
 
 ## [0.10.5] - 2021-11-05
@@ -46,6 +52,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - The position of "load all stores" button and how it shows were rolled back
 
 ### Fixed
+
 - Change the position of the "see all stores" button.
 - Show the "load all stores button" to clean the user location filter.
 - Update new geolocation from the Order Form Data every refresh to filter the stores list.
@@ -61,11 +68,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.9.5] - 2021-10-05
 
 ## [0.9.4] - 2021-10-05
+
 ### Fixed
 
 - Prevent infinite loop when calling stores
 
 ### Added
+
 - Add Zoom prop, so the user can alter the zoom of map
 
 ## [0.9.3] - 2021-08-30
