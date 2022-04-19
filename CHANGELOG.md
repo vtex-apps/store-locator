@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Add sortBy prop to store-list block.
+- Fix latitude and longitude props to pinpoints and listing components.
+
 ## [0.10.9] - 2022-02-15
 
 ### Added

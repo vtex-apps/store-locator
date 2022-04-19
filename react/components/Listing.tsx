@@ -2,7 +2,8 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-import React, { FC } from 'react'
+import type { FC } from 'react'
+import React from 'react'
 import { injectIntl, FormattedMessage } from 'react-intl'
 import PropTypes from 'prop-types'
 import slugify from 'slugify'

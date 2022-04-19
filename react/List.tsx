@@ -39,6 +39,7 @@ const StoreList = ({
   zoom,
   lat,
   long,
+  sortBy = 'distance',
 }) => {
   const [getStores, { data, loading, called, error }] = useLazyQuery(
     GET_STORES,
@@ -128,11 +129,11 @@ const StoreList = ({
 
     const stores =
       data?.getStores?.items.sort((a, b) => {
-        if (a.distance < b.distance) {
+        if (a[sortBy] < b[sortBy]) {
           return -1
         }
 
-        if (a.distance > b.distance) {
+        if (a[sortBy] > b[sortBy]) {
           return 1
         }
 
