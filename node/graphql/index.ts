@@ -1,3 +1,4 @@
+/* eslint-disable vtex/prefer-early-return */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { method } from '@vtex/api'
 import slugify from 'slugify'
@@ -74,19 +75,47 @@ export const resolvers = {
   Query: {
     getStores: async (_: any, param: any, ctx: any) => {
       const {
-        clients: { hub, sitemap },
+        clients: { hub, sitemap, vbase },
         vtex: { logger },
       } = ctx
 
-      try {
-        sitemap.hasSitemap().then((has: any) => {
-          if (has === false) {
-            sitemap.saveIndex()
+      const APP_NAME = 'store-locator'
+      const SHCEMA_NAME = 'sitemap'
+
+      const saveInVbase = async () => {
+        try {
+          const res = await sitemap.saveIndex()
+
+          if (res.data.saveIndex) {
+            await vbase.saveJSON(APP_NAME, SHCEMA_NAME, {
+              alreadyHasSitemap: true,
+            })
+
+            return true
           }
-        })
-      } catch (err) {
-        logger.log(err)
+
+          return false
+        } catch (err) {
+          logger.log({ error: err, message: 'getStores-saveInBase-error' })
+
+          return false
+        }
       }
+
+      sitemap.hasSitemap().then((has: any) => {
+        if (has === false) {
+          vbase
+            .getJSON(APP_NAME, SHCEMA_NAME, true)
+            .then((getResponse: any) => {
+              const { alreadyHasSitemap } = getResponse
+
+              !alreadyHasSitemap && saveInVbase()
+            })
+            .catch((err: any) =>
+              logger.log({ error: err, message: 'getStores-getJSON-error' })
+            )
+        }
+      })
 
       let result = await hub.getStores(param)
 

@@ -20,7 +20,7 @@ export default class Sitemap extends AppGraphQLClient {
   public async saveIndex() {
     const { tenant } = this.context
 
-    this.graphql.mutate(
+    return this.graphql.mutate(
       {
         mutate: saveIndexMutation,
         variables: { index: 'store-locator' },
