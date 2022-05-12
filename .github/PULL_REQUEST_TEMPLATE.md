@@ -1,27 +1,21 @@
-#### What problem is this solving?
+### What problem is this solving?
 
-<!--- What is the motivation and context for this change? -->
+#### How it works
 
 #### How to test it?
 
-<!--- Don't forget to add a link to a Workspace where this branch is linked -->
+[Workspace]()
 
-[Workspace](Link goes here!)
+### Screenshots/Video example usage:
 
-#### Screenshots or example usage:
+- Desktop
 
-<!--- Add some images or gifs to showcase changes in behaviour or layout. Example: before and after images -->
+- Tablet
 
-#### Describe alternatives you've considered, if any.
+- Movil
 
-<!--- Optional -->
+### Related to / Depends on
 
-#### Related to / Depends on
+#### How does this PR make you feel? :link:
 
-<!--- Optional -->
-
-#### How does this PR make you feel? [:link:](http://giphy.com/)
-
-<!-- Go to http://giphy.com/ and pick a gif that represents how this PR makes you feel -->
-
-![](put .gif link here - can be found under "advanced" on giphy)
+![]()
