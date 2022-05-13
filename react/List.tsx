@@ -18,6 +18,8 @@ import GET_STORES from './queries/getStores.gql'
 import GOOGLE_KEYS from './queries/GetGoogleMapsKey.graphql'
 import Listing from './components/Listing'
 import Pinpoints from './components/Pinpoints'
+import Filter from './components/Filter'
+import { filterStoresByProvince, getStoresFilter } from './utils'
 
 const CSS_HANDLES = [
   'container',
@@ -47,12 +49,18 @@ const StoreList = ({
       fetchPolicy: 'cache-first',
     }
   )
+  const [stores, setStores] = useState<SpecificationGroup[]>([])
+  const [storesFiltered, setStoresFiltered] = useState<SpecificationGroup[]>([])
+  const [storesFilter, setStoresFilter] = useState<StoresFilter>(
+    getStoresFilter()
+  )
+  console.log(storesFilter)
 
   const [state, setState] = useState({
     strikes: 0,
     allLoaded: false,
     center: null,
-    zoom: zoom || 10,
+    zoom: 30 || zoom,
   })
 
   const handles = useCssHandles(CSS_HANDLES)
@@ -104,6 +112,46 @@ const StoreList = ({
       center,
     })
   }
+  useEffect(() => {
+    if (!called) return
+    if (data?.getStores?.items.length === 0) return
+
+    if (data?.getStores?.items.length === 1) {
+      setStores(data?.getStores?.items)
+      return
+    }
+
+    if (data?.getStores?.items.length > 1) {
+      const storesSorted =
+        data?.getStores?.items.sort((a, b) => {
+          if (a[sortBy] < b[sortBy]) {
+            return -1
+          }
+
+          if (a[sortBy] > b[sortBy]) {
+            return 1
+          }
+
+          return 0
+        }) ?? []
+      setStores(storesSorted)
+      if (storesFilter.province === '') {
+        setStoresFiltered(storesSorted)
+        return
+      }
+      setStoresFiltered(
+        filterStoresByProvince(storesFilter.province, storesSorted)
+      )
+    }
+  }, [data, called])
+
+  useEffect(() => {
+    if (storesFilter.province === '') {
+      setStoresFiltered(stores)
+      return
+    }
+    setStoresFiltered(filterStoresByProvince(storesFilter.province, stores))
+  }, [storesFilter])
 
   if (called) {
     if (!loading && !!data && data.getStores.items.length === 0) {
@@ -127,26 +175,17 @@ const StoreList = ({
       handleCenter(center)
     }
 
-    const stores =
-      data?.getStores?.items.sort((a, b) => {
-        if (a[sortBy] < b[sortBy]) {
-          return -1
-        }
-
-        if (a[sortBy] > b[sortBy]) {
-          return 1
-        }
-
-        return 0
-      }) ?? []
-
     return (
       <div className={`flex flex-row ${handles.container}`}>
         <div className={`flex-col w-30 ${handles.storesListCol}`}>
           {loading && <Spinner />}
           {!loading && !!data && stores.length > 0 && (
             <div className={`overflow-auto h-100 ${handles.storesList}`}>
-              <Listing items={stores} onChangeCenter={handleCenter} />
+              <Filter
+                storesFilter={storesFilter}
+                setStoresFilter={setStoresFilter}
+              />
+              <Listing items={storesFiltered} onChangeCenter={handleCenter} />
               {state.allLoaded && (
                 <span
                   className={`mt2 link c-link underline-hover pointer ${handles.loadAll}`}

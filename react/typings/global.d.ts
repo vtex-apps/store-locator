@@ -32,3 +32,8 @@ interface SpecificationGroup {
   seller: string
   address: Address
 }
+
+interface StoresFilter {
+  province: string
+  brands: string[]
+}

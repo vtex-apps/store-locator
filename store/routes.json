@@ -1,6 +1,6 @@
 {
   "store.storelocator": {
-    "path": "/stores",
+    "path": "/store-finder",
     "isSitemapEntry": true
   },
   "store.storedetail": {
