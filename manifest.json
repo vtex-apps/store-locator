@@ -20,7 +20,8 @@
     "vtex.styleguide": "9.x",
     "vtex.render-runtime": "8.x",
     "vtex.css-handles": "0.x",
-    "vtex.store-sitemap": "2.x"
+    "vtex.store-sitemap": "2.x",
+    "vtex.apps-graphql": "2.x"
   },
   "registries": [
     "smartcheckout"
@@ -66,5 +67,33 @@
       "name": "vbase-read-write"
     }
   ],
-  "$schema": "https://raw.githubusercontent.com/vtex/node-vtex-api/master/gen/manifest.schema"
+  "$schema": "https://raw.githubusercontent.com/vtex/node-vtex-api/master/gen/manifest.schema",
+  "settingsSchema": {
+    "title": "Store Locator",
+    "type": "object",
+    "properties": {
+      "stores": {
+        "title": "Stores",
+        "type": "array",
+        "description": "The stores that be appear on filter",
+        "items": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "title": "Name of the store (should be the same that tag of pickup)"
+            },
+            "activeImageUrl": {
+              "type": "string",
+              "title": "Logo active of the store"
+            },
+            "inactiveImageUrl": {
+              "type": "string",
+              "title": "Logo active of the store"
+            }
+          }
+        }
+      }
+    }
+  }
 }

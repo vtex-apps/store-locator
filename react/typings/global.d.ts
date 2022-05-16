@@ -35,5 +35,20 @@ interface SpecificationGroup {
 
 interface StoresFilter {
   province: string
-  brands: string[]
+  store: string
+}
+
+interface StoreOnStoresFilter {
+  name: string
+  activeImageUrl?: string
+  inactiveImageUrl: string
+}
+
+
+interface SettingsProps {
+  appSettings: Settings
+}
+
+interface Settings {
+  message: string
 }

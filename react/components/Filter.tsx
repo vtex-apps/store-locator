@@ -6,9 +6,10 @@ import ProvinceSelector from './ProvinceSelector'
 interface FilterProps {
   storesFilter: StoresFilter
   setStoresFilter: React.Dispatch<React.SetStateAction<StoresFilter>>
+  storesSettings: StoreOnStoresFilter[]
 }
 
-const Filter = ({ storesFilter, setStoresFilter }: FilterProps) => {
+const Filter = ({ storesFilter, setStoresFilter, storesSettings }: FilterProps) => {
   return (
     <>
       <div className="flex flex-row items-end justify-between">
@@ -16,7 +17,7 @@ const Filter = ({ storesFilter, setStoresFilter }: FilterProps) => {
           storesFilter={storesFilter}
           setStoresFilter={setStoresFilter}
         />
-        <FilterByStore />
+        <FilterByStore storesSettings={storesSettings} setStoresFilter={setStoresFilter} />
       </div>
     </>
   )
