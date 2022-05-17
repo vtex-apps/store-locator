@@ -44,7 +44,9 @@ const StoreList = ({
   long,
   sortBy = 'distance',
 }) => {
-  const { data: storesSettings, loading: loadingStoresSettings } = useQuery<SettingsProps>(STORES_SETTINGS, { ssr: false })
+  const { data: storesSettings, loading: loadingStoresSettings } = useQuery<
+    SettingsProps
+  >(STORES_SETTINGS, { ssr: false })
   const [getStores, { data, loading, called, error }] = useLazyQuery(
     GET_STORES,
     {
@@ -88,7 +90,6 @@ const StoreList = ({
         },
       })
     }
-
   }
 
   useEffect(() => {
@@ -97,7 +98,7 @@ const StoreList = ({
 
   useEffect(() => {
     loadAll()
-  }, [storesFilter.store]);
+  }, [storesFilter.store])
 
   useEffect(() => {
     if (
@@ -126,7 +127,7 @@ const StoreList = ({
         filterByTag: storesFilter.store || filterByTag,
       },
     })
-  }, [storesFilter.store]);
+  }, [storesFilter.store])
 
   const handleCenter = (center: any) => {
     setState({
@@ -176,7 +177,8 @@ const StoreList = ({
   }, [storesFilter.province])
 
   if (called && !loadingStoresSettings) {
-    const storesSettingsParsed: {stores: StoreOnStoresFilter[]} = storesSettings && JSON.parse(storesSettings?.appSettings.message)
+    const storesSettingsParsed: { stores: StoreOnStoresFilter[] } =
+      storesSettings && JSON.parse(storesSettings?.appSettings.message)
 
     if (!loading && !!data && data.getStores.items.length === 0) {
       state.strikes < 4 &&

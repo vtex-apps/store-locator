@@ -20,6 +20,7 @@ const CSS_HANDLES = [
   'addressStoreAddressNumber',
   'addressStoreAddressStreet',
   'addressListLink',
+  'addressShowOnMap',
 ] as const
 
 const Slugify = (str: string) => {
@@ -60,9 +61,6 @@ const Listing: FC<any> = ({ items, onChangeCenter }) => {
               } ${handles.addressListItem} ${
                 !i ? 'bt' : ''
               } bb bl br b--light-gray hover-bg-light-gray`}
-              onClick={() => {
-                handleChangeCenter(item, 12)
-              }}
             >
               <span className={`t-mini b ${handles.addressStoreName}`}>
                 {item.name}
@@ -82,6 +80,14 @@ const Listing: FC<any> = ({ items, onChangeCenter }) => {
                 {item.address.postalCode ? ` - ${item.address.postalCode}` : ''}
               </span>
               <br />
+              <span
+                className={`mt2 link c-link underline-hover pointer ${handles.addressShowOnMap}`}
+                onClick={() => {
+                  handleChangeCenter(item, 12)
+                }}
+              >
+                Show on map
+              </span>
               <span
                 className={`mt2 link c-link underline-hover pointer ${handles.addressListLink}`}
                 onClick={(e) => {

@@ -49,20 +49,21 @@ const StoreAddress: FC<StoreAddressProps & WrappedComponentProps> = ({
         rel="noreferrer"
         href={`https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`}
       >
-        <br />
-        <span className={handles.addressStoreAddressGroupA}>
-          <span className={handles.addressStoreAddressNumber}>
-            {group.address.number ? `${group.address.number} ` : ''}
-          </span>
-          <span
-            className={handles.addressStoreAddressStreet}
-          >{`${group.address.street}`}</span>
-        </span>
-        <br />
-        {group.address.city ? `${group.address.city}` : ''}
-        {group.address.state ? `, ${group.address.state}` : ''}
-        {group.address.postalCode ? `, ${group.address.postalCode}` : ''}
+        Get Directions
       </a>
+      <br />
+      <span className={handles.addressStoreAddressGroupA}>
+        <span className={handles.addressStoreAddressNumber}>
+          {group.address.number ? `${group.address.number} ` : ''}
+        </span>
+        <span
+          className={handles.addressStoreAddressStreet}
+        >{`${group.address.street}`}</span>
+      </span>
+      <br />
+      {group.address.city ? `${group.address.city}` : ''}
+      {group.address.state ? `, ${group.address.state}` : ''}
+      {group.address.postalCode ? `, ${group.address.postalCode}` : ''}
     </div>
   )
 }

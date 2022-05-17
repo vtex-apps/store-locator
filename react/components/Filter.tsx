@@ -9,7 +9,11 @@ interface FilterProps {
   storesSettings: StoreOnStoresFilter[]
 }
 
-const Filter = ({ storesFilter, setStoresFilter, storesSettings }: FilterProps) => {
+const Filter = ({
+  storesFilter,
+  setStoresFilter,
+  storesSettings,
+}: FilterProps) => {
   return (
     <>
       <div className="flex flex-row items-end justify-between">
@@ -17,7 +21,11 @@ const Filter = ({ storesFilter, setStoresFilter, storesSettings }: FilterProps) 
           storesFilter={storesFilter}
           setStoresFilter={setStoresFilter}
         />
-        <FilterByStore storesSettings={storesSettings} storesFilter={storesFilter} setStoresFilter={setStoresFilter} />
+        <FilterByStore
+          storesSettings={storesSettings}
+          storesFilter={storesFilter}
+          setStoresFilter={setStoresFilter}
+        />
       </div>
     </>
   )
