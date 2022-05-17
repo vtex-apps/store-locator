@@ -17,7 +17,7 @@ const Filter = ({ storesFilter, setStoresFilter, storesSettings }: FilterProps) 
           storesFilter={storesFilter}
           setStoresFilter={setStoresFilter}
         />
-        <FilterByStore storesSettings={storesSettings} setStoresFilter={setStoresFilter} />
+        <FilterByStore storesSettings={storesSettings} storesFilter={storesFilter} setStoresFilter={setStoresFilter} />
       </div>
     </>
   )
