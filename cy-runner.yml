@@ -23,7 +23,7 @@ base:
     enabled: false
     channel: some-channel
   cypress:
-    devMode: true
+    devMode: false
     runHeaded: false
     enabled: false
     projectId: xyz
@@ -45,25 +45,25 @@ base:
     chromeWebSecurity: false
   stateFiles: [.storelocator.json]
 workspace:
-  name: random
+  name: sumanraj
   prefix: storelocator
   linkApp:
     enabled: true
     logOutput:
       enabled: false
-  installApps: 
+  installApps:
     # wish-list theme will work only when its peer dependency wish-list is added in the workspace
     # So, installing wish-list@0.x version
     - vtex.store-locator@0.x
     # Published a new theme for store-theme E2E test
     - vtex.shashi-store-theme@0.0.1
-  removeApps: 
-   - vtex.bitcot-qa-theme
+  removeApps:
+    - vtex.bitcot-qa-theme
   wipe:
     enabled: false
     stopOnFail: false
-    specs: 
-    - cypress/integration/wipe.spec.js
+    specs:
+      - cypress/integration/wipe.spec.js
   teardown:
     enabled: true
 strategy:

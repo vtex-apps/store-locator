@@ -41,5 +41,8 @@
   "intl-equalizer": {
     "referenceLocale": "en",
     "localeDirectory": "messages"
+  },
+  "dependencies": {
+    "cypress": "^9.6.1"
   }
 }
