@@ -17,7 +17,7 @@
   },
   "rich-text#title": {
     "props": {
-      "text": "## Store Locator"
+      "text": "## Store Locator BASH"
     }
   },
   "store.storedetail": {
@@ -44,7 +44,7 @@
   },
   "rich-text#titleStore": {
     "props": {
-      "text": "## Store Detail"
+      "text": "## Store Detail BASH"
     }
   },
   "flex-layout.col#detail": {

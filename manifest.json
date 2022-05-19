@@ -1,7 +1,7 @@
 {
   "vendor": "thefoschini",
   "name": "store-locator",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "title": "Store Locator",
   "description": "Integrates with the logistics module to provide Store Locator pages",
   "builders": {
@@ -76,20 +76,98 @@
         "title": "Stores",
         "type": "array",
         "description": "The stores that be appear on filter",
+        "default": [
+          {
+            "name": "@home",
+            "img": "https://thefoschini.vtexassets.com/arquivos/home.svg"
+          },
+          {
+            "name": "@home livingspace",
+            "img": "https://thefoschini.vtexassets.com/arquivos/home_livingspace.svg"
+          },
+          {
+            "name": "American Swiss",
+            "img": "https://thefoschini.vtexassets.com/arquivos/home.svg"
+          },
+          {
+            "name": "Archive",
+            "img": "https://thefoschini.vtexassets.com/arquivos/archive.svg"
+          },
+          {
+            "name": "Exact",
+            "img": "https://thefoschini.vtexassets.com/arquivos/exact.svg"
+          },
+          {
+            "name": "Fabiani",
+            "img": "https://thefoschini.vtexassets.com/arquivos/fabiani.svg"
+          },
+          {
+            "name": "Foschini",
+            "img": "https://thefoschini.vtexassets.com/arquivos/foschini.svg"
+          },
+          {
+            "name": "G Star Raw",
+            "img": "https://thefoschini.vtexassets.com/arquivos/g-star-raw.svg"
+          },
+          {
+            "name": "Galaxy Co",
+            "img": "https://thefoschini.vtexassets.com/arquivos/galaxy_co.svg"
+          },
+          {
+            "name": "Hi",
+            "img": "https://thefoschini.vtexassets.com/arquivos/hi.svg"
+          },
+          {
+            "name": "Jet",
+            "img": "https://thefoschini.vtexassets.com/arquivos/jet.svg"
+          },
+          {
+            "name": "Markham",
+            "img": "https://thefoschini.vtexassets.com/arquivos/markham.svg"
+          },
+          {
+            "name": "RJ Relay Jeans",
+            "img": "Rhttps://thefoschini.vtexassets.com/arquivos/fabiani.svg"
+          },
+          {
+            "name": "RFO Renegade Fashion Outlet",
+            "img": ""
+          },
+          {
+            "name": "Sneaker Factory",
+            "img": ""
+          },
+          {
+            "name": "SodaBloc",
+            "img": ""
+          },
+          {
+            "name": "Sportscene",
+            "img": ""
+          },
+          {
+            "name": "Sterns",
+            "img": ""
+          },
+          {
+            "name": "Totalsports",
+            "img": ""
+          },
+          {
+            "name": "The Fix",
+            "img": ""
+          }
+        ],
         "items": {
           "type": "object",
           "properties": {
             "name": {
               "type": "string",
-              "title": "Name of the store (should be the same that tag of pickup)"
+              "title": "Store tag"
             },
-            "activeImageUrl": {
+            "img": {
               "type": "string",
-              "title": "Logo active of the store"
-            },
-            "inactiveImageUrl": {
-              "type": "string",
-              "title": "Logo active of the store"
+              "title": "Logo active of the store (link svg)"
             }
           }
         }

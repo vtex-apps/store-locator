@@ -177,8 +177,11 @@ const StoreList = ({
   }, [storesFilter.province])
 
   if (called && !loadingStoresSettings) {
-    const storesSettingsParsed: { stores: StoreOnStoresFilter[] } =
+    let storesSettingsParsed: { stores: StoreOnStoresFilter[] } =
       storesSettings && JSON.parse(storesSettings?.appSettings.message)
+    storesSettingsParsed = storesSettingsParsed?.stores?.length
+      ? storesSettingsParsed
+      : { stores: [] }
 
     if (!loading && !!data && data.getStores.items.length === 0) {
       state.strikes < 4 &&
