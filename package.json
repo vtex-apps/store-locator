@@ -41,5 +41,8 @@
   "intl-equalizer": {
     "referenceLocale": "en",
     "localeDirectory": "messages"
+  },
+  "dependencies": {
+    "cypress-file-upload": "^5.0.8"
   }
 }
