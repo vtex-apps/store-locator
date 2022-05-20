@@ -4,7 +4,7 @@ describe('Testing Single Product and total amounts', () => {
   // Load test setup
   testSetup(false)
 
-  it('Visit admin endpoint', updateRetry(3), () => {
+  it('Visit admin endpoint and upload file', updateRetry(3), () => {
     cy.visit('/admin/app/pickup-points')
     cy.get('.vtex-button').first().should('be.visible')
     cy.contains('Upload a XLS').click()
