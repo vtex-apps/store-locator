@@ -107,6 +107,32 @@ export function deletePickupPoint() {
   })
 }
 
+export function deleteAllPickupPoints() {
+  cy.getVtexItems().then((vtex) => {
+    cy.getAPI(getPickupPointsAPI(vtex.baseUrl)).then((response) => {
+      cy.log(response.body)
+      const filterPickUpPoints = response.body.filter((b) =>
+        b.name.includes('StoreLocatorApp')
+      )
+
+      if (filterPickUpPoints.length > 0) {
+        for (const element of filterPickUpPoints) {
+          cy.request({
+            method: 'DELETE',
+            url: deletePickupPointAPI(vtex.baseUrl, element.pickupPointId),
+            headers: {
+              ...VTEX_AUTH_HEADER(vtex.apiKey, vtex.apiToken),
+            },
+            ...FAIL_ON_STATUS_CODE,
+          }).then((deleteResponse) => {
+            expect(deleteResponse.status).to.equal(204)
+          })
+        }
+      }
+    })
+  })
+}
+
 export function listedPickupPointsPage() {
   it('listed pickup points page', updateRetry(3), () => {
     cy.addDelayBetweenRetries(2000)

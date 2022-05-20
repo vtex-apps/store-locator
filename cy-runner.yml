@@ -60,7 +60,7 @@ workspace:
   removeApps: 
    - vtex.bitcot-qa-theme
   wipe:
-    enabled: false
+    enabled: true
     stopOnFail: false
     specs: 
     - cypress/integration/wipe.spec.js
