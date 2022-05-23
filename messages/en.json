@@ -1,6 +1,6 @@
 {
-  "store/more-details": "More details",
-  "store/none-stores": "None stores nearby",
+  "store/more-details": "View store hours & details",
+  "store/none-stores": "No stores found",
   "store/load-all": "Load all stores",
   "store/back-link": "Back to all stores",
   "store/address-label": "Store address",
@@ -13,5 +13,10 @@
   "store/day-of-week-wednesday": "Wednesday",
   "store/day-of-week-thursday": "Thursday",
   "store/day-of-week-friday": "Friday",
-  "store/day-of-week-saturday": "Saturday"
+  "store/day-of-week-saturday": "Saturday",
+  "store/filter-by-province": "Filter by province",
+  "store/filter-by-store": "Filter by store",
+  "store/reset-filter": "Reset",
+  "store/get-directions": "Get directions",
+  "store/none-stores-message": "Try cleaning the filters"
 }

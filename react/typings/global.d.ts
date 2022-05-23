@@ -40,8 +40,7 @@ interface StoresFilter {
 
 interface StoreOnStoresFilter {
   name: string
-  activeImageUrl?: string
-  inactiveImageUrl: string
+  img: string
 }
 
 

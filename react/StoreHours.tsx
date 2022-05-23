@@ -16,32 +16,32 @@ const messages = defineMessages({
     id: 'store/store-closed',
   },
   '0': {
-    defaultMessage: 'Sunday',
-    id: 'store/day-of-week-sunday',
-  },
-  '1': {
     defaultMessage: 'Monday',
     id: 'store/day-of-week-monday',
   },
-  '2': {
+  '1': {
     defaultMessage: 'Tuesday',
     id: 'store/day-of-week-tuesday',
   },
-  '3': {
+  '2': {
     defaultMessage: 'Wednesday',
     id: 'store/day-of-week-wednesday',
   },
-  '4': {
+  '3': {
     defaultMessage: 'Thursday',
     id: 'store/day-of-week-thursday',
   },
-  '5': {
+  '4': {
     defaultMessage: 'Friday',
     id: 'store/day-of-week-friday',
   },
-  '6': {
+  '5': {
     defaultMessage: 'Saturday',
     id: 'store/day-of-week-saturday',
+  },
+  '6': {
+    defaultMessage: 'Sunday',
+    id: 'store/day-of-week-sunday',
   },
 })
 
@@ -99,14 +99,13 @@ const StoreHours: FC<WrappedComponentProps & StoreHoursProps> = ({
       <span className={`b ${handles.hoursLabel}`}>
         {label ?? intl.formatMessage(messages.hoursLabel)}
       </span>
-      <br />
       {businessHours?.map((item: any, i: number) => {
         return (
           <div
             key={`hour_${i}`}
-            className={`${handles.hourRow} mv1 flex flex-wrap`}
+            className={`${handles.hourRow} mv1 flex flex-wrap space-between`}
           >
-            <div className={`${handles.dayOfWeek} w-30`}>
+            <div className={`${handles.dayOfWeek} w-50`}>
               {item.dayOfWeek}
               <span className={handles.divider}>:</span>
             </div>
@@ -121,9 +120,9 @@ const StoreHours: FC<WrappedComponentProps & StoreHoursProps> = ({
           return (
             <div
               key={`hour_${i}`}
-              className={`${handles.hourRow} mv1 flex flex-wrap`}
+              className={`${handles.hourRow} mv1 flex flex-wrap space-between`}
             >
-              <div className={`${handles.dayOfWeek} w-30`}>
+              <div className={`${handles.dayOfWeek} w-50`}>
                 {intl.formatMessage(messages[item.dayOfWeek])}
                 <span className={handles.divider}>:</span>
               </div>

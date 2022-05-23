@@ -19,17 +19,20 @@ import GOOGLE_KEYS from './queries/GetGoogleMapsKey.graphql'
 import STORES_SETTINGS from './queries/storesSettings.graphql'
 import Listing from './components/Listing'
 import Pinpoints from './components/Pinpoints'
+
 import Filter from './components/Filter'
 import { filterStoresByProvince, getStoresFilter } from './utils'
+import EmptyList from './components/EmptyList'
 
 const CSS_HANDLES = [
-  'container',
+  'listContainer',
   'storesListCol',
   'storesList',
   'storesMapCol',
   'noResults',
   'listingMapContainer',
   'loadAll',
+  'loadingContainer'
 ] as const
 
 const StoreList = ({
@@ -63,7 +66,7 @@ const StoreList = ({
     strikes: 0,
     allLoaded: false,
     center: null,
-    zoom: 30 || zoom,
+    zoom: zoom || 10,
   })
 
   const handles = useCssHandles(CSS_HANDLES)
@@ -137,9 +140,8 @@ const StoreList = ({
   }
   useEffect(() => {
     if (!called) return
-    if (data?.getStores?.items.length === 0) return
 
-    if (data?.getStores?.items.length === 1) {
+    if (data?.getStores?.items.length <= 1) {
       setStores(data?.getStores?.items)
       return
     }
@@ -205,64 +207,57 @@ const StoreList = ({
     }
 
     return (
-      <div className={`flex flex-row ${handles.container}`}>
-        <div className={`flex-col w-30 ${handles.storesListCol}`}>
-          {loading && <Spinner />}
-          {!loading && !!data && stores.length > 0 && (
-            <div className={`overflow-auto h-100 ${handles.storesList}`}>
-              <Filter
-                storesFilter={storesFilter}
-                setStoresFilter={setStoresFilter}
-                storesSettings={storesSettingsParsed.stores}
-              />
-              <Listing items={storesFiltered} onChangeCenter={handleCenter} />
-              {state.allLoaded && (
-                <span
-                  className={`mt2 link c-link underline-hover pointer ${handles.loadAll}`}
-                  onClick={() => {
-                    loadAll()
-                  }}
-                >
-                  <FormattedMessage id="store/load-all" />
-                </span>
-              )}
-            </div>
-          )}
-          {!loading && !!data && stores.length === 0 && (
-            <div className={handles.noResults}>
-              <Filter
-                storesFilter={storesFilter}
-                setStoresFilter={setStoresFilter}
-                storesSettings={storesSettingsParsed.stores}
-              />
-              <h3>
-                <FormattedMessage id="store/none-stores" />
-              </h3>
-            </div>
-          )}
-        </div>
-        <div className={`flex-col w-70 ${handles.storesMapCol}`}>
+      <div className={`flex flex-row ${handles.listContainer}`}>
+        <div className='flex-col w-100'>
+          <Filter
+            storesFilter={storesFilter}
+            setStoresFilter={setStoresFilter}
+            storesSettings={storesSettingsParsed.stores}
+          />
+          {loading && (<div className={handles.loadingContainer}><Spinner /></div>)}
           {!loading &&
             !!data &&
-            stores.length > 0 &&
             googleMapsKeys?.logistics?.googleMapsKey && (
-              <Pinpoints
-                apiKey={googleMapsKeys.logistics.googleMapsKey}
-                className={handles.listingMapContainer}
-                items={data.getStores.items}
-                zoom={state.zoom}
-                center={state.center}
-                icon={icon}
-                iconWidth={iconWidth}
-                iconHeight={iconHeight}
-              />
+              <div className={handles.storesMapCol}>
+                <Pinpoints
+                  apiKey={googleMapsKeys.logistics.googleMapsKey}
+                  className={handles.listingMapContainer}
+                  items={data.getStores.items}
+                  zoom={state.zoom}
+                  center={state.center}
+                  icon={icon}
+                  iconWidth={iconWidth}
+                  iconHeight={iconHeight}
+                />
+              </div>
             )}
+          {!loading && !!data && stores.length === 0 && (
+            <EmptyList />
+            )
+          }
+          {!loading && !!data && stores.length > 0 && (
+            <div className={handles.storesListCol}>
+              <div className={`overflow-auto h-100 ${handles.storesList}`}>
+                <Listing items={storesFiltered} onChangeCenter={handleCenter} />
+                {state.allLoaded && (
+                  <span
+                    className={`mt2 link c-link underline-hover pointer ${handles.loadAll}`}
+                    onClick={() => {
+                      loadAll()
+                    }}
+                  >
+                    <FormattedMessage id="store/load-all" />
+                  </span>
+                )}
+              </div>
+            </div>
+          )}
         </div>
       </div>
     )
   }
 
-  return <Spinner />
+  return <div className={`flex flex-row ${handles.listContainer}`}><div className='flex-col w-100'><div className={handles.loadingContainer}><Spinner /></div></div></div>
 }
 
 export default injectIntl(

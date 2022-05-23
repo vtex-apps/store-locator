@@ -20,7 +20,8 @@ const CSS_HANDLES = [
   'addressStoreAddressNumber',
   'addressStoreAddressStreet',
   'addressListLink',
-  'addressShowOnMap',
+  'addressAnchors',
+  'addressShowOnMap'
 ] as const
 
 const Slugify = (str: string) => {
@@ -65,7 +66,6 @@ const Listing: FC<any> = ({ items, onChangeCenter }) => {
               <span className={`t-mini b ${handles.addressStoreName}`}>
                 {item.name}
               </span>
-              <br />
               <span className={`t-mini ${handles.addressStoreAddress}`}>
                 <span className={handles.addressStoreAddressGroupA}>
                   <span className={handles.addressStoreAddressNumber}>
@@ -79,24 +79,25 @@ const Listing: FC<any> = ({ items, onChangeCenter }) => {
                 {item.address.state ? `, ${item.address.state}` : ''}
                 {item.address.postalCode ? ` - ${item.address.postalCode}` : ''}
               </span>
-              <br />
-              <span
-                className={`mt2 link c-link underline-hover pointer ${handles.addressShowOnMap}`}
-                onClick={() => {
-                  handleChangeCenter(item, 12)
-                }}
-              >
-                Show on map
-              </span>
-              <span
-                className={`mt2 link c-link underline-hover pointer ${handles.addressListLink}`}
-                onClick={(e) => {
-                  e.stopPropagation()
-                  goTo(item)
-                }}
-              >
-                <FormattedMessage id="store/more-details" />
-              </span>
+              <div className={handles.addressAnchors}>
+                <span
+                  className={`mt2 link c-link underline-hover pointer ${handles.addressShowOnMap}`}
+                  onClick={() => {
+                    handleChangeCenter(item, 12)
+                  }}
+                >
+                  Show on map
+                </span>
+                <span
+                  className={`mt2 link c-link underline-hover pointer ${handles.addressListLink}`}
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    goTo(item)
+                  }}
+                >
+                  <FormattedMessage id="store/more-details" />
+                </span>
+              </div>
             </li>
           )
         })}

@@ -1,13 +1,15 @@
 import React, { FC } from 'react'
-import { defineMessages, WrappedComponentProps, injectIntl } from 'react-intl'
+import { defineMessages, WrappedComponentProps, injectIntl, FormattedMessage } from 'react-intl'
 import { useCssHandles } from 'vtex.css-handles'
 
 import { useStoreGroup } from './StoreGroup'
 
 const CSS_HANDLES = [
   'addressContainer',
+  'addressLabelContainer',
   'addressLink',
   'addressLabel',
+  'addressStoreAddressContainer',
   'addressStoreAddressGroupA',
   'addressStoreAddressNumber',
   'addressStoreAddressStreet',
@@ -40,30 +42,32 @@ const StoreAddress: FC<StoreAddressProps & WrappedComponentProps> = ({
 
   return (
     <div className={handles.addressContainer}>
-      <span className={`b ${handles.addressLabel}`}>
-        {label ?? intl.formatMessage(messages.address)}
-      </span>
-      <a
-        className={`${handles.addressLink} underline-hover no-underline`}
-        target="_blank"
-        rel="noreferrer"
-        href={`https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`}
-      >
-        Get Directions
-      </a>
-      <br />
-      <span className={handles.addressStoreAddressGroupA}>
-        <span className={handles.addressStoreAddressNumber}>
-          {group.address.number ? `${group.address.number} ` : ''}
+      <div className={handles.addressLabelContainer}>
+        <span className={`b ${handles.addressLabel}`}>
+          {label ?? intl.formatMessage(messages.address)}
         </span>
-        <span
-          className={handles.addressStoreAddressStreet}
-        >{`${group.address.street}`}</span>
-      </span>
-      <br />
-      {group.address.city ? `${group.address.city}` : ''}
-      {group.address.state ? `, ${group.address.state}` : ''}
-      {group.address.postalCode ? `, ${group.address.postalCode}` : ''}
+        <a
+          className={`${handles.addressLink} underline-hover no-underline`}
+          target="_blank"
+          rel="noreferrer"
+          href={`https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`}
+        >
+          <FormattedMessage id="store/get-directions" />
+        </a>
+      </div>
+      <div className={handles.addressStoreAddressContainer}>
+        <span className={handles.addressStoreAddressGroupA}>
+          <span className={handles.addressStoreAddressNumber}>
+            {group.address.number ? `${group.address.number} ` : ''}
+          </span>
+          <span
+            className={handles.addressStoreAddressStreet}
+          >{`${group.address.street}`}</span>
+        </span>
+        {group.address.city ? `${group.address.city}` : ''}
+        {group.address.state ? `, ${group.address.state}` : ''}
+        {group.address.postalCode ? `, ${group.address.postalCode}` : ''}
+      </div>
     </div>
   )
 }

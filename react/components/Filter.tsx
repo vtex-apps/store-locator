@@ -3,6 +3,12 @@ import React from 'react'
 import FilterByStore from './FilterByStore'
 import ProvinceSelector from './ProvinceSelector'
 
+import { useCssHandles } from 'vtex.css-handles'
+
+const CSS_HANDLES = [
+  'filterContainer',
+] as const
+
 interface FilterProps {
   storesFilter: StoresFilter
   setStoresFilter: React.Dispatch<React.SetStateAction<StoresFilter>>
@@ -14,9 +20,11 @@ const Filter = ({
   setStoresFilter,
   storesSettings,
 }: FilterProps) => {
+  const handles = useCssHandles(CSS_HANDLES)
+
   return (
     <>
-      <div className="flex flex-row items-end justify-between">
+      <div className={handles.filterContainer}>
         <ProvinceSelector
           storesFilter={storesFilter}
           setStoresFilter={setStoresFilter}

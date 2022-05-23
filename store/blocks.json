@@ -1,85 +1,92 @@
 {
-  "store.storelocator": {
-    "blocks": ["flex-layout.row#title", "flex-layout.row#container"]
+  "store.storelocator#store-finder": {
+    "blocks": [
+      "flex-layout.row#title-store-finder",
+      "flex-layout.row#list-store-finder"
+    ]
   },
-  "flex-layout.row#title": {
-    "children": ["flex-layout.col#title"]
-  },
-  "flex-layout.row#container": {
-    "children": ["store-list"]
-  },
-  "flex-layout.col#title": {
-    "children": ["rich-text#title"],
+  "flex-layout.row#title-store-finder": {
+    "children": ["flex-layout.col#title-store-finder"],
     "props": {
-      "blockClass": "title",
-      "preventVerticalStretch": true
+      "blockClass": "title-store-finder"
     }
   },
-  "rich-text#title": {
+  "flex-layout.row#list-store-finder": {
+    "children": ["store-list"],
     "props": {
-      "text": "## Store Locator BASH"
+      "blockClass": "list-store-finder"
+    }
+  },
+  "flex-layout.col#title-store-finder": {
+    "children": [
+      "store-back-link#store-finder",
+      "rich-text#title-store-finder"
+    ],
+    "props": {
+      "blockClass": "title",
+      "preventVerticalStretch": true,
+      "width": "100%"
+    }
+  },
+  "rich-text#title-store-finder": {
+    "props": {
+      "text": "## Store finder",
+      "blockClass": "title"
     }
   },
   "store.storedetail": {
-    "blocks": ["flex-layout.row#titleStore", "store-group"]
+    "blocks": ["store-group"]
   },
   "store-group": {
     "children": ["flex-layout.row#containerStore"],
     "props": {
-      "title": "{storeName} Store"
+      "title": "{storeName} Store",
+      "instructionsAsPhone": true
     }
-  },
-  "flex-layout.row#titleStore": {
-    "children": ["flex-layout.col#titleStore"]
   },
   "flex-layout.row#containerStore": {
-    "children": ["flex-layout.col#detail", "flex-layout.col#store"]
-  },
-  "flex-layout.col#titleStore": {
-    "children": ["rich-text#titleStore"],
-    "props": {
-      "blockClass": "title",
-      "preventVerticalStretch": true
-    }
-  },
-  "rich-text#titleStore": {
-    "props": {
-      "text": "## Store Detail BASH"
-    }
+    "children": ["flex-layout.col#detail"]
   },
   "flex-layout.col#detail": {
     "children": [
-      "store-back-link",
+      "store-back-link#store-detail",
+      "store-name",
       "store-map",
       "store-address",
-      "store-hours",
-      "store-instructions"
+      "store-instructions",
+      "store-hours"
     ],
     "props": {
       "width": "30%",
       "preventVerticalStretch": true
     }
   },
-  "flex-layout.col#store": {
-    "children": ["store-name"],
+  "store-address": {
     "props": {
-      "width": "70%"
+      "label": "Address"
     }
   },
   "store-hours": {
     "props": {
-      "label": "Business hours:",
-      "format": "12h"
+      "label": "Opening hours",
+      "format": "24h"
     }
   },
-  "store-back-link": {
+  "store-back-link#store-finder": {
     "props": {
-      "label": "Back to all stores"
+      "label": "Back",
+      "page": "store.home"
+    }
+  },
+  "store-back-link#store-detail": {
+    "props": {
+      "label": "Back",
+      "page": "store.storelocator#store-finder"
     }
   },
   "store-instructions": {
     "props": {
-      "label": ""
+      "label": "Telephone"
     }
   }
 }

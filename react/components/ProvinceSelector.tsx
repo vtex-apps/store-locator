@@ -1,4 +1,5 @@
 import React from 'react'
+import { FormattedMessage } from 'react-intl'
 import { Dropdown } from 'vtex.styleguide'
 
 import { saveStoresFilter } from '../utils'
@@ -31,7 +32,7 @@ const ProvinceSelector = ({
 
   return (
     <Dropdown
-      label="Filter by province"
+      label={<FormattedMessage id="store/filter-by-province" />}
       options={ZAF}
       value={storesFilter.province}
       onChange={handleChange}

@@ -78,16 +78,8 @@
         "description": "The stores that be appear on filter",
         "default": [
           {
-            "name": "@home",
-            "img": "https://thefoschini.vtexassets.com/arquivos/home.svg"
-          },
-          {
-            "name": "@home livingspace",
-            "img": "https://thefoschini.vtexassets.com/arquivos/home_livingspace.svg"
-          },
-          {
             "name": "American Swiss",
-            "img": "https://thefoschini.vtexassets.com/arquivos/home.svg"
+            "img": "https://thefoschini.vtexassets.com/arquivos/american_swiss.svg"
           },
           {
             "name": "Archive",
@@ -107,7 +99,7 @@
           },
           {
             "name": "G Star Raw",
-            "img": "https://thefoschini.vtexassets.com/arquivos/g-star-raw.svg"
+            "img": "https://thefoschini.vtexassets.com/arquivos/g-star_raw.svg"
           },
           {
             "name": "Galaxy Co",
@@ -116,6 +108,14 @@
           {
             "name": "Hi",
             "img": "https://thefoschini.vtexassets.com/arquivos/hi.svg"
+          },
+          {
+            "name": "@home",
+            "img": "https://thefoschini.vtexassets.com/arquivos/home.svg"
+          },
+          {
+            "name": "@home livingspace",
+            "img": "https://thefoschini.vtexassets.com/arquivos/home_livingspace.svg"
           },
           {
             "name": "Jet",
@@ -127,35 +127,35 @@
           },
           {
             "name": "RJ Relay Jeans",
-            "img": "Rhttps://thefoschini.vtexassets.com/arquivos/fabiani.svg"
+            "img": "https://thefoschini.vtexassets.com/arquivos/relay_jeans.svg"
           },
           {
             "name": "RFO Renegade Fashion Outlet",
-            "img": ""
+            "img": "https://thefoschini.vtexassets.com/arquivos/rfo.svg"
           },
           {
             "name": "Sneaker Factory",
-            "img": ""
+            "img": "https://thefoschini.vtexassets.com/arquivos/sneaker_factory.svg"
           },
           {
             "name": "SodaBloc",
-            "img": ""
+            "img": "https://thefoschini.vtexassets.com/arquivos/soda_bloc.svg"
           },
           {
             "name": "Sportscene",
-            "img": ""
+            "img": "https://thefoschini.vtexassets.com/arquivos/sportscene.svg"
           },
           {
             "name": "Sterns",
-            "img": ""
+            "img": "https://thefoschini.vtexassets.com/arquivos/sterns.svg"
           },
           {
             "name": "Totalsports",
-            "img": ""
+            "img": "https://thefoschini.vtexassets.com/arquivos/totalsports.svg"
           },
           {
             "name": "The Fix",
-            "img": ""
+            "img": "https://thefoschini.vtexassets.com/arquivos/the_fix.svg"
           }
         ],
         "items": {
