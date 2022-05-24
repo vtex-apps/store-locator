@@ -26,6 +26,7 @@ import EmptyList from './components/EmptyList'
 
 const CSS_HANDLES = [
   'listContainer',
+  'listContainerCol',
   'storesListCol',
   'storesList',
   'storesMapCol',
@@ -208,7 +209,7 @@ const StoreList = ({
 
     return (
       <div className={`flex flex-row ${handles.listContainer}`}>
-        <div className='flex-col w-100'>
+        <div className={`flex-col w-100 ${handles.listContainerCol}`}>
           <Filter
             storesFilter={storesFilter}
             setStoresFilter={setStoresFilter}

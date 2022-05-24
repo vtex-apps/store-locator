@@ -45,21 +45,32 @@
     }
   },
   "flex-layout.row#containerStore": {
-    "children": ["flex-layout.col#detail"]
+    "children": ["flex-layout.col#detail"],
+    "props": {
+      "blockClass": "store-detail"
+    }
   },
   "flex-layout.col#detail": {
     "children": [
       "store-back-link#store-detail",
       "store-name",
       "store-map",
-      "store-address",
-      "store-instructions",
-      "store-hours"
+      "flex-layout.row#store-information"
     ],
     "props": {
-      "width": "30%",
-      "preventVerticalStretch": true
+      "width": "100%",
+      "preventVerticalStretch": true,
+      "blockClass": "store-detail"
     }
+  },
+  "flex-layout.row#store-information": {
+    "children": ["flex-layout.col#store-information", "store-hours"],
+    "props": {
+      "blockClass": "store-information"
+    }
+  },
+  "flex-layout.col#store-information": {
+    "children": ["store-address", "store-instructions"]
   },
   "store-address": {
     "props": {
