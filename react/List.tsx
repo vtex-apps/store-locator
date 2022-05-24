@@ -233,8 +233,8 @@ const StoreList = ({
               />
             </div>
           )}
-          {!loading && !!data && stores.length === 0 && <EmptyList />}
-          {!loading && !!data && stores.length > 0 && (
+          {!loading && !!data && storesFiltered.length === 0 && <EmptyList />}
+          {!loading && !!data && storesFiltered.length > 0 && (
             <div className={handles.storesListCol}>
               <div className={`overflow-auto h-100 ${handles.storesList}`}>
                 <Listing items={storesFiltered} onChangeCenter={handleCenter} />
