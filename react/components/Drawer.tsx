@@ -11,10 +11,10 @@ const CSS_HANDLES = [
   'drawerTitle',
   'drawerClose',
   'drawerHeaderOption',
-  'drawerContent'
+  'drawerContent',
 ] as const
 
-interface DrawerProps  {
+interface DrawerProps {
   children: React.ReactNode
   title: string
   headerOption: React.ReactNode
@@ -22,28 +22,32 @@ interface DrawerProps  {
   onClose: React.ReactNode
 }
 
-const Drawer = ({children, title, headerOption, active, onClose}: DrawerProps) => {
+const Drawer = ({
+  children,
+  title,
+  headerOption,
+  active,
+  onClose,
+}: DrawerProps) => {
   const handles = useCssHandles(CSS_HANDLES)
 
   return (
     <>
-      <div className={`${handles.drawerBackdrop} ${active ? handles.drawerBackdropActive : ''}`}></div>
-      <div className={`${handles.drawer} ${active ? handles.drawerActive : ''}`}>
-        <div className={handles.drawerClose}>
-          {onClose}
-        </div>
+      <div
+        className={`${handles.drawerBackdrop} ${
+          active ? handles.drawerBackdropActive : ''
+        }`}
+      />
+      <div
+        className={`${handles.drawer} ${active ? handles.drawerActive : ''}`}
+      >
+        <div className={handles.drawerClose}>{onClose}</div>
         <div className={handles.drawerContainer}>
           <div className={handles.drawerHeader}>
-            <span className={handles.drawerTitle}>
-              {title}
-            </span>
-            <div className={handles.drawerHeaderOption}>
-              {headerOption}
-            </div>
+            <span className={handles.drawerTitle}>{title}</span>
+            <div className={handles.drawerHeaderOption}>{headerOption}</div>
           </div>
-          <div className={handles.drawerContent}>
-            {children}
-          </div>
+          <div className={handles.drawerContent}>{children}</div>
         </div>
       </div>
     </>

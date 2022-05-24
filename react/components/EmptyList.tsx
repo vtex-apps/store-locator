@@ -14,7 +14,7 @@ const EmptyList = () => {
 
   return (
     <div className={handles.noResults}>
-      <div className={handles.noResultsIcon}></div>
+      <div className={handles.noResultsIcon} />
       <h3 className={handles.noResultsTitle}>
         <FormattedMessage id="store/none-stores" />
       </h3>

@@ -1,13 +1,10 @@
 import React from 'react'
+import { useCssHandles } from 'vtex.css-handles'
 
 import FilterByStore from './FilterByStore'
 import ProvinceSelector from './ProvinceSelector'
 
-import { useCssHandles } from 'vtex.css-handles'
-
-const CSS_HANDLES = [
-  'filterContainer',
-] as const
+const CSS_HANDLES = ['filterContainer'] as const
 
 interface FilterProps {
   storesFilter: StoresFilter

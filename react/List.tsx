@@ -19,7 +19,6 @@ import GOOGLE_KEYS from './queries/GetGoogleMapsKey.graphql'
 import STORES_SETTINGS from './queries/storesSettings.graphql'
 import Listing from './components/Listing'
 import Pinpoints from './components/Pinpoints'
-
 import Filter from './components/Filter'
 import { filterStoresByProvince, getStoresFilter } from './utils'
 import EmptyList from './components/EmptyList'
@@ -33,7 +32,7 @@ const CSS_HANDLES = [
   'noResults',
   'listingMapContainer',
   'loadAll',
-  'loadingContainer'
+  'loadingContainer',
 ] as const
 
 const StoreList = ({
@@ -215,27 +214,26 @@ const StoreList = ({
             setStoresFilter={setStoresFilter}
             storesSettings={storesSettingsParsed.stores}
           />
-          {loading && (<div className={handles.loadingContainer}><Spinner /></div>)}
-          {!loading &&
-            !!data &&
-            googleMapsKeys?.logistics?.googleMapsKey && (
-              <div className={handles.storesMapCol}>
-                <Pinpoints
-                  apiKey={googleMapsKeys.logistics.googleMapsKey}
-                  className={handles.listingMapContainer}
-                  items={data.getStores.items}
-                  zoom={state.zoom}
-                  center={state.center}
-                  icon={icon}
-                  iconWidth={iconWidth}
-                  iconHeight={iconHeight}
-                />
-              </div>
-            )}
-          {!loading && !!data && stores.length === 0 && (
-            <EmptyList />
-            )
-          }
+          {loading && (
+            <div className={handles.loadingContainer}>
+              <Spinner />
+            </div>
+          )}
+          {!loading && !!data && googleMapsKeys?.logistics?.googleMapsKey && (
+            <div className={handles.storesMapCol}>
+              <Pinpoints
+                apiKey={googleMapsKeys.logistics.googleMapsKey}
+                className={handles.listingMapContainer}
+                items={data.getStores.items}
+                zoom={state.zoom}
+                center={state.center}
+                icon={icon}
+                iconWidth={iconWidth}
+                iconHeight={iconHeight}
+              />
+            </div>
+          )}
+          {!loading && !!data && stores.length === 0 && <EmptyList />}
           {!loading && !!data && stores.length > 0 && (
             <div className={handles.storesListCol}>
               <div className={`overflow-auto h-100 ${handles.storesList}`}>
@@ -258,7 +256,15 @@ const StoreList = ({
     )
   }
 
-  return <div className={`flex flex-row ${handles.listContainer}`}><div className='flex-col w-100'><div className={handles.loadingContainer}><Spinner /></div></div></div>
+  return (
+    <div className={`flex flex-row ${handles.listContainer}`}>
+      <div className="flex-col w-100">
+        <div className={handles.loadingContainer}>
+          <Spinner />
+        </div>
+      </div>
+    </div>
+  )
 }
 
 export default injectIntl(

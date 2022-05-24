@@ -1,11 +1,10 @@
 import React, { useState } from 'react'
 import { Button } from 'vtex.styleguide'
+import { useCssHandles } from 'vtex.css-handles'
+import { defineMessages, useIntl } from 'react-intl'
 
 import { saveStoresFilter } from '../utils'
 import Drawer from './Drawer'
-
-import { useCssHandles } from 'vtex.css-handles'
-import { defineMessages, useIntl } from 'react-intl'
 
 const CSS_HANDLES = [
   'secondaryButton',
@@ -15,7 +14,7 @@ const CSS_HANDLES = [
   'filterStoreListItemActive',
   'filterStoreListItemCheck',
   'filterStoreListItemLabel',
-  'filterStoreListItemImg'
+  'filterStoreListItemImg',
 ] as const
 
 interface FilterByStoreProps {
@@ -29,7 +28,6 @@ const FilterByStore = ({
   setStoresFilter,
   storesSettings,
 }: FilterByStoreProps) => {
-
   const handleSelectStore = (e) => {
     const { value } = e.target
 
@@ -38,11 +36,11 @@ const FilterByStore = ({
   }
 
   const resetFilter = () => {
-    setStoresFilter((prev) => ({ ...prev, store: "" }))
-    saveStoresFilter('store', "")
+    setStoresFilter((prev) => ({ ...prev, store: '' }))
+    saveStoresFilter('store', '')
   }
 
-  const [activeDrawer, setActiveDrawer] = useState<boolean>(false);
+  const [activeDrawer, setActiveDrawer] = useState<boolean>(false)
   const handles = useCssHandles(CSS_HANDLES)
   const intl = useIntl()
   const messages = defineMessages({
@@ -55,26 +53,35 @@ const FilterByStore = ({
       id: 'store/reset-filter',
     },
   })
+
   return (
     <>
-      <div className={`${handles.secondaryButton} ${handles.filterStoresButton}`}>
-        <Button onClick={() => setActiveDrawer(prevValue => !prevValue)}>{intl.formatMessage(messages.filterByStore)}</Button>
+      <div
+        className={`${handles.secondaryButton} ${handles.filterStoresButton}`}
+      >
+        <Button onClick={() => setActiveDrawer((prevValue) => !prevValue)}>
+          {intl.formatMessage(messages.filterByStore)}
+        </Button>
       </div>
       <Drawer
         active={activeDrawer}
         title={intl.formatMessage(messages.filterByStore)}
         headerOption={
           <Button onClick={() => resetFilter()} disabled={!storesFilter.store}>
-              {intl.formatMessage(messages.reset)}
+            {intl.formatMessage(messages.reset)}
           </Button>
         }
-        onClose={
-          <Button onClick={() => setActiveDrawer(false)}>
-          </Button>
-        }>
+        onClose={<Button onClick={() => setActiveDrawer(false)} />}
+      >
         <ul className={handles.filterStoreList}>
           {storesSettings.map((s) => (
-            <li key={s.name} className={`${handles.filterStoreListItem} ${storesFilter.store === s.name && handles.filterStoreListItemActive}`}>
+            <li
+              key={s.name}
+              className={`${handles.filterStoreListItem} ${
+                storesFilter.store === s.name &&
+                handles.filterStoreListItemActive
+              }`}
+            >
               <input
                 type="radio"
                 name="store"
@@ -87,7 +94,7 @@ const FilterByStore = ({
               <label
                 htmlFor={s.name}
                 className={handles.filterStoreListItemLabel}
-                >
+              >
                 <img
                   src={s.img}
                   alt={s.name}
