@@ -143,6 +143,7 @@ const StoreList = ({
 
     if (data?.getStores?.items.length <= 1) {
       setStores(data?.getStores?.items)
+      setStoresFiltered(data?.getStores?.items)
       return
     }
 
