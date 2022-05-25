@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- filter by `province` and `store`
+- added link `Show on map`
+- added link `Get directions`
+
 ## APP Customized to TFG from version [0.10.11]
 
 ## [0.10.11] - 2022-04-28
