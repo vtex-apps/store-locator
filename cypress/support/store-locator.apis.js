@@ -1,4 +1,5 @@
 import { VTEX_AUTH_HEADER, FAIL_ON_STATUS_CODE } from './common/constants'
+import selectors from './common/selectors'
 import { updateRetry } from './common/support'
 import {
   getPickupPointsAPI,
@@ -8,6 +9,7 @@ import {
   deletePickupPointAPI,
   listedPickupPointsPageAPI,
 } from './pickup-point.api'
+import storelocatorSelectors from './storelocator.selectors'
 
 export function listallPickupPoints() {
   it('list all pickup points', updateRetry(3), () => {
@@ -153,5 +155,60 @@ export function listedPickupPointsPage() {
         expect(response.body).to.have.property('paging')
       })
     })
+  })
+}
+
+export function updatePickupPointdata(data2) {
+  it('update a pickup point', updateRetry(3), () => {
+    cy.addDelayBetweenRetries(2000)
+    cy.getVtexItems().then((vtex) => {
+      cy.getPickupPointItem().then((data) => {
+        data2.isActive = false
+
+        cy.request({
+          method: 'POST',
+          url: updateAPI(vtex.baseUrl),
+          headers: {
+            ...VTEX_AUTH_HEADER(vtex.apiKey, vtex.apiToken),
+          },
+          body: data2,
+
+          qs: { id: data.pickupPointId },
+
+          ...FAIL_ON_STATUS_CODE,
+        }).then((response) => {
+          expect(response.status).to.equal(200)
+          expect(response.body).to.have.property('isActive', false)
+        })
+      })
+    })
+  })
+}
+
+export function addPickupPoint() {
+  it('add a pickup point', updateRetry(3), () => {
+    cy.visit('/admin/app/pickup-points')
+    cy.get(storelocatorSelectors.AddPickupPointButton).click()
+    cy.get(storelocatorSelectors.PickupPointName)
+      .clear()
+      .type('sumanraj+sumanraj4048')
+    cy.get(storelocatorSelectors.PickupPointId).type('4048')
+    cy.get('select')
+      .select('United States of America')
+      .should('have.value', 'USA')
+    // eslint-disable-next-line cypress/no-unnecessary-waiting
+    cy.wait(1000)
+    // eslint-disable-next-line cypress/no-unnecessary-waiting
+    cy.get(storelocatorSelectors.PickupPointAddress)
+      .type('19501 Biscayne BlvdAventura, FL 33180', { delay: 50 })
+      .wait(500)
+      .type('{downarrow}{enter}')
+
+    cy.get(storelocatorSelectors.SelectDay).click()
+    cy.get(storelocatorSelectors.SelectHour).type('10:00')
+    cy.get(storelocatorSelectors.SelectMinutes).type('19:00')
+
+    cy.get(storelocatorSelectors.SaveButton).click()
+    cy.get(selectors.ToastMsgInB2B).should('be.visible')
   })
 }
