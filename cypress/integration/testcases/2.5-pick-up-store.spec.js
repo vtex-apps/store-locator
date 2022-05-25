@@ -11,13 +11,14 @@ describe('Testing Checkout with different scenarios', () => {
   // Load test setup
   testSetup()
 
-  const { prefix, productName } = singleProduct
+  const { productName } = singleProduct
   const { data3 } = testCase1
   const pickupPointId = 'pickupPointId'
+  const prefix = 'Pickup In Store'
 
   createPickupPoint(data3, pickupPointId)
 
-  it(`Adding product,remove product and add product again`, () => {
+  it(`${prefix} - Adding product,remove product and add product again`, () => {
     // Search the product
     cy.searchProduct(productName)
     // Add product to cart
