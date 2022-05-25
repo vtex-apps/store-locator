@@ -9,7 +9,7 @@ base:
     domain: myvtex.com
     vtexIdUrl: https://vtexid.vtex.com.br/api/vtexid/pub/authenticate/default
     deployCli:
-      enabled: true
+      enabled: false
       git: https://github.com/vtex/toolbelt.git
       branch: qe/cypress
   twilio:
@@ -23,7 +23,7 @@ base:
     enabled: false
     channel: some-channel
   cypress:
-    devMode: false
+    devMode: true
     runHeaded: false
     enabled: false
     projectId: xyz

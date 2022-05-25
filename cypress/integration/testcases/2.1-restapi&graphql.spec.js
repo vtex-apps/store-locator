@@ -1,4 +1,5 @@
-import { testSetup } from '../../support/common/support'
+import { testSetup,updateRetry } from '../../support/common/support'
+import { getStores, graphql, validateGetStoresresponse } from '../../support/store-locator.settings'
 import {
   createPickupPoint,
   deletePickupPoint,
@@ -19,4 +20,20 @@ describe('Rest api testcases', () => {
   getPickupPointById()
   deletePickupPoint()
   listedPickupPointsPage()
+})
+describe('graphql apis',updateRetry(3),()=>
+{
+
+  // Load test setup
+  testSetup()
+  it('Verifying getStores query', updateRetry(2), () => {
+    cy.addDelayBetweenRetries(5000)
+
+
+      graphql(getStores(),response =>{
+        validateGetStoresresponse
+
+      })
+
+      })
 })

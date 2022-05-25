@@ -23,3 +23,7 @@ cypress
 cy-runner
 cypress-shared
 docs/**/*.{gif,png,jpg}
+cypress
+cy-runner
+cypress-shared
+docs/**/*.{gif,png,jpg}

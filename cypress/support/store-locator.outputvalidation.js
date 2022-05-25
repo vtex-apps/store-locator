@@ -4,13 +4,6 @@ const TESTCASE = {
 
 export default {
   testCase1: {
-    title: 'Enable Anonymous review with no admin approval',
-    productId: 880030,
-    configuration: {
-      allowAnonymousReviews: true,
-      requireApproval: false,
-      defaultStarsRating: '3',
-    },
     data1: {
       address: {
         country: {
