@@ -1,7 +1,7 @@
 {
   "vendor": "thefoschini",
   "name": "store-locator",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "title": "Store Locator",
   "description": "Integrates with the logistics module to provide Store Locator pages",
   "builders": {
@@ -23,17 +23,13 @@
     "vtex.store-sitemap": "2.x",
     "vtex.apps-graphql": "2.x"
   },
-  "registries": [
-    "smartcheckout"
-  ],
+  "registries": ["smartcheckout"],
   "billingOptions": {
     "type": "free",
     "support": {
       "url": "https://support.vtex.com/hc/requests"
     },
-    "availableCountries": [
-      "*"
-    ]
+    "availableCountries": ["*"]
   },
   "policies": [
     {
