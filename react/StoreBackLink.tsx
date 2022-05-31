@@ -15,18 +15,20 @@ const messages = defineMessages({
 
 interface StoreBackLinkProps {
   label: string
+  page?: string
 }
 
 const StoreBackLink: FC<StoreBackLinkProps & WrappedComponentProps> = ({
   label,
   intl,
+  page
 }) => {
   const handles = useCssHandles(CSS_HANDLES)
   const { navigate } = useRuntime()
 
   const goBack = () => {
     navigate({
-      page: 'store.storelocator',
+      page: page ?? 'store.storelocator',
     })
   }
 

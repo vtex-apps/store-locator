@@ -13,5 +13,10 @@
   "store/day-of-week-wednesday": "Miércoles",
   "store/day-of-week-thursday": "Jueves",
   "store/day-of-week-friday": "Viernes",
-  "store/day-of-week-saturday": "Sábado"
+  "store/day-of-week-saturday": "Sábado",
+  "store/filter-by-province": "Filtrar por provincia",
+  "store/filter-by-store": "Filtrar por tienda",
+  "store/reset-filter": "Reset",
+  "store/get-directions": "Obtener direcciones",
+  "store/none-stores-message": "Intenta limpiar los filtros"
 }

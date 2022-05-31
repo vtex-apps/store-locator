@@ -51,7 +51,7 @@ const Pinpoints = (props: any) => {
     })
   }
 
-  const [lng, lat] = props.center
+  const [lng, lat] = props.center || [18.2761499,-33.9524353]
   const { zoom } = props
 
   const goTo = (item: any) => {

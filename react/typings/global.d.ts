@@ -32,3 +32,22 @@ interface SpecificationGroup {
   seller: string
   address: Address
 }
+
+interface StoresFilter {
+  province: string
+  store: string
+}
+
+interface StoreOnStoresFilter {
+  name: string
+  img: string
+}
+
+
+interface SettingsProps {
+  appSettings: Settings
+}
+
+interface Settings {
+  message: string
+}
