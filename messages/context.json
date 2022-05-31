@@ -18,5 +18,5 @@
   "store/filter-by-store": "Filter by store",
   "store/reset-filter": "Reset",
   "store/get-directions": "Get directions",
-  "store/none-stores-message": "Try cleaning the filters"
+  "store/none-stores-message": "Try clearing the filters."
 }

@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Change the vendor on GraphQL queries to can do the requests to get the stores on filter
+
+## [0.0.4] - 2022-05-27
+
+## [0.0.3] - 2022-05-19
+
+## [0.0.2] - 2022-05-19
+
+## [0.0.1] - 2022-05-19
+
 ### Added
 
 - filter by `province` and `store`
