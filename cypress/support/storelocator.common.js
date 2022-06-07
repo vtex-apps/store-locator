@@ -10,7 +10,9 @@ export function addPickUpPoint() {
   cy.get('select')
     .select('United States of America')
     .should('have.value', 'USA')
+  /* eslint-disable cypress/no-unnecessary-waiting */
   cy.wait(1000)
+  /* eslint-disable cypress/no-unnecessary-waiting */
   cy.get(storeLocatorSelectors.PickUpAddress)
     .type('33301 Old Hempstead Rd Magnolia', { delay: 50 })
     .wait(500)
