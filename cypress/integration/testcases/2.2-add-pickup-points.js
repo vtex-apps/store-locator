@@ -1,8 +1,12 @@
-import { testSetup, updateRetry, preserveCookie } from '../../support/common/support'
+import {
+  testSetup,
+  updateRetry,
+  preserveCookie,
+} from '../../support/common/support'
 import {
   addPickUpPoint,
   verifyPickUpPoint,
-  verifyAllPickUpPoint
+  verifyAllPickUpPoint,
 } from '../../support/storelocator.common'
 
 describe('Testing PickUpPoint in storeLocator', () => {
