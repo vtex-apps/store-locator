@@ -41,10 +41,27 @@ export default {
     ':nth-child(3) > .flex-ns > :nth-child(3) > .vtex-input > .vtex-input-prefix__group > .vtex-styleguide-9-x-input',
   SaveButton: '.flex.justify-end > .pb7 > .vtex-button > .vtex-button__label',
   StorePickUpPointList: '.overflow-auto > .list',
+  PickupInStoresAddressLink: '.srp-address-title',
+  PickupInStoresShowList: '#pkpmodal-show-list-btn',
+  ShippingPolicyStatusToggle: '#active',
+  ShippingPolicySearch: '.css-ze8i9u',
+  ShippingPolicySaveChanges:
+    '.styleguide__floating-action-bar > :nth-child(2) > .vtex-button',
+  PickupPointsList: '.css-ze8i9u > div',
 }
 
 export function getAddressLink(index) {
   return `.vtex-store-locator-0-x-addressListItem:nth-child(${
     index + 1
   }) .vtex-store-locator-0-x-addressListLink`
+}
+
+export function getPickupPoint(pickupPoint) {
+  return `.pickupPoint-1_${pickupPoint}`
+}
+
+export function findPickupPoint(index) {
+  return `.css-ze8i9u > div:nth-child(${
+    index + 1
+  }) > .flex > .css-njvq6d > .vtex__icon-close`
 }
