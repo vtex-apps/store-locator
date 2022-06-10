@@ -51,11 +51,22 @@ export function verifyAllPickUpPoint() {
 export function linkPickupPointToShippingPolicy(pickuppoint, link = false) {
   it('Link pickup point', updateRetry(3), () => {
     cy.visit('/admin/app/shipping-strategy/shipping-policy/?id=sha1920ede3r')
-    cy.get(storeLocatorSelectors.ShippingPolicyStatusToggle).click()
+    cy.get('#name').should('be.visible')
+    cy.get('body').then(($body) => {
+      if (
+        $body.find(storeLocatorSelectors.ShippingPolicyPickupPointStatus)
+          .length > 0
+      ) {
+        cy.log('Pickup point status is already enabled')
+      } else {
+        cy.get(storeLocatorSelectors.ShippingPolicyPickUpPointToggle).click()
+      }
+    })
     if (link === true) {
       cy.get(storeLocatorSelectors.ShippingPolicySearch)
         .click()
         .type(pickuppoint)
+        .wait(1000)
         .type('{downarrow}{enter}')
       cy.get(storeLocatorSelectors.ShippingPolicySaveChanges).click()
     } else {
@@ -67,5 +78,29 @@ export function linkPickupPointToShippingPolicy(pickuppoint, link = false) {
         cy.get(findPickupPoint(indexOfPickupPoint)).click()
       })
     }
+  })
+}
+
+export function updateShippingPolicyStatus(status) {
+  it('Link pickup point', updateRetry(3), () => {
+    cy.visit('/admin/app/shipping-strategy/shipping-policy/?id=sha1920ede3r')
+    cy.get('#name').should('be.visible')
+    cy.get('body').then(($body) => {
+      if (
+        $body.find(storeLocatorSelectors.ShippingPolicyActiveStatus).length > 0
+      ) {
+        if (status === true) {
+          cy.log('Shipping policy already in active status')
+        } else {
+          cy.get(storeLocatorSelectors.ShippingPolicyStatusToggle).click()
+          cy.get(storeLocatorSelectors.ShippingPolicySaveChanges).click()
+        }
+      } else if (status === true) {
+        cy.get(storeLocatorSelectors.ShippingPolicyStatusToggle).click()
+        cy.get(storeLocatorSelectors.ShippingPolicySaveChanges).click()
+      } else {
+        cy.log('Shipping policy already in inactive status')
+      }
+    })
   })
 }

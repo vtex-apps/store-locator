@@ -132,14 +132,13 @@ Cypress.Commands.add(
 
       fillAddressLine1(deliveryScreenAddress)
       cy.get('body').then(async ($body) => {
-        if ($body.find('#find-pickup-link').length) {
-          cy.get('#find-pickup-link').click()
-          cy.get('.vtex-pickup-points-modal-3-x-modalSearch').should(
-            'be.visible'
-          )
-          cy.get('.vtex-pickup-points-modal-3-x-modalSearch input')
+        if ($body.find(storelocatorSelectors.FindPickupLink).length) {
+          cy.get(storelocatorSelectors.FindPickupLink).click()
+          cy.get(storelocatorSelectors.PickUpModelSearch).should('be.visible')
+          // eslint-disable-next-line cypress/no-unnecessary-waiting
+          cy.get(storelocatorSelectors.PickUpModelSearch)
             .click()
-            .type(pickuppoint.address.street, { delay: 80 })
+            .type(pickuppoint.address.street, { delay: 100 })
             .wait(500)
             .type('{downarrow}{enter}')
         } else {
@@ -150,7 +149,28 @@ Cypress.Commands.add(
       })
 
       cy.get(storelocatorSelectors.PickupInStoresShowList).click()
+      // eslint-disable-next-line cypress/no-unnecessary-waiting
+      cy.wait(1000)
       cy.get(getPickupPoint(pickuppoint.id)).click()
+      cy.get(selectors.ConfirmPickup).should('be.visible').click()
+      cy.get(selectors.ProceedtoPaymentBtn).should('be.visible').click()
     })
   }
 )
+
+Cypress.Commands.add('placeTheProduct', () => {
+  cy.get('body').then(($body) => {
+    if ($body.find(selectors.ReceiverName).length) {
+      cy.get(selectors.ReceiverName, { timeout: 5000 }).type('Syed')
+      cy.get(selectors.GotoPaymentBtn).click()
+    }
+  })
+
+  cy.get(selectors.PromissoryPayment, { timeout: 5000 })
+    .should('be.visible')
+    .click()
+  cy.get(selectors.BuyNowBtn, { timeout: 10000 })
+    .should('be.visible')
+    .last()
+    .click()
+})

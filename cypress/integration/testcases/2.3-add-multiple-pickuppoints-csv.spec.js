@@ -1,5 +1,5 @@
 import { testSetup, updateRetry } from '../../support/common/support'
-import { updateShippingPolicyStatus } from '../../support/shipping-policy.api'
+import { updateShippingPolicyStatus } from '../../support/storelocator.common'
 
 const prefix = 'Verify Download'
 
@@ -23,7 +23,5 @@ describe('Testing Single Product and total amounts', () => {
     cy.verifyDetailsInDetailPage()
   })
 
-  it('Update Shipping policy as inactive', updateRetry(4), () => {
-    updateShippingPolicyStatus()
-  })
+  updateShippingPolicyStatus(true)
 })

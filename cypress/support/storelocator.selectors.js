@@ -43,11 +43,18 @@ export default {
   StorePickUpPointList: '.overflow-auto > .list',
   PickupInStoresAddressLink: '.srp-address-title',
   PickupInStoresShowList: '#pkpmodal-show-list-btn',
-  ShippingPolicyStatusToggle: '#active',
+  ShippingPolicyPickUpPointToggle: '#active',
   ShippingPolicySearch: '.css-ze8i9u',
   ShippingPolicySaveChanges:
     '.styleguide__floating-action-bar > :nth-child(2) > .vtex-button',
   PickupPointsList: '.css-ze8i9u > div',
+  PickUpModelSearch: 'form[class*=modalSearch] input',
+  FindPickupLink: '#find-pickup-link',
+  ShippingPolicyStatusToggle: '#isActive',
+  ShippingPolicyActiveStatus:
+    'label[for="isActive"] > div > div[class*=primary]',
+  ShippingPolicyPickupPointStatus:
+    'label[for="active"] > div > div[class*=primary]',
 }
 
 export function getAddressLink(index) {
