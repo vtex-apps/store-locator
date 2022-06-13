@@ -65,7 +65,7 @@ export function linkPickupPointToShippingPolicy(pickuppoint, link = false) {
     if (link === true) {
       cy.get(storeLocatorSelectors.ShippingPolicySearch)
         .click()
-        .type(pickuppoint)
+        .type(pickuppoint, { delay: 80 })
         .wait(1000)
         .type('{downarrow}{enter}')
       cy.get(storeLocatorSelectors.ShippingPolicySaveChanges).click()

@@ -1,6 +1,12 @@
 import { updateRetry, testSetup } from '../../support/common/support.js'
-import { updateShippingPolicyStatus } from '../../support/shipping-policy.api.js'
+import {
+  graphql,
+  updateShippingPolicy,
+} from '../../support/shipping-policy.graphql.js'
 import { deleteAllPickupPoints } from '../../support/store-locator.apis.js'
+import data from '../../support/shipping-policy.json'
+
+const shippingPolicyId = 'sha1920ede3r'
 
 describe('Wipe the pickup points', () => {
   testSetup(false)
@@ -8,7 +14,9 @@ describe('Wipe the pickup points', () => {
     deleteAllPickupPoints()
   })
 
-  it('Update Shipping policy as inactive', updateRetry(4), () => {
-    updateShippingPolicyStatus()
+  it('Update shipping policy status', () => {
+    graphql(updateShippingPolicy(shippingPolicyId, data, false), (response) => {
+      expect(response.status).to.equal(200)
+    })
   })
 })

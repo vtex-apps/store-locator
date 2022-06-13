@@ -6,7 +6,13 @@ import {
 import { singleProduct } from '../../support/common/outputvalidation'
 import { createPickupPoint } from '../../support/store-locator.apis'
 import { testCase1 } from '../../support/store-locator.outputvalidation.js'
-import { linkPickupPointToShippingPolicy } from '../../support/storelocator.common'
+import {
+  graphql,
+  updateShippingPolicy,
+} from '../../support/shipping-policy.graphql'
+import data from '../../support/shipping-policy.json'
+
+const shippingPolicyId = 'sha1920ede3r'
 
 describe('Testing Checkout with different scenarios', () => {
   // Load test setup
@@ -19,7 +25,12 @@ describe('Testing Checkout with different scenarios', () => {
 
   createPickupPoint(data3, pickupPointId)
 
-  linkPickupPointToShippingPolicy(data3.name, true)
+  it('Add pickup points in shipping policy', () => {
+    data.shippingPolicy.pickupPointsSettings.pickupPointIds.push('456789')
+    graphql(updateShippingPolicy(shippingPolicyId, data, true), (response) => {
+      expect(response.status).to.equal(200)
+    })
+  })
 
   it(
     `${prefix} - Adding product,remove product and add product again`,
@@ -41,10 +52,19 @@ describe('Testing Checkout with different scenarios', () => {
 
   it(`In ${prefix} - Updating Shipping Information`, updateRetry(3), () => {
     // Update Shipping Section
-    cy.updatePickupInStoreShippingInformation(postalCode, data3)
+    cy.updateShippingInformation({ postalCode, pickup: true })
   })
 
-  linkPickupPointToShippingPolicy(data3.name, false)
+  it(`In ${prefix} - Order the product using promisory`, updateRetry(3), () => {
+    cy.placeTheProduct()
+  })
+
+  it('Remove pickup points in shipping policy', () => {
+    data.shippingPolicy.pickupPointsSettings.pickupPointIds = []
+    graphql(updateShippingPolicy(shippingPolicyId, data, true), (response) => {
+      expect(response.status).to.equal(200)
+    })
+  })
 
   preserveCookie()
 })
