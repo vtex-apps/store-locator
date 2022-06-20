@@ -1,7 +1,7 @@
 {
-  "vendor": "vtex",
+  "vendor": "thefoschini",
   "name": "store-locator",
-  "version": "0.10.11",
+  "version": "0.0.5",
   "title": "Store Locator",
   "description": "Integrates with the logistics module to provide Store Locator pages",
   "builders": {
@@ -20,19 +20,16 @@
     "vtex.styleguide": "9.x",
     "vtex.render-runtime": "8.x",
     "vtex.css-handles": "0.x",
-    "vtex.store-sitemap": "2.x"
+    "vtex.store-sitemap": "2.x",
+    "vtex.apps-graphql": "2.x"
   },
-  "registries": [
-    "smartcheckout"
-  ],
+  "registries": ["smartcheckout"],
   "billingOptions": {
     "type": "free",
     "support": {
       "url": "https://support.vtex.com/hc/requests"
     },
-    "availableCountries": [
-      "*"
-    ]
+    "availableCountries": ["*"]
   },
   "policies": [
     {
@@ -66,5 +63,111 @@
       "name": "vbase-read-write"
     }
   ],
-  "$schema": "https://raw.githubusercontent.com/vtex/node-vtex-api/master/gen/manifest.schema"
+  "$schema": "https://raw.githubusercontent.com/vtex/node-vtex-api/master/gen/manifest.schema",
+  "settingsSchema": {
+    "title": "Store Locator",
+    "type": "object",
+    "properties": {
+      "stores": {
+        "title": "Stores",
+        "type": "array",
+        "description": "The stores that be appear on filter",
+        "default": [
+          {
+            "name": "American Swiss",
+            "img": "https://thefoschini.vtexassets.com/arquivos/american_swiss.svg"
+          },
+          {
+            "name": "Archive",
+            "img": "https://thefoschini.vtexassets.com/arquivos/archive.svg"
+          },
+          {
+            "name": "Exact",
+            "img": "https://thefoschini.vtexassets.com/arquivos/exact.svg"
+          },
+          {
+            "name": "Fabiani",
+            "img": "https://thefoschini.vtexassets.com/arquivos/fabiani.svg"
+          },
+          {
+            "name": "Foschini",
+            "img": "https://thefoschini.vtexassets.com/arquivos/foschini.svg"
+          },
+          {
+            "name": "G Star Raw",
+            "img": "https://thefoschini.vtexassets.com/arquivos/g-star_raw.svg"
+          },
+          {
+            "name": "Galaxy Co",
+            "img": "https://thefoschini.vtexassets.com/arquivos/galaxy_co.svg"
+          },
+          {
+            "name": "Hi",
+            "img": "https://thefoschini.vtexassets.com/arquivos/hi.svg"
+          },
+          {
+            "name": "@home",
+            "img": "https://thefoschini.vtexassets.com/arquivos/home.svg"
+          },
+          {
+            "name": "@home livingspace",
+            "img": "https://thefoschini.vtexassets.com/arquivos/home_livingspace.svg"
+          },
+          {
+            "name": "Jet",
+            "img": "https://thefoschini.vtexassets.com/arquivos/jet.svg"
+          },
+          {
+            "name": "Markham",
+            "img": "https://thefoschini.vtexassets.com/arquivos/markham.svg"
+          },
+          {
+            "name": "RJ Relay Jeans",
+            "img": "https://thefoschini.vtexassets.com/arquivos/relay_jeans.svg"
+          },
+          {
+            "name": "RFO Renegade Fashion Outlet",
+            "img": "https://thefoschini.vtexassets.com/arquivos/rfo.svg"
+          },
+          {
+            "name": "Sneaker Factory",
+            "img": "https://thefoschini.vtexassets.com/arquivos/sneaker_factory.svg"
+          },
+          {
+            "name": "SodaBloc",
+            "img": "https://thefoschini.vtexassets.com/arquivos/soda_bloc.svg"
+          },
+          {
+            "name": "Sportscene",
+            "img": "https://thefoschini.vtexassets.com/arquivos/sportscene.svg"
+          },
+          {
+            "name": "Sterns",
+            "img": "https://thefoschini.vtexassets.com/arquivos/sterns.svg"
+          },
+          {
+            "name": "Totalsports",
+            "img": "https://thefoschini.vtexassets.com/arquivos/totalsports.svg"
+          },
+          {
+            "name": "The Fix",
+            "img": "https://thefoschini.vtexassets.com/arquivos/the_fix.svg"
+          }
+        ],
+        "items": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "title": "Store tag"
+            },
+            "img": {
+              "type": "string",
+              "title": "Logo active of the store (link svg)"
+            }
+          }
+        }
+      }
+    }
+  }
 }

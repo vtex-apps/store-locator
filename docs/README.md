@@ -15,6 +15,29 @@ The Store Locator app fetches the Pickup point data in order to display address 
 ![store-list](https://user-images.githubusercontent.com/52087100/99975140-9f809500-2d80-11eb-87ce-2f9cfcf567d6.png)
 ![store-detail](https://user-images.githubusercontent.com/52087100/99975130-9abbe100-2d80-11eb-95ac-49ea37490c50.png)
 
+## App customized to TFG
+
+App customized to TFG adding:
+
+- Filter by provinces.
+- Filter by brands.
+- New anchor in the list store named "Show on map".
+- New anchor in store details named "Get directions".
+
+![store-list-custom](./images/store-list-custom.png)
+![store-detail-custom](./images/store-detail-custom.png)
+
+### Filter configuration
+
+1. Add tags with the name of the store to filter on `Pickup point` section
+![pickup-tag](./images/pickup-tag.png)
+2. Upload the images (SVG) of the stores to VTEX on admin. Go to admin > CMS > Layout > CMS > Files Manager > imagens.
+![images-uploading](./images/images-uploading.png)
+3. Go to Admin > Apps > My Apps. Search `Store Locator` app and go to settings.
+![store-locator-settings](./images/store-locator-settings.png)
+4. By default there are 19 stores to filter with their names and images. But you can add or delete more.
+![add-stores-to-filter](./images/add-stores-to-filter.png)
+
 ## Configuration
 
 1. [Install](https://vtex.io/docs/recipes/development/installing-an-app/) the Store Locator app in your VTEX account by running `vtex install vtex.store-locator` in your terminal.
