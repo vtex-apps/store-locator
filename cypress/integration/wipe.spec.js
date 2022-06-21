@@ -1,10 +1,10 @@
-import { updateRetry, testSetup } from '../../support/common/support.js'
 import {
   graphql,
   updateShippingPolicy,
-} from '../../support/shipping-policy.graphql.js'
-import { deleteAllPickupPoints } from '../../support/store-locator.apis.js'
-import data from '../../support/shipping-policy.json'
+} from '../support/shipping-policy.graphql.js'
+import { deleteAllPickupPoints } from '../support/store-locator.apis.js'
+import data from '../support/shipping-policy.json'
+import { updateRetry, testSetup } from '../support/common/support.js'
 
 describe('Wipe the pickup points', () => {
   testSetup(false)

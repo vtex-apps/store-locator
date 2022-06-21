@@ -1,5 +1,5 @@
-import { testSetup, updateRetry } from '../../support/common/support'
-import { testCase1 } from '../../support/store-locator.outputvalidation.js'
+import { testSetup, updateRetry } from '../support/common/support'
+import { testCase1 } from '../support/store-locator.outputvalidation.js'
 
 describe('Testing Checkout with different scenarios', () => {
   // Load test setup

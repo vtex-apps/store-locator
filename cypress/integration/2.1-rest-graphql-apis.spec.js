@@ -1,4 +1,4 @@
-import { testSetup } from '../../support/common/support'
+import { testSetup } from '../support/common/support'
 import {
   createPickupPoint,
   deletePickupPoint,
@@ -6,8 +6,8 @@ import {
   listallPickupPoints,
   listedPickupPointsPage,
   updatePickupPoint,
-} from '../../support/store-locator.apis.js'
-import { testCase1 } from '../../support/store-locator.outputvalidation.js'
+} from '../support/store-locator.apis.js'
+import { testCase1 } from '../support/store-locator.outputvalidation.js'
 
 const { data1, data2, data3 } = testCase1
 const pickupPointId = 'pickupPointId'

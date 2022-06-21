@@ -1,4 +1,4 @@
-import { testSetup, updateRetry } from '../../support/common/support'
+import { testSetup, updateRetry } from '../support/common/support'
 
 const prefix = 'Verify Upload XLS File'
 

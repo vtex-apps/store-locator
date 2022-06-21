@@ -1,7 +1,7 @@
-import { testSetup, updateRetry } from '../../support/common/support'
-import { updatePickupPointdata } from '../../support/store-locator.apis'
-import { testCase1 } from '../../support/store-locator.outputvalidation.js'
-import storelocatorSelectors from '../../support/storelocator.selectors'
+import { testSetup, updateRetry } from '../support/common/support'
+import { updatePickupPointdata } from '../support/store-locator.apis'
+import { testCase1 } from '../support/store-locator.outputvalidation.js'
+import storelocatorSelectors from '../support/storelocator.selectors'
 
 const { data3 } = testCase1
 
