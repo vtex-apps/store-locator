@@ -1,4 +1,5 @@
 import { testSetup, updateRetry } from '../support/common/support'
+import { addPickUpPoint } from '../support/storelocator.common'
 
 const prefix = 'Verify Upload XLS File'
 
@@ -10,15 +11,9 @@ describe('Testing Multiple pickup point with XLS file', () => {
     cy.uploadXLS()
   })
 
-  it(
-    `${prefix} - Verify pickup point is showing in /stores endpoint`,
-    updateRetry(2),
-    () => {
-      cy.verifyPickupPointsInStore()
-    }
-  )
+  const pickPointName = 'pickup example 3'
 
-  it(`${prefix} - Verify Holidays/Exceptions and Business hours are showing correctly in detail page`, () => {
-    cy.verifyDetailsInDetailPage()
+  it('Adding PickUp Point in Store-Locator', updateRetry(2), () => {
+    addPickUpPoint(pickPointName)
   })
 })

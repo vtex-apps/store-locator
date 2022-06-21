@@ -21,7 +21,7 @@ describe('Testing Checkout with different scenarios', () => {
 
   it(`In ${prefix} - Updating Shipping Information`, updateRetry(2), () => {
     // Update Shipping Section
-    cy.updateShippingInformation({ postalCode, pickup: true })
+    cy.updateShippingInformation({ postalCode, pickup: true, timeout: 8000 })
   })
 
   it(`In ${prefix} - Order the product using promisory`, updateRetry(2), () => {
