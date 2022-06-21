@@ -2,33 +2,33 @@ import { VTEX_AUTH_HEADER, FAIL_ON_STATUS_CODE } from './common/constants'
 import selectors from './common/selectors'
 import { updateRetry } from './common/support'
 import {
-  getPickupPointsAPI,
-  createAPI,
-  updateAPI,
-  getPickupPointByIdAPI,
-  deletePickupPointAPI,
-  listedPickupPointsPageAPI,
+  getPickupPoints,
+  createPickupPoint,
+  updatePickupPoint,
+  getPickupPointById,
+  deletePickupPoint,
+  searchPickupPoint,
 } from './pickup-point.api'
 import storelocatorSelectors from './storelocator.selectors'
 
-export function listallPickupPoints() {
-  it('list all pickup points', updateRetry(2), () => {
+export function listallPickupPointsAPI() {
+  it('List all pickup points via API', updateRetry(2), () => {
     cy.addDelayBetweenRetries(2000)
     cy.getVtexItems().then((vtex) => {
-      cy.getAPI(getPickupPointsAPI(vtex.baseUrl)).then((response) => {
+      cy.getAPI(getPickupPoints(vtex.baseUrl)).then((response) => {
         expect(response.status).to.equal(200)
       })
     })
   })
 }
 
-export function createPickupPoint(data, dataEnv) {
-  it('create/update a pickup point', updateRetry(2), () => {
+export function createPickupPointAPI(data, dataEnv) {
+  it('Create a pickup point via API', updateRetry(2), () => {
     cy.addDelayBetweenRetries(2000)
     cy.getVtexItems().then((vtex) => {
       cy.request({
         method: 'POST',
-        url: createAPI(vtex.baseUrl),
+        url: createPickupPoint(vtex.baseUrl),
         headers: {
           ...VTEX_AUTH_HEADER(vtex.apiKey, vtex.apiToken),
         },
@@ -45,14 +45,14 @@ export function createPickupPoint(data, dataEnv) {
   })
 }
 
-export function updatePickupPoint(data2) {
-  it('update a pickup point', updateRetry(2), () => {
+export function updatePickupPointAPI(data2) {
+  it('Update a pickup point via API', updateRetry(2), () => {
     cy.addDelayBetweenRetries(2000)
     cy.getVtexItems().then((vtex) => {
       cy.getPickupPointItem().then((data) => {
         cy.request({
           method: 'POST',
-          url: updateAPI(vtex.baseUrl),
+          url: updatePickupPoint(vtex.baseUrl),
           headers: {
             ...VTEX_AUTH_HEADER(vtex.apiKey, vtex.apiToken),
           },
@@ -70,13 +70,13 @@ export function updatePickupPoint(data2) {
   })
 }
 
-export function getPickupPointById() {
-  it('list the pickup point by id', updateRetry(2), () => {
+export function getPickupPointByIdAPI() {
+  it('List the pickup point by id via API', updateRetry(2), () => {
     cy.addDelayBetweenRetries(2000)
     cy.getVtexItems().then((vtex) => {
       cy.getPickupPointItem().then((data) => {
         cy.log(data.pickupPointId)
-        cy.getAPI(getPickupPointByIdAPI(vtex.baseUrl, data.pickupPointId)).then(
+        cy.getAPI(getPickupPointById(vtex.baseUrl, data.pickupPointId)).then(
           (response) => {
             expect(response.status).to.equal(200)
             expect(response.body).to.have.property('name')
@@ -88,14 +88,14 @@ export function getPickupPointById() {
   })
 }
 
-export function deletePickupPoint() {
-  it('delete a pickup point', updateRetry(2), () => {
+export function deletePickupPointAPI() {
+  it('Delete a pickup point via API', updateRetry(2), () => {
     cy.addDelayBetweenRetries(2000)
     cy.getVtexItems().then((vtex) => {
       cy.getPickupPointItem().then((data) => {
         cy.request({
           method: 'DELETE',
-          url: deletePickupPointAPI(vtex.baseUrl, data.pickupPointId),
+          url: deletePickupPoint(vtex.baseUrl, data.pickupPointId),
           headers: {
             ...VTEX_AUTH_HEADER(vtex.apiKey, vtex.apiToken),
           },
@@ -110,7 +110,7 @@ export function deletePickupPoint() {
 
 export function deleteAllPickupPoints() {
   cy.getVtexItems().then((vtex) => {
-    cy.getAPI(getPickupPointsAPI(vtex.baseUrl)).then((response) => {
+    cy.getAPI(getPickupPoints(vtex.baseUrl)).then((response) => {
       const filterPickUpPoints = response.body.filter((b) =>
         b.name.includes('pickup example')
       )
@@ -119,7 +119,7 @@ export function deleteAllPickupPoints() {
         for (const element of filterPickUpPoints) {
           cy.request({
             method: 'DELETE',
-            url: deletePickupPointAPI(vtex.baseUrl, element.id),
+            url: deletePickupPoint(vtex.baseUrl, element.id),
             headers: {
               ...VTEX_AUTH_HEADER(vtex.apiKey, vtex.apiToken),
             },
@@ -133,13 +133,13 @@ export function deleteAllPickupPoints() {
   })
 }
 
-export function listedPickupPointsPage() {
-  it('listed pickup points page', updateRetry(2), () => {
+export function searchPickupPointAPI() {
+  it('Search pickup points via API', updateRetry(2), () => {
     cy.addDelayBetweenRetries(2000)
     cy.getVtexItems().then((vtex) => {
       cy.request({
         method: 'GET',
-        url: listedPickupPointsPageAPI(vtex.baseUrl),
+        url: searchPickupPoint(vtex.baseUrl),
         headers: {
           ...VTEX_AUTH_HEADER(vtex.apiKey, vtex.apiToken),
         },
@@ -165,7 +165,7 @@ export function updatePickupPointdata(data2) {
 
         cy.request({
           method: 'POST',
-          url: updateAPI(vtex.baseUrl),
+          url: searchPickupPoint(vtex.baseUrl),
           headers: {
             ...VTEX_AUTH_HEADER(vtex.apiKey, vtex.apiToken),
           },
@@ -184,7 +184,7 @@ export function updatePickupPointdata(data2) {
 }
 
 export function addPickupPoint() {
-  it('add a pickup point', updateRetry(2), () => {
+  it('Add a pickup point', updateRetry(2), () => {
     cy.visit('/admin/app/pickup-points')
     cy.get(storelocatorSelectors.AddPickupPointButton).click()
     cy.get(storelocatorSelectors.PickupPointName)

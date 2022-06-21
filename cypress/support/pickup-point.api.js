@@ -1,20 +1,20 @@
 export default {
-  getPickupPointsAPI: (baseUrl) => {
+  getPickupPoints: (baseUrl) => {
     return `${baseUrl}/api/logistics/pvt/configuration/pickuppoints`
   },
-  createAPI: (baseUrl) => {
+  createPickupPoint: (baseUrl) => {
     return `${baseUrl}/api/logistics/pvt/configuration/pickuppoints`
   },
-  updateAPI: (baseUrl) => {
+  updatePickupPoint: (baseUrl) => {
     return `${baseUrl}/api/logistics/pvt/configuration/pickuppoints`
   },
-  getPickupPointByIdAPI: (baseUrl, pickupPointid) => {
+  getPickupPointById: (baseUrl, pickupPointid) => {
     return `${baseUrl}/api/logistics/pvt/configuration/pickuppoints/${pickupPointid}`
   },
-  deletePickupPointAPI: (baseUrl, pickupPointid) => {
+  deletePickupPoint: (baseUrl, pickupPointid) => {
     return `${baseUrl}/api/logistics/pvt/configuration/pickuppoints/${pickupPointid}`
   },
-  listedPickupPointsPageAPI: (baseUrl) => {
+  searchPickupPoint: (baseUrl) => {
     return `${baseUrl}/api/logistics/pvt/configuration/pickuppoints/_search`
   },
 }

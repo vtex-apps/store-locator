@@ -8,7 +8,7 @@ export function addPickUpPoint(pickPointName) {
 
   cy.get(storeLocatorSelectors.AddPickUpButton).click()
   cy.get(storeLocatorSelectors.PickUpPointName).clear().type(pickPointName)
-  cy.get(storeLocatorSelectors.PickUpPointId).type('1')
+  cy.get(storeLocatorSelectors.PickUpPointId).should('be.visible').type('1')
   cy.get('select')
     .select('United States of America')
     .should('have.value', 'USA')
