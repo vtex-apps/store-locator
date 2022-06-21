@@ -1,4 +1,4 @@
-import { testSetup } from '../support/common/support'
+import { testSetup, updateRetry } from '../support/common/support'
 import {
   createPickupPointAPI,
   deletePickupPointAPI,
@@ -19,7 +19,7 @@ const shippingPolicyId = 'sha1920ede3r'
 const { data1, data2, data3 } = testCase1
 const pickupPointId = 'pickupPointId'
 
-describe('Rest api testcases', () => {
+describe('Rest & Graphql API testcases', () => {
   testSetup()
   listallPickupPointsAPI()
   createPickupPointAPI(data1, pickupPointId)
@@ -31,7 +31,8 @@ describe('Rest api testcases', () => {
 
   // Shipping policy should be updated to active
   // Then only we can use pickup in 2.4 testcase
-  it('Update shipping policy status', () => {
+  it('Update shipping policy status', updateRetry(5), () => {
+    cy.addDelayBetweenRetries(1000)
     graphql(
       updateShippingPolicy(data, { status: true, pickup: true }),
       (response) => {

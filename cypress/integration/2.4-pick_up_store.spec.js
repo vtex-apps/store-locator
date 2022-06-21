@@ -1,7 +1,7 @@
 import { testSetup, updateRetry } from '../support/common/support'
 import { testCase1 } from '../support/store-locator.outputvalidation.js'
 
-describe('Testing Checkout with different scenarios', () => {
+describe('Test pickup in checkout with one of the pickup points created in 2.1', () => {
   // Load test setup
   testSetup()
 

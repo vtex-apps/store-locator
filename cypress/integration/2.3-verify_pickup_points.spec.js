@@ -1,11 +1,11 @@
 import { testSetup, updateRetry } from '../support/common/support'
 import { verifyAllPickUpPoint } from '../support/storelocator.common'
 
-describe('Verify PickUpPoint in storeLocator', () => {
+describe('Verify all pickup points is displayed', () => {
   // Load test setup
   testSetup()
 
-  it('Verifying all stores by clicking more items', updateRetry(2), () => {
+  it('Verify all pickup points is shown in stores', updateRetry(2), () => {
     verifyAllPickUpPoint()
   })
 })

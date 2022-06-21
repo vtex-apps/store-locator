@@ -3,7 +3,7 @@ import { addPickUpPoint } from '../support/storelocator.common'
 
 const prefix = 'Verify Upload XLS File'
 
-describe('Testing Multiple pickup point with XLS file', () => {
+describe('Adding Multiple pickup point', () => {
   // Load test setup
   testSetup()
 
@@ -13,7 +13,7 @@ describe('Testing Multiple pickup point with XLS file', () => {
 
   const pickPointName = 'pickup example 3'
 
-  it('Adding PickUp Point in Store-Locator', updateRetry(2), () => {
+  it('Adding PickUp Point', updateRetry(2), () => {
     addPickUpPoint(pickPointName)
   })
 })
