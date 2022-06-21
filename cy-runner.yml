@@ -68,16 +68,16 @@ workspace:
     enabled: true
 strategy:
   # We create pickup points in E2E
-  # Here we are running wipe first so that we can ensure that we always start E2E tests from scratch
-  wipe:
+  # Here we are running deletePickupPoints first so that we can ensure that we always start E2E tests from scratch
+  deletePickupPoints:
     enabled: true
     sendDashboard: false
     hardTries: 3
     stopOnFail: true
     parallel: false
     specs:
-      - cypress/integration/wipe.spec.js
-  # API Test case & add pickup points via csv
+      - cypress/integration/2.1.1-delete_pickup_points.spec.js
+  # API Test case ,add pickup point & add pickup points via csv
   addPickupPoints:
     enabled: true
     sendDashboard: true
@@ -85,8 +85,9 @@ strategy:
     stopOnFail: true
     parallel: true
     specs:
-      - cypress/integration/2.1-rest_graphql_apis.spec.js
-      - cypress/integration/2.2-add_multiple_pickup_points.spec.js
+      - cypress/integration/2.1.2-rest_graphql_apis.spec.js
+      - cypress/integration/2.2.1-add_pickup_point.spec.js
+      - cypress/integration/2.2.2-add_multiple_pickup_points_via_csv.spec.js
   # add pickup points and order the product
   verifyPickupPoints:
     enabled: true
@@ -98,8 +99,9 @@ strategy:
       - cypress/integration/2.3-verify_pickup_points.spec.js
       - cypress/integration/2.4-order_product_via_pick_up_store.spec.js
     dependency:
-      - cypress/integration/2.1-rest_graphql_apis.spec.js
-      - cypress/integration/2.2-add_multiple_pickup_points.spec.js
+      - cypress/integration/2.1.2-rest_graphql_apis.spec.js
+      - cypress/integration/2.2.1-add_pickup_point.spec.js
+      - cypress/integration/2.2.2-add_multiple_pickup_points_via_csv.spec.js
   # inactive pickup points should not be shown
   inactivePickupPoints:
     enabled: true

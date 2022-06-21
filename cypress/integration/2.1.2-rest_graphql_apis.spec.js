@@ -32,6 +32,7 @@ const {
 
 describe('Rest & Graphql API testcases', () => {
   testSetup()
+
   listallPickupPointsAPI()
   createPickupPointAPI(pickupPoint1Payload)
   updatePickupPointAPI(pickupPoint1Payload, pickupPoint2Payload)
@@ -39,7 +40,6 @@ describe('Rest & Graphql API testcases', () => {
   deletePickupPointAPI(pickupPoint2Payload)
   searchPickupPointAPI()
   createPickupPointAPI(pickupPoint3Payload)
-
   // Shipping policy should be updated to active
   // Then only we can use pickup in 2.4 testcase
   it(
@@ -48,7 +48,10 @@ describe('Rest & Graphql API testcases', () => {
     () => {
       cy.addDelayBetweenRetries(1000)
       graphql(
-        updateShippingPolicy(data, { status: true, pickup: true }),
+        updateShippingPolicy(data, {
+          status: true,
+          pickup: true,
+        }),
         (response) => {
           expect(response.status).to.equal(200)
           expect(response.body.data.updateShippingPolicy.id).to.equal(

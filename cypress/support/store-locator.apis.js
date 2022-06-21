@@ -132,31 +132,39 @@ export function deletePickupPointAPI(pickupPointPayload) {
   )
 }
 
-export function deleteAllPickupPoints(filterKey) {
-  cy.getVtexItems().then((vtex) => {
-    cy.getAPI(getPickupPoints(vtex.baseUrl)).then((response) => {
-      // Pickup points created in E2E tests should start with text "pickup example"
-      // If we create other pickup points then it will not be deleted in wipe
-      const filterPickUpPoints = response.body.filter((b) =>
-        b.name.includes(filterKey)
-      )
+export function deleteAllPickupPoints() {
+  const FILTER_PICKUP_POINT_KEY = 'pickup example'
 
-      if (filterPickUpPoints.length > 0) {
-        for (const element of filterPickUpPoints) {
-          cy.request({
-            method: 'DELETE',
-            url: deletePickupPoint(vtex.baseUrl, element.id),
-            headers: {
-              ...VTEX_AUTH_HEADER(vtex.apiKey, vtex.apiToken),
-            },
-            ...FAIL_ON_STATUS_CODE,
-          }).then((deleteResponse) => {
-            expect(deleteResponse.status).to.equal(204)
-          })
-        }
-      }
-    })
-  })
+  it(
+    `Filter and delete pickup point which starts with "${FILTER_PICKUP_POINT_KEY}"`,
+    updateRetry(5),
+    () => {
+      cy.getVtexItems().then((vtex) => {
+        cy.getAPI(getPickupPoints(vtex.baseUrl)).then((response) => {
+          // Pickup points created in E2E tests should start with text "pickup example"
+          // If we create other pickup points then it will not be deleted in wipe
+          const filterPickUpPoints = response.body.filter((b) =>
+            b.name.includes(FILTER_PICKUP_POINT_KEY)
+          )
+
+          if (filterPickUpPoints.length > 0) {
+            for (const element of filterPickUpPoints) {
+              cy.request({
+                method: 'DELETE',
+                url: deletePickupPoint(vtex.baseUrl, element.id),
+                headers: {
+                  ...VTEX_AUTH_HEADER(vtex.apiKey, vtex.apiToken),
+                },
+                ...FAIL_ON_STATUS_CODE,
+              }).then((deleteResponse) => {
+                expect(deleteResponse.status).to.equal(204)
+              })
+            }
+          }
+        })
+      })
+    }
+  )
 }
 
 export function searchPickupPointAPI() {
