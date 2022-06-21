@@ -12,7 +12,7 @@ import {
 import storelocatorSelectors from './storelocator.selectors'
 
 export function listallPickupPoints() {
-  it('list all pickup points', updateRetry(3), () => {
+  it('list all pickup points', updateRetry(2), () => {
     cy.addDelayBetweenRetries(2000)
     cy.getVtexItems().then((vtex) => {
       cy.getAPI(getPickupPointsAPI(vtex.baseUrl)).then((response) => {
@@ -23,7 +23,7 @@ export function listallPickupPoints() {
 }
 
 export function createPickupPoint(data, dataEnv) {
-  it('create/update a pickup point', updateRetry(3), () => {
+  it('create/update a pickup point', updateRetry(2), () => {
     cy.addDelayBetweenRetries(2000)
     cy.getVtexItems().then((vtex) => {
       cy.request({
@@ -46,7 +46,7 @@ export function createPickupPoint(data, dataEnv) {
 }
 
 export function updatePickupPoint(data2) {
-  it('update a pickup point', updateRetry(3), () => {
+  it('update a pickup point', updateRetry(2), () => {
     cy.addDelayBetweenRetries(2000)
     cy.getVtexItems().then((vtex) => {
       cy.getPickupPointItem().then((data) => {
@@ -71,7 +71,7 @@ export function updatePickupPoint(data2) {
 }
 
 export function getPickupPointById() {
-  it('list the pickup point by id', updateRetry(3), () => {
+  it('list the pickup point by id', updateRetry(2), () => {
     cy.addDelayBetweenRetries(2000)
     cy.getVtexItems().then((vtex) => {
       cy.getPickupPointItem().then((data) => {
@@ -89,7 +89,7 @@ export function getPickupPointById() {
 }
 
 export function deletePickupPoint() {
-  it('delete a pickup point', updateRetry(3), () => {
+  it('delete a pickup point', updateRetry(2), () => {
     cy.addDelayBetweenRetries(2000)
     cy.getVtexItems().then((vtex) => {
       cy.getPickupPointItem().then((data) => {
@@ -111,7 +111,6 @@ export function deletePickupPoint() {
 export function deleteAllPickupPoints() {
   cy.getVtexItems().then((vtex) => {
     cy.getAPI(getPickupPointsAPI(vtex.baseUrl)).then((response) => {
-      cy.log(response.body)
       const filterPickUpPoints = response.body.filter((b) =>
         b.name.includes('pickup example')
       )
@@ -120,7 +119,7 @@ export function deleteAllPickupPoints() {
         for (const element of filterPickUpPoints) {
           cy.request({
             method: 'DELETE',
-            url: deletePickupPointAPI(vtex.baseUrl, element.pickupPointId),
+            url: deletePickupPointAPI(vtex.baseUrl, element.id),
             headers: {
               ...VTEX_AUTH_HEADER(vtex.apiKey, vtex.apiToken),
             },
@@ -135,7 +134,7 @@ export function deleteAllPickupPoints() {
 }
 
 export function listedPickupPointsPage() {
-  it('listed pickup points page', updateRetry(3), () => {
+  it('listed pickup points page', updateRetry(2), () => {
     cy.addDelayBetweenRetries(2000)
     cy.getVtexItems().then((vtex) => {
       cy.request({
@@ -158,7 +157,7 @@ export function listedPickupPointsPage() {
 }
 
 export function updatePickupPointdata(data2) {
-  it('update a pickup point', updateRetry(3), () => {
+  it(`Update a pickup point ${data2.name} as inactive`, updateRetry(2), () => {
     cy.addDelayBetweenRetries(2000)
     cy.getVtexItems().then((vtex) => {
       cy.getPickupPointItem().then((data) => {
@@ -185,7 +184,7 @@ export function updatePickupPointdata(data2) {
 }
 
 export function addPickupPoint() {
-  it('add a pickup point', updateRetry(3), () => {
+  it('add a pickup point', updateRetry(2), () => {
     cy.visit('/admin/app/pickup-points')
     cy.get(storelocatorSelectors.AddPickupPointButton).click()
     cy.get(storelocatorSelectors.PickupPointName)

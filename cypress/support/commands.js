@@ -27,18 +27,32 @@ Cypress.Commands.add('getPickupPointItem', () => {
   })
 })
 
-Cypress.Commands.add('verifyPickupPointsInStore', () => {
+Cypress.Commands.add('visitStore', () => {
+  cy.intercept('**/rc.vtex.com.br/api/events').as('events')
   cy.visit('/stores')
+  cy.wait('@events')
+
+  cy.get(selectors.ProfileLabel, { timeout: 20000 })
+    .should('be.visible')
+    .should('have.contain', `Hello,`)
+})
+
+Cypress.Commands.add('verifyPickupPointsInStore', () => {
   cy.getVtexItems().then((vtex) => {
     cy.intercept('POST', `${vtex.baseUrl}/**`, (req) => {
       if (req.body.operationName === 'Session') {
         req.continue()
       }
     }).as('Session')
-    cy.get(storelocatorSelectors.VtexStoreLocatorAddress)
-      .contains('pickup example 1')
-      .click()
+    cy.visitStore()
     cy.wait('@Session', { timeout: 40000 })
+    cy.get(storelocatorSelectors.LoadStores).should('be.visible').click()
+    cy.get(storelocatorSelectors.VtexStoreLocatorAddress).contains(
+      'pickup example 1'
+    )
+    cy.get(storelocatorSelectors.VtexStoreLocatorAddress).contains(
+      'pickup example 2'
+    )
   })
 })
 
@@ -48,7 +62,9 @@ Cypress.Commands.add('uploadXLS', () => {
   cy.contains('Upload a XLS').click()
   cy.get(storelocatorSelectors.UploadInput).attachFile(fileName)
   cy.get(storelocatorSelectors.CloseIcon).should('be.visible').click()
-  cy.get(storelocatorSelectors.VtexAlert).should('be.visible')
+  cy.get(storelocatorSelectors.VtexAlert, { timeout: 15000 }).should(
+    'be.visible'
+  )
 })
 
 Cypress.Commands.add('verifyDetailsInDetailPage', () => {

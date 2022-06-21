@@ -3,10 +3,11 @@ import storeLocatorSelectors, {
   findPickupPoint,
 } from './storelocator.selectors'
 
-export function addPickUpPoint() {
+export function addPickUpPoint(pickPointName) {
   cy.visit('/admin/app/pickup-points')
+
   cy.get(storeLocatorSelectors.AddPickUpButton).click()
-  cy.get(storeLocatorSelectors.PickUpPointName).clear().type(`pickup example 3`)
+  cy.get(storeLocatorSelectors.PickUpPointName).clear().type(pickPointName)
   cy.get(storeLocatorSelectors.PickUpPointId).type('1')
   cy.get('select')
     .select('United States of America')
@@ -28,22 +29,30 @@ export function addPickUpPoint() {
 }
 
 export function verifyAllPickUpPoint() {
-  cy.visit('/stores')
+  cy.visitStore()
   cy.get(storeLocatorSelectors.ListOfStores).should('be.visible')
   cy.get(storeLocatorSelectors.LoadStores).click()
+  cy.get(storeLocatorSelectors.MoreItems).should('have.length', 6)
   cy.get(storeLocatorSelectors.MoreItems)
     .its('length')
     .then((itemLen) => {
       for (let i = 0; i < itemLen; i++) {
-        cy.get(storeLocatorSelectors.MoreItems).eq(i).click()
+        cy.get(storeLocatorSelectors.LoadStores).should('be.visible').click()
+        cy.get(storeLocatorSelectors.MoreItems)
+          .eq(i)
+          .should('be.visible')
+          .click()
+        cy.get(storeLocatorSelectors.AddressContainer).should('be.visible')
         cy.get(storeLocatorSelectors.Hours).should('be.visible')
-        cy.get(storeLocatorSelectors.BackToPickUpPoint).click()
+        cy.get(storeLocatorSelectors.BackToPickUpPoint)
+          .should('be.visible')
+          .click()
       }
     })
 }
 
 export function linkPickupPointToShippingPolicy(pickuppoint, link = false) {
-  it('Link pickup point', updateRetry(3), () => {
+  it('Link pickup point', updateRetry(2), () => {
     cy.visit('/admin/app/shipping-strategy/shipping-policy/?id=sha1920ede3r')
     cy.get('#name').should('be.visible')
     cy.get('body').then(($body) => {
@@ -76,7 +85,7 @@ export function linkPickupPointToShippingPolicy(pickuppoint, link = false) {
 }
 
 export function updateShippingPolicyStatus(status) {
-  it('Link pickup point', updateRetry(3), () => {
+  it('Link pickup point', updateRetry(2), () => {
     cy.visit('/admin/app/shipping-strategy/shipping-policy/?id=sha1920ede3r')
     cy.get('#name').should('be.visible')
     cy.get('body').then(($body) => {

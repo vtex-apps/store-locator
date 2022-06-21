@@ -5,5 +5,5 @@ import './commands'
 
 // Configure it to preserve cookies
 Cypress.Cookies.defaults({
-  preserve: 'VtexIdclientAutCookie',
+  preserve: /VtexIdclientAutCookie/,
 })

@@ -1,8 +1,4 @@
-import {
-  testSetup,
-  updateRetry,
-  preserveCookie,
-} from '../../support/common/support'
+import { testSetup, updateRetry } from '../../support/common/support'
 import { testCase1 } from '../../support/store-locator.outputvalidation.js'
 
 describe('Testing Checkout with different scenarios', () => {
@@ -14,7 +10,7 @@ describe('Testing Checkout with different scenarios', () => {
 
   it(
     `${prefix} - Adding product,remove product and add product again`,
-    updateRetry(3),
+    updateRetry(2),
     () => {
       // Search the product
       cy.searchProduct(productName)
@@ -23,14 +19,12 @@ describe('Testing Checkout with different scenarios', () => {
     }
   )
 
-  it(`In ${prefix} - Updating Shipping Information`, updateRetry(3), () => {
+  it(`In ${prefix} - Updating Shipping Information`, updateRetry(2), () => {
     // Update Shipping Section
     cy.updateShippingInformation({ postalCode, pickup: true })
   })
 
-  it(`In ${prefix} - Order the product using promisory`, updateRetry(3), () => {
+  it(`In ${prefix} - Order the product using promisory`, updateRetry(2), () => {
     cy.ordertheProduct()
   })
-
-  preserveCookie()
 })

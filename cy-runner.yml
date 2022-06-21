@@ -67,34 +67,38 @@ workspace:
   teardown:
     enabled: true
 strategy:
-  # Graphql and API Test case
-  api:
-    enabled: true
-    sendDashboard: true
-    hardTries: 1
-    stopOnFail: true
-    parallel: false
-    specs:
-      - cypress/integration/2.1-*
+  # API Test case & add pickup points via csv
   addPickupPoints:
     enabled: true
     sendDashboard: true
     hardTries: 1
-    stopOnFail: false
+    stopOnFail: true
     parallel: true
     specs:
-      - cypress/integration/2.2-*
-      - cypress/integration/2.3-*
-    dependency:
       - cypress/integration/2.1-*
-  verifyPickuPoints:
+      - cypress/integration/2.2-*
+  # add pickup points and order the product
+  verifyPickupPoints:
     enabled: true
     sendDashboard: true
     hardTries: 1
     stopOnFail: false
     parallel: true
     specs:
-      - cypress/integration/2.2-*
       - cypress/integration/2.3-*
+      - cypress/integration/2.4-*
     dependency:
       - cypress/integration/2.1-*
+      - cypress/integration/2.2-*
+  # inactive pickup points should not be shown
+  inactivePickupPoints:
+    enabled: true
+    sendDashboard: true
+    hardTries: 1
+    stopOnFail: false
+    parallel: false
+    specs:
+      - cypress/integration/2.5-*
+    dependency:
+      - cypress/integration/2.3-*
+      - cypress/integration/2.4-*

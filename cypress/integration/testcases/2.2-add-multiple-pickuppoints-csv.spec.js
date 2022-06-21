@@ -1,18 +1,18 @@
 import { testSetup, updateRetry } from '../../support/common/support'
 
-const prefix = 'Verify Download'
+const prefix = 'Verify Upload XLS File'
 
-describe('Testing Single Product and total amounts', () => {
+describe('Testing Multiple pickup point with XLS file', () => {
   // Load test setup
-  testSetup(false)
+  testSetup()
 
-  it(`${prefix} - Visit admin endpoint and upload file`, updateRetry(3), () => {
+  it(`${prefix} - Visit admin endpoint and upload file`, updateRetry(2), () => {
     cy.uploadXLS()
   })
 
   it(
     `${prefix} - Verify pickup point is showing in /stores endpoint`,
-    updateRetry(3),
+    updateRetry(2),
     () => {
       cy.verifyPickupPointsInStore()
     }

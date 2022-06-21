@@ -1,8 +1,4 @@
-import {
-  testSetup,
-  updateRetry,
-  preserveCookie,
-} from '../../support/common/support'
+import { testSetup, updateRetry } from '../../support/common/support'
 import {
   addPickUpPoint,
   verifyAllPickUpPoint,
@@ -17,14 +13,16 @@ const shippingPolicyId = 'sha1920ede3r'
 
 describe('Testing PickUpPoint in storeLocator', () => {
   // Load test setup
-  testSetup(true)
+  testSetup()
 
-  it('Adding PickUp Point in Store-Locator', updateRetry(3), () => {
-    addPickUpPoint()
+  const pickPointName = 'pickup example 3'
+
+  it('Adding PickUp Point in Store-Locator', updateRetry(2), () => {
+    addPickUpPoint(pickPointName)
   })
 
-  it('Verifying all stores by clicking more items', updateRetry(3), () => {
-    verifyAllPickUpPoint()
+  it('Verifying all stores by clicking more items', updateRetry(2), () => {
+    verifyAllPickUpPoint(pickPointName)
   })
 
   it('Update shipping policy status', () => {
@@ -38,6 +36,4 @@ describe('Testing PickUpPoint in storeLocator', () => {
       }
     )
   })
-
-  preserveCookie()
 })

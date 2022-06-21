@@ -9,7 +9,7 @@ import {
 } from '../../support/store-locator.apis.js'
 import { testCase1 } from '../../support/store-locator.outputvalidation.js'
 
-const { data1, data2 } = testCase1
+const { data1, data2, data3 } = testCase1
 const pickupPointId = 'pickupPointId'
 
 describe('Rest api testcases', () => {
@@ -20,4 +20,5 @@ describe('Rest api testcases', () => {
   getPickupPointById()
   deletePickupPoint()
   listedPickupPointsPage()
+  createPickupPoint(data3, pickupPointId)
 })
