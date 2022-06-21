@@ -6,7 +6,7 @@ import storelocatorSelectors from '../support/storelocator.selectors'
 const { data3 } = testCase1
 
 describe('Inactive Pickup Points should not be visible in storefront', () => {
-  testSetup(false)
+  testSetup()
   updatePickupPointdata(data3)
 
   it(

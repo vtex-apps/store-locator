@@ -2,12 +2,12 @@ import { testSetup, updateRetry } from '../support/common/support'
 import {
   addPickUpPoint,
   verifyAllPickUpPoint,
-} from '../../support/storelocator.common'
+} from '../support/storelocator.common'
 import {
   graphql,
   updateShippingPolicy,
-} from '../../support/shipping-policy.graphql'
-import data from '../../support/shipping-policy.json'
+} from '../support/shipping-policy.graphql'
+import data from '../support/shipping-policy.json'
 
 const shippingPolicyId = 'sha1920ede3r'
 
