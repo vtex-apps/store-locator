@@ -165,7 +165,7 @@ export function updatePickupPointdata(data2) {
 
         cy.request({
           method: 'POST',
-          url: searchPickupPoint(vtex.baseUrl),
+          url: updatePickupPoint(vtex.baseUrl),
           headers: {
             ...VTEX_AUTH_HEADER(vtex.apiKey, vtex.apiToken),
           },
