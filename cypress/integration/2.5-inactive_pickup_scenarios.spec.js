@@ -1,16 +1,16 @@
 import { testSetup, updateRetry } from '../support/common/support'
 import { updatePickupPointdata } from '../support/store-locator.apis'
-import { testCase1 } from '../support/store-locator.outputvalidation.js'
+import { restAPITestCase } from '../support/store-locator.outputvalidation.js'
 import storelocatorSelectors from '../support/storelocator.selectors'
 
-const { data3 } = testCase1
+const { pickupPoint3Payload } = restAPITestCase
 
 describe('Inactive Pickup Points should not be visible in storefront', () => {
   testSetup()
-  updatePickupPointdata(data3)
+  updatePickupPointdata(pickupPoint3Payload)
 
   it(
-    `Verify the inactive pickup point ${data3.name} is not visible in stores page`,
+    `Verify the inactive pickup point "${pickupPoint3Payload.name}" is not visible in stores page`,
     updateRetry(1),
     () => {
       cy.visitStore()
@@ -22,7 +22,7 @@ describe('Inactive Pickup Points should not be visible in storefront', () => {
       )
       cy.get(storelocatorSelectors.StorePickUpPointList, {
         timeout: 8000,
-      }).should('not.contain', `${data3.name}`)
+      }).should('not.contain', `${pickupPoint3Payload.name}`)
     }
   )
 })

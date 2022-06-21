@@ -25,7 +25,6 @@ base:
   cypress:
     devMode: false
     runHeaded: false
-    enabled: false
     projectId: svuskc
     getCookies: true
     maxJobs: 3
@@ -43,6 +42,7 @@ base:
     pageLoadTimeout: 45000
     browser: chrome
     chromeWebSecurity: false
+    sorry: false
   stateFiles: [.storelocator.json]
 workspace:
   name: random
@@ -67,6 +67,16 @@ workspace:
   teardown:
     enabled: true
 strategy:
+  # We create pickup points in E2E
+  # Here we are running wipe first so that we can ensure that we always start E2E tests from scratch
+  wipe:
+    enabled: true
+    sendDashboard: false
+    hardTries: 3
+    stopOnFail: true
+    parallel: false
+    specs:
+      - cypress/integration/wipe.spec.js
   # API Test case & add pickup points via csv
   addPickupPoints:
     enabled: true
@@ -75,8 +85,8 @@ strategy:
     stopOnFail: true
     parallel: true
     specs:
-      - cypress/integration/2.1-*
-      - cypress/integration/2.2-*
+      - cypress/integration/2.1-rest_graphql_apis.spec.js
+      - cypress/integration/2.2-add_multiple_pickup_points.spec.js
   # add pickup points and order the product
   verifyPickupPoints:
     enabled: true
@@ -85,11 +95,11 @@ strategy:
     stopOnFail: false
     parallel: true
     specs:
-      - cypress/integration/2.3-*
-      - cypress/integration/2.4-*
+      - cypress/integration/2.3-verify_pickup_points.spec.js
+      - cypress/integration/2.4-order_product_via_pick_up_store.spec.js
     dependency:
-      - cypress/integration/2.1-*
-      - cypress/integration/2.2-*
+      - cypress/integration/2.1-rest_graphql_apis.spec.js
+      - cypress/integration/2.2-add_multiple_pickup_points.spec.js
   # inactive pickup points should not be shown
   inactivePickupPoints:
     enabled: true
@@ -98,7 +108,7 @@ strategy:
     stopOnFail: false
     parallel: false
     specs:
-      - cypress/integration/2.5-*
+      - cypress/integration/2.5-inactive_pickup_scenarios.spec.js
     dependency:
-      - cypress/integration/2.3-*
-      - cypress/integration/2.4-*
+      - cypress/integration/2.3-verify_pickup_points.spec.js
+      - cypress/integration/2.4-order_product_via_pick_up_store.spec.js

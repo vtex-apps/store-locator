@@ -8,11 +8,20 @@ import { updateRetry, testSetup } from '../support/common/support.js'
 
 describe('Wipe the pickup points', () => {
   testSetup(false)
-  it('Delete all the pickup points', updateRetry(5), () => {
-    deleteAllPickupPoints()
-  })
 
-  it('Update shipping policy status', () => {
+  const FILTER_PICKUP_POINT_KEY = 'pickup example'
+
+  it(
+    `Filter and delete pickup point which starts with "${FILTER_PICKUP_POINT_KEY}"`,
+    updateRetry(5),
+    () => {
+      deleteAllPickupPoints(FILTER_PICKUP_POINT_KEY)
+    }
+  )
+
+  // If we leave the shipping policy active then it is forcing us to use pickup points in checkout
+  // So, make shipping policy as inactive
+  it('Update shipping policy status to inactive', () => {
     graphql(
       updateShippingPolicy(data, { status: false, pickup: false }),
       (response) => {
