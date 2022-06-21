@@ -99,7 +99,6 @@ export function deletePickupPoint() {
           headers: {
             ...VTEX_AUTH_HEADER(vtex.apiKey, vtex.apiToken),
           },
-
           ...FAIL_ON_STATUS_CODE,
         }).then((response) => {
           expect(response.status).to.equal(204)
@@ -114,7 +113,7 @@ export function deleteAllPickupPoints() {
     cy.getAPI(getPickupPointsAPI(vtex.baseUrl)).then((response) => {
       cy.log(response.body)
       const filterPickUpPoints = response.body.filter((b) =>
-        b.name.includes('StoreLocatorApp')
+        b.name.includes('pickup example')
       )
 
       if (filterPickUpPoints.length > 0) {
@@ -191,7 +190,7 @@ export function addPickupPoint() {
     cy.get(storelocatorSelectors.AddPickupPointButton).click()
     cy.get(storelocatorSelectors.PickupPointName)
       .clear()
-      .type('sumanraj+sumanraj4048')
+      .type('pickup example 5')
     cy.get(storelocatorSelectors.PickupPointId).type('4048')
     cy.get('select')
       .select('United States of America')

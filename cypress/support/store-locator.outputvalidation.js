@@ -1,5 +1,9 @@
+import { PRODUCTS } from './common/utils.js'
+
 export default {
   testCase1: {
+    productName: PRODUCTS.coconut,
+    postalCode: '94536',
     data1: {
       address: {
         country: {
@@ -61,39 +65,6 @@ export default {
       ],
       id: '45678',
       name: 'Walmart-StoreLocatorApp',
-      description: 'do it',
-      instructions: 'do it properly',
-      formatted_address: 'undefined',
-      isActive: true,
-    },
-    data3: {
-      address: {
-        country: {
-          acronym: 'US',
-          name: 'USA',
-        },
-        location: {
-          latitude: 25.958055,
-          longitude: -80.143059,
-        },
-        postalCode: '33180',
-        city: 'Aventura',
-        state: 'Florida',
-        neighborhood: 'BOTAFOGO',
-        street: '19501 19501 Biscayne Blvd',
-        number: '10025698',
-        complement: '3 RD FLOOR',
-        reference: 'GREY BUILDING',
-      },
-      businessHours: [
-        {
-          dayOfWeek: 1,
-          openingTime: '08:00:00',
-          closingTime: '20:00:00',
-        },
-      ],
-      id: '456789',
-      name: 'StoreLocatorApp',
       description: 'do it',
       instructions: 'do it properly',
       formatted_address: 'undefined',

@@ -158,10 +158,12 @@ Cypress.Commands.add(
   }
 )
 
-Cypress.Commands.add('placeTheProduct', () => {
+Cypress.Commands.add('ordertheProduct', () => {
   cy.get('body').then(($body) => {
     if ($body.find(selectors.ReceiverName).length) {
-      cy.get(selectors.ReceiverName, { timeout: 5000 }).type('Syed')
+      cy.get(selectors.ReceiverName, {
+        timeout: 5000,
+      }).type('Syed')
       cy.get(selectors.GotoPaymentBtn).click()
     }
   })
@@ -169,8 +171,15 @@ Cypress.Commands.add('placeTheProduct', () => {
   cy.get(selectors.PromissoryPayment, { timeout: 5000 })
     .should('be.visible')
     .click()
-  cy.get(selectors.BuyNowBtn, { timeout: 10000 })
+  cy.get(selectors.BuyNowBtn, {
+    timeout: 10000,
+  })
     .should('be.visible')
     .last()
     .click()
+
+  // This page take longer time to load. So, wait for profile icon to visible then get orderid from url
+  cy.get(selectors.Search, {
+    timeout: 30000,
+  })
 })

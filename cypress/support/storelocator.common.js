@@ -6,9 +6,7 @@ import storeLocatorSelectors, {
 export function addPickUpPoint() {
   cy.visit('/admin/app/pickup-points')
   cy.get(storeLocatorSelectors.AddPickUpButton).click()
-  cy.get(storeLocatorSelectors.PickUpPointName)
-    .clear()
-    .type('saravanan saravanan')
+  cy.get(storeLocatorSelectors.PickUpPointName).clear().type(`pickup example 3`)
   cy.get(storeLocatorSelectors.PickUpPointId).type('1')
   cy.get('select')
     .select('United States of America')
@@ -17,7 +15,7 @@ export function addPickUpPoint() {
   cy.wait(1000)
   /* eslint-disable cypress/no-unnecessary-waiting */
   cy.get(storeLocatorSelectors.PickUpAddress)
-    .type('33301 Old Hempstead Rd Magnolia', { delay: 50 })
+    .type('1279 Shinn Street Fremont CA,USA', { delay: 50 })
     .wait(500)
     .type('{downarrow}{enter}')
   cy.get(storeLocatorSelectors.CheckBox).click()
@@ -29,17 +27,13 @@ export function addPickUpPoint() {
     .contains('Changes saved')
 }
 
-export function verifyPickUpPoint() {
+export function verifyAllPickUpPoint() {
   cy.visit('/stores')
   cy.get(storeLocatorSelectors.ListOfStores).should('be.visible')
   cy.get(storeLocatorSelectors.LoadStores).click()
-}
-
-export function verifyAllPickUpPoint() {
   cy.get(storeLocatorSelectors.MoreItems)
     .its('length')
     .then((itemLen) => {
-      cy.log(itemLen)
       for (let i = 0; i < itemLen; i++) {
         cy.get(storeLocatorSelectors.MoreItems).eq(i).click()
         cy.get(storeLocatorSelectors.Hours).should('be.visible')

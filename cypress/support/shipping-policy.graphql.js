@@ -38,11 +38,9 @@ export function graphql(getQuery, validateResponseFn = null) {
   }
 }
 
-export function updateShippingPolicy(shippingPolicyId, data, status = false) {
-  data.shippingPolicy.id = shippingPolicyId
+export function updateShippingPolicy(data, { status = false, pickup = true }) {
   data.shippingPolicy.isActive = status
-  data.shippingPolicy.deliveryChannel = 'delivery'
-  cy.log(data)
+  data.shippingPolicy.deliveryChannel = pickup ? 'pickup-in-point' : 'delivery'
   const query =
     'mutation' +
     '( $shippingPolicy: ShippingPolicyInput!)' +
