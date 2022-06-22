@@ -6,7 +6,8 @@
     "lint": "eslint --ext js,jsx,ts,tsx .",
     "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json}\"",
     "lint:locales": "intl-equalizer",
-    "test": "cd ./react && yarn test"
+    "test": "cd ./react && yarn test",
+    "cy-r": "cd cy-runner && node cy-runner"
   },
   "husky": {
     "hooks": {
@@ -29,6 +30,7 @@
     "@types/node": "^12.12.21",
     "@vtex/intl-equalizer": "^2.4.2",
     "@vtex/prettier-config": "^0.3.1",
+    "cypress-file-upload": "^5.0.8",
     "eslint": "^7.4.0",
     "eslint-config-vtex": "^12.7.0",
     "eslint-config-vtex-react": "^6.7.0",

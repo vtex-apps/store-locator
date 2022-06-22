@@ -1,0 +1,116 @@
+---
+base:
+  secrets:
+    enabled: true
+    name: VTEX_QE
+  vtex:
+    account: productusqa
+    id: 2001459804
+    domain: myvtex.com
+    vtexIdUrl: https://vtexid.vtex.com.br/api/vtexid/pub/authenticate/default
+    deployCli:
+      enabled: true
+      git: https://github.com/vtex/toolbelt.git
+      branch: qe/cypress
+  twilio:
+    enabled: true
+  jira:
+    enabled: false
+    account: config-dev
+    board: jira-key
+    issueType: task
+  slack:
+    enabled: false
+    channel: some-channel
+  cypress:
+    devMode: false
+    runHeaded: false
+    projectId: svuskc
+    getCookies: true
+    maxJobs: 3
+    quiet: true
+    video: false
+    videoCompression: false
+    videoUploadOnPasses: false
+    screenshotOnRunFailure: true
+    trashAssetsBeforeRuns: false
+    viewportWidth: 1440
+    viewportHeight: 1500
+    defaultCommandTimeout: 25000
+    requestTimeout: 25000
+    watchForFileChanges: false
+    pageLoadTimeout: 45000
+    browser: chrome
+    chromeWebSecurity: false
+    sorry: false
+  stateFiles: [.storelocator.json]
+workspace:
+  name: random
+  prefix: storelocator
+  linkApp:
+    enabled: true
+    logOutput:
+      enabled: false
+  installApps:
+    # store theme will work only when its peer dependency store-locator is added in the workspace
+    # So, installing store-locator@0.xversion
+    - vtex.store-locator@0.x
+    # Published a new theme for store-theme E2E test
+    - vtex.store-locator-qa-theme@0.0.1
+  removeApps:
+   - vtex.bitcot-qa-theme
+  wipe:
+    enabled: true
+    stopOnFail: false
+    specs:
+    - cypress/integration/wipe.spec.js
+  teardown:
+    enabled: true
+strategy:
+  # We create pickup points in E2E
+  # Here we are running deletePickupPoints first so that we can ensure that we always start E2E tests from scratch
+  deletePickupPoints:
+    enabled: true
+    sendDashboard: false
+    hardTries: 3
+    stopOnFail: true
+    parallel: false
+    specs:
+      - cypress/integration/2.1.1-delete_pickup_points.spec.js
+  # API Test case ,add pickup point & add pickup points via csv
+  addPickupPoints:
+    enabled: true
+    sendDashboard: true
+    hardTries: 1
+    stopOnFail: true
+    parallel: true
+    specs:
+      - cypress/integration/2.1.2-rest_graphql_apis.spec.js
+      - cypress/integration/2.2.1-add_pickup_point.spec.js
+      - cypress/integration/2.2.2-add_multiple_pickup_points_via_csv.spec.js
+  # add pickup points and order the product
+  verifyPickupPoints:
+    enabled: true
+    sendDashboard: true
+    hardTries: 1
+    stopOnFail: false
+    parallel: true
+    specs:
+      - cypress/integration/2.3-verify_pickup_points.spec.js
+      - cypress/integration/2.4-order_product_via_pick_up_store.spec.js
+    dependency:
+      - cypress/integration/2.1.2-rest_graphql_apis.spec.js
+      - cypress/integration/2.2.1-add_pickup_point.spec.js
+      - cypress/integration/2.2.2-add_multiple_pickup_points_via_csv.spec.js
+  # inactive pickup points should not be shown
+  inactivePickupPoints:
+    enabled: true
+    sendDashboard: true
+    hardTries: 1
+    stopOnFail: false
+    parallel: false
+    specs:
+      - cypress/integration/2.5-inactive_pickup_scenarios.spec.js
+    dependency:
+      - cypress/integration/2.3-verify_pickup_points.spec.js
+      - cypress/integration/2.4-order_product_via_pick_up_store.spec.js

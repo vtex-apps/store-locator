@@ -1,0 +1,111 @@
+{
+  "shippingPolicy": {
+    "numberOfItemsPerShipment": 1,
+    "id": "sha1920ede3r",
+    "name": "Test Shipping",
+    "shippingMethod": "Normal (1234)",
+    "carrierSchedule": [
+      {
+        "dayOfWeek": 0,
+        "timeLimit": "23:59:59"
+      },
+      {
+        "dayOfWeek": 1,
+        "timeLimit": "23:59:59"
+      },
+      {
+        "dayOfWeek": 2,
+        "timeLimit": "23:59:59"
+      },
+      {
+        "dayOfWeek": 3,
+        "timeLimit": "23:59:59"
+      },
+      {
+        "dayOfWeek": 4,
+        "timeLimit": "23:59:59"
+      },
+      {
+        "dayOfWeek": 5,
+        "timeLimit": "23:59:59"
+      },
+      {
+        "dayOfWeek": 6,
+        "timeLimit": "23:59:59"
+      }
+    ],
+    "pickupPointsSettings": {
+      "pickupPointIds": ["1"],
+      "pickupPointTags": [],
+      "sellers": []
+    },
+    "shippingHoursSettings": {
+      "shippingHours": [
+        {
+          "dayOfWeek": 0,
+          "ranges": [
+            {
+              "openingTime": "00:00:00",
+              "closingTime": "23:59:59"
+            }
+          ]
+        },
+        {
+          "dayOfWeek": 1,
+          "ranges": [
+            {
+              "openingTime": "00:00:00",
+              "closingTime": "23:59:59"
+            }
+          ]
+        },
+        {
+          "dayOfWeek": 2,
+          "ranges": [
+            {
+              "openingTime": "00:00:00",
+              "closingTime": "23:59:59"
+            }
+          ]
+        },
+        {
+          "dayOfWeek": 3,
+          "ranges": [
+            {
+              "openingTime": "00:00:00",
+              "closingTime": "23:59:59"
+            }
+          ]
+        },
+        {
+          "dayOfWeek": 4,
+          "ranges": [
+            {
+              "openingTime": "00:00:00",
+              "closingTime": "23:59:59"
+            }
+          ]
+        },
+        {
+          "dayOfWeek": 5,
+          "ranges": [
+            {
+              "openingTime": "00:00:00",
+              "closingTime": "23:59:59"
+            }
+          ]
+        },
+        {
+          "dayOfWeek": 6,
+          "ranges": [
+            {
+              "openingTime": "00:00:00",
+              "closingTime": "23:59:59"
+            }
+          ]
+        }
+      ],
+      "acceptOrdersOutsideShippingHours": true
+    }
+  }
+}
