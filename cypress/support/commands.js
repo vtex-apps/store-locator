@@ -9,7 +9,7 @@ import storelocatorSelectors, {
 const storelocatorJson = '.storelocator.json'
 const fileName = 'pickups.xls'
 
-// Save wishlists
+// Save pickupPoint
 Cypress.Commands.add(
   'setPickupPointItem',
   (pickupPointItem, pickupPointValue) => {
@@ -20,7 +20,7 @@ Cypress.Commands.add(
   }
 )
 
-// Get wishlists
+// Get pickupPoint
 Cypress.Commands.add('getPickupPointItem', () => {
   cy.readFile(storelocatorJson).then((items) => {
     return items
