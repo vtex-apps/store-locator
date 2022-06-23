@@ -13,6 +13,7 @@ import {
   graphql,
   updateShippingPolicy,
 } from '../support/shipping-policy.graphql'
+import { logisticsCarrier } from '../support/app_list'
 
 /*
 How to get shippingPolicy Id?
@@ -48,6 +49,7 @@ describe('Rest & Graphql API testcases', () => {
     () => {
       cy.addDelayBetweenRetries(1000)
       graphql(
+        logisticsCarrier,
         updateShippingPolicy(data, {
           status: true,
           pickup: true,
