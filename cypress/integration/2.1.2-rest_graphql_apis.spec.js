@@ -1,5 +1,3 @@
-import { expect } from 'chai'
-
 import { testSetup, updateRetry } from '../support/common/support'
 import {
   createPickupPointAPI,
@@ -27,7 +25,7 @@ How to get shippingPolicy Id?
 */
 
 const shippingPolicyId = 'sha1920ede3r'
-const id = '45678'
+const storeId = '45678'
 
 const {
   pickupPoint1Payload,
@@ -72,14 +70,14 @@ describe('Rest & Graphql API testcases', () => {
     graphql(storeLocator, getStores(-22.94, -43.18), (response) => {
       expect(response.status).to.equal(200)
       expect(response.body.data.getStores.items.length).to.equal(1)
-      expect(response.body.data.getStores.items[0].id).to.equal(id)
+      expect(response.body.data.getStores.items[0].id).to.equal(storeId)
     })
   })
   it('verify getStores with latitude and longitude', updateRetry(3), () => {
     graphql(storeLocator, getStores(), (response) => {
       expect(response.status).to.equal(200)
       expect(response.body.data.getStores.items.length).to.equal(3)
-      expect(response.body.data.getStores.items[2].id).to.equal(id)
+      expect(response.body.data.getStores.items[2].id).to.equal(storeId)
     })
   })
 })

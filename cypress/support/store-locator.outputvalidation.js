@@ -75,12 +75,12 @@ export default {
     },
     pickupPoint2Payload: generatePickupPoint('pickup example walmart'),
     /*
-     pickupPoint1 is created in cypress/integration/2.1-rest_graphql_apis.spec.js
+     pickupPoint1 is created in cypress/integration/2.1.2-rest_graphql_apis.spec.js
      & in same testcase it is been replaced with pickupPoint2
     */
     pickupPoint3Payload: generatePickupPoint('pickup example adidas'),
     /*
-    pickupPoint3 is created in cypress/integration/2.1-rest_graphql_apis.spec.js
+    pickupPoint3 is created in cypress/integration/2.1.2-rest_graphql_apis.spec.js
     & will make it inactive in cypress/integration/2.5-inactive_pickup_scenarios.spec.js
     */
   },
@@ -88,7 +88,7 @@ export default {
   pickupTestCase: {
     productName: PRODUCTS.coconut,
     postalCode: '94536',
-    // This pickup will be created in cypress/integration/2.2-add_multiple_pickup_points.spec.js
+    // This pickup will be created in cypress/integration/2.2.2-add_multiple_pickup_points.spec.js
     // & it will be used in cypress/integration/2.4-order_product_via_pick_up_store.spec.js
     pickupPointName: 'pickup example reebok',
   },
