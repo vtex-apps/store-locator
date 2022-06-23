@@ -10,12 +10,12 @@ function commonGraphlValidation(response) {
   expect(response.body.data).to.not.equal(null)
 }
 
-export function graphql(getQuery, validateResponseFn = null) {
+export function graphql(APP,getQuery, validateResponseFn = null) {
   const { query, queryVariables } = getQuery
 
   // Define constants
-  const APP_NAME = 'vtex.logistics-carrier-graphql'
-  const APP = `${APP_NAME}@0.x`
+  // const APP_NAME = 'vtex.logistics-carrier-graphql'
+  // const APP = `${APP_NAME}@0.x`
   const CUSTOM_URL = `${vtex.baseUrl}/_v/private/admin-graphql-ide/v0/${APP}`
 
   cy.request({
@@ -52,6 +52,17 @@ export function updateShippingPolicy(data, { status = false, pickup = true }) {
   }
 }
 
-export function validateGetStoresresponse(response) {
-  expect(response.body.data).to.not.equal(null)
+
+export function getStores(latitude,longitude) {
+  const query =
+    'query' +
+    '( $latitude: Float, $longitude: Float )' +
+    '{getStores(latitude:$latitude,longitude:$longitude){items{id name instructions isActive address{postalCode country city state location{latitude longitude}} businessHours{dayOfWeek openingTime closingTime} pickupHolidays{date hourBegin hourEnd}}}}'
+
+  return {
+    query,
+    queryVariables: { latitude,longitude },
+  }
 }
+
+

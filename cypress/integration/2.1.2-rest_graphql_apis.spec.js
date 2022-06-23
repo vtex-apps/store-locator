@@ -12,7 +12,10 @@ import data from '../support/shipping-policy.json'
 import {
   graphql,
   updateShippingPolicy,
+  getStores,
 } from '../support/shipping-policy.graphql'
+import { storeLocator, logisticsCarrier } from '../support/app_list'
+import { expect } from 'chai'
 
 /*
 How to get shippingPolicy Id?
@@ -23,6 +26,7 @@ How to get shippingPolicy Id?
 */
 
 const shippingPolicyId = 'sha1920ede3r'
+const id = '45678'
 
 const {
   pickupPoint1Payload,
@@ -48,6 +52,7 @@ describe('Rest & Graphql API testcases', () => {
     () => {
       cy.addDelayBetweenRetries(1000)
       graphql(
+        logisticsCarrier,
         updateShippingPolicy(data, {
           status: true,
           pickup: true,
@@ -61,4 +66,21 @@ describe('Rest & Graphql API testcases', () => {
       )
     }
   )
+
+  it('verify getStores with latitude and longitude', updateRetry(3), () => {
+    graphql(storeLocator, getStores(-22.94, -43.18), (response) => {
+      expect(response.status).to.equal(200)
+      expect(response.body.data.getStores.items.length).to.equal(1)
+      expect(response.body.data.getStores.items[0].id).to.equal(id)
+    })
+  })
+  it('verify getStores with latitude and longitude', updateRetry(3), () => {
+    graphql(storeLocator, getStores(), (response) => {
+      expect(response.status).to.equal(200)
+      expect(response.body.data.getStores.items.length).to.equal(3)
+      expect(response.body.data.getStores.items[2].id).to.equal(id)
+
+      // expect(response.body.data.getStores.items[0])
+    })
+  })
 })
