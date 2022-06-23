@@ -1,3 +1,5 @@
+import { expect } from 'chai'
+
 import { testSetup, updateRetry } from '../support/common/support'
 import {
   createPickupPointAPI,
@@ -15,7 +17,6 @@ import {
   getStores,
 } from '../support/shipping-policy.graphql'
 import { storeLocator, logisticsCarrier } from '../support/app_list'
-import { expect } from 'chai'
 
 /*
 How to get shippingPolicy Id?
@@ -79,8 +80,6 @@ describe('Rest & Graphql API testcases', () => {
       expect(response.status).to.equal(200)
       expect(response.body.data.getStores.items.length).to.equal(3)
       expect(response.body.data.getStores.items[2].id).to.equal(id)
-
-      // expect(response.body.data.getStores.items[0])
     })
   })
 })
