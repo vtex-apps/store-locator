@@ -103,26 +103,26 @@ const StoreHours: FC<WrappedComponentProps & StoreHoursProps> = ({
     const holiday = new Date(item.date)
     const dayOfWeek = holiday.getDay()
     const dayOfMonth = holiday.getDate()
-    const today = new Date();
+    const today = new Date()
 
-    if(today > holiday) {
+    if (today > holiday) {
       return ``
-    } else {
-      return (
-        <div className={`${handles.dayOfWeek} w-30`}>
-          {intl.formatMessage(messages[dayOfWeek])}, {dayOfMonth}
-        </div>
-      )
     }
+
+    return (
+      <div className={`${handles.dayOfWeek} w-30`}>
+        {intl.formatMessage(messages[dayOfWeek])}, {dayOfMonth}
+      </div>
+    )
   }
 
   const displayHolidayHours = (item) => {
     const open = timeFormat(item.hourBegin, format)
     const close = timeFormat(item.hourEnd, format)
     const holiday = new Date(item.date)
-    const today = new Date();
+    const today = new Date()
 
-    if(open == '' && close == '') {
+    if (open === '' && close === '') {
       return (
         <div className={`${handles.businessHours} tc w-50`}>
           {intl.formatMessage(messages.storeClosed)}
@@ -130,15 +130,15 @@ const StoreHours: FC<WrappedComponentProps & StoreHoursProps> = ({
       )
     }
 
-    if(today > holiday) {
+    if (today > holiday) {
       return ``
-    } else {
-      return (
-        <div className={`${handles.businessHours} tc w-50`}>
-          {open} - {close}
-        </div>
-      )
     }
+
+    return (
+      <div className={`${handles.businessHours} tc w-50`}>
+        {open} - {close}
+      </div>
+    )
   }
 
   return (
@@ -180,11 +180,12 @@ const StoreHours: FC<WrappedComponentProps & StoreHoursProps> = ({
             </div>
           )
         })}
-        <br />
-        <b>{intl.formatMessage(messages.holidayLabel)}</b>
-        {!pickupHolidays &&
+      <br />
+      <b>{intl.formatMessage(messages.holidayLabel)}</b>
+      {!pickupHolidays &&
         group.pickupHolidays.map((item: any, i: number) => (
-          <div key={`hour_${i}`}
+          <div
+            key={`hour_${i}`}
             className={`${handles.hourRow} mv1 flex flex-wrap`}
           >
             {displayHolidayDay(item)}
@@ -216,7 +217,7 @@ StoreHours.propTypes = {
     PropTypes.shape({
       date: PropTypes.string,
       hourBegin: PropTypes.string,
-      hourEnd: PropTypes.string
+      hourEnd: PropTypes.string,
     })
   ),
   intl: PropTypes.any,
