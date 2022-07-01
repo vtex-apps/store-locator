@@ -3,6 +3,11 @@ interface BusinessHours {
   dayOfWeek: string
   closingTime: string
 }
+interface HolidayHours {
+  date: string
+  hourBegin: string
+  hourEnd: string
+}
 interface Address {
   addressId: string
   cacheId: string
@@ -24,6 +29,7 @@ interface Address {
 }
 interface SpecificationGroup {
   businessHours: [BusinessHours]
+  pickupHolidays: [HolidayHours]
   isActive: boolean
   distance: number
   friendlyName: string

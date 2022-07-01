@@ -5,6 +5,11 @@ query getStore($id: String!) {
       dayOfWeek
       closingTime
     }
+    pickupHolidays {
+      date
+      hourBegin
+      hourEnd
+    }
     isActive
     distance
     friendlyName

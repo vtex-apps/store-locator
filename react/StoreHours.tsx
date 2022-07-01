@@ -11,6 +11,10 @@ const messages = defineMessages({
     defaultMessage: 'Store hours',
     id: 'store/hours-label',
   },
+  holidayLabel: {
+    defaultMessage: 'Holidays',
+    id: 'store/holidays-label',
+  },
   storeClosed: {
     defaultMessage: 'Closed',
     id: 'store/store-closed',
@@ -74,6 +78,7 @@ const StoreHours: FC<WrappedComponentProps & StoreHoursProps> = ({
   label,
   format,
   businessHours,
+  pickupHolidays,
   intl,
 }) => {
   const handles = useCssHandles(CSS_HANDLES)
@@ -92,6 +97,48 @@ const StoreHours: FC<WrappedComponentProps & StoreHoursProps> = ({
     }
 
     return `${open} - ${close}`
+  }
+
+  const displayHolidayDay = (item) => {
+    const holiday = new Date(item.date)
+    const dayOfWeek = holiday.getDay()
+    const dayOfMonth = holiday.getDate()
+    const today = new Date();
+
+    if(today > holiday) {
+      return ``
+    } else {
+      return (
+        <div className={`${handles.dayOfWeek} w-30`}>
+          {intl.formatMessage(messages[dayOfWeek])}, {dayOfMonth}
+        </div>
+      )
+    }
+  }
+
+  const displayHolidayHours = (item) => {
+    const open = timeFormat(item.hourBegin, format)
+    const close = timeFormat(item.hourEnd, format)
+    const holiday = new Date(item.date)
+    const today = new Date();
+
+    if(open == '' && close == '') {
+      return (
+        <div className={`${handles.businessHours} tc w-50`}>
+          {intl.formatMessage(messages.storeClosed)}
+        </div>
+      )
+    }
+
+    if(today > holiday) {
+      return ``
+    } else {
+      return (
+        <div className={`${handles.businessHours} tc w-50`}>
+          {open} - {close}
+        </div>
+      )
+    }
   }
 
   return (
@@ -133,6 +180,17 @@ const StoreHours: FC<WrappedComponentProps & StoreHoursProps> = ({
             </div>
           )
         })}
+        <br />
+        <b>{intl.formatMessage(messages.holidayLabel)}</b>
+        {!pickupHolidays &&
+        group.pickupHolidays.map((item: any, i: number) => (
+          <div key={`hour_${i}`}
+            className={`${handles.hourRow} mv1 flex flex-wrap`}
+          >
+            {displayHolidayDay(item)}
+            {displayHolidayHours(item)}
+          </div>
+        ))}
     </div>
   )
 }
@@ -141,6 +199,7 @@ interface StoreHoursProps {
   label?: string
   format?: string
   businessHours?: any
+  pickupHolidays?: any
 }
 
 StoreHours.propTypes = {
@@ -151,6 +210,13 @@ StoreHours.propTypes = {
       dayOfWeek: PropTypes.string,
       openingTime: PropTypes.string,
       closingTime: PropTypes.string,
+    })
+  ),
+  pickupHolidays: PropTypes.arrayOf(
+    PropTypes.shape({
+      date: PropTypes.string,
+      hourBegin: PropTypes.string,
+      hourEnd: PropTypes.string
     })
   ),
   intl: PropTypes.any,
