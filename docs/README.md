@@ -30,13 +30,13 @@ App customized to TFG adding:
 ### Filter configuration
 
 1. Add tags with the name of the store to filter on `Pickup point` section
-![pickup-tag](./images/pickup-tag.png)
+   ![pickup-tag](./images/pickup-tag.png)
 2. Upload the images (SVG) of the stores to VTEX on admin. Go to admin > CMS > Layout > CMS > Files Manager > imagens.
-![images-uploading](./images/images-uploading.png)
+   ![images-uploading](./images/images-uploading.png)
 3. Go to Admin > Apps > My Apps. Search `Store Locator` app and go to settings.
-![store-locator-settings](./images/store-locator-settings.png)
-4. By default there are 19 stores to filter with their names and images. But you can add or delete more.
-![add-stores-to-filter](./images/add-stores-to-filter.png)
+   ![store-locator-settings](./images/store-locator-settings.png)
+4. By default there are 19 stores to filter with their names and images. But you can add or delete more (By default there are 19 stores and is needed go to app configuration and save the default configuration to there can be showed on web).
+   ![add-stores-to-filter](./images/add-stores-to-filter.png)
 
 ## Configuration
 
