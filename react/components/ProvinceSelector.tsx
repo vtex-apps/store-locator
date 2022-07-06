@@ -14,6 +14,7 @@ const ZAF = [
   { value: 'Mpumalanga', label: 'Mpumalanga' },
   { value: 'North West', label: 'North West' },
   { value: 'Northern Cape', label: 'Northern Cape' },
+  { value: 'Western Cape', label: 'Western Cape' },
 ]
 
 interface ProvinceSelectorProps {
