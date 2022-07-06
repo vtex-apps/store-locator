@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.0.5] - 2022-07-06
+
+### Fixed
+
+- Add `Western Cape` province
+
 ## [0.0.5] - 2022-05-31
 
 ### Fixed
