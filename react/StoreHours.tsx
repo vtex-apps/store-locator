@@ -102,20 +102,20 @@ const StoreHours: FC<WrappedComponentProps & StoreHoursProps> = ({
   const displayHolidayDay = (item) => {
     const holiday = new Date(item.date)
     const dayOfWeek = holiday.getDay()
-    const dayOfMonth = holiday.getDate()
-    const month = new Intl.DateTimeFormat('US', { month: 'long' }).format(
-      holiday
-    )
+    const month = new Intl.DateTimeFormat('US', {
+      day: 'numeric',
+      month: 'long',
+    }).format(holiday)
 
     const today = new Date()
 
-    if (today > holiday) {
+    if (today >= holiday) {
       return ``
     }
 
     return (
       <div className={`${handles.dayOfWeek} w-30`}>
-        {intl.formatMessage(messages[dayOfWeek])}, {month} {dayOfMonth}
+        {intl.formatMessage(messages[dayOfWeek])}, {month}
       </div>
     )
   }
