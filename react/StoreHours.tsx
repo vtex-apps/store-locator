@@ -101,6 +101,8 @@ const StoreHours: FC<WrappedComponentProps & StoreHoursProps> = ({
 
   const displayHolidayDay = (item) => {
     const holiday = new Date(item.date)
+
+    holiday.setDate(holiday.getDate() + 1)
     const dayOfWeek = holiday.getDay()
     const month = new Intl.DateTimeFormat('US', {
       day: 'numeric',
@@ -124,6 +126,8 @@ const StoreHours: FC<WrappedComponentProps & StoreHoursProps> = ({
     const open = timeFormat(item.hourBegin, format)
     const close = timeFormat(item.hourEnd, format)
     const holiday = new Date(item.date)
+
+    holiday.setDate(holiday.getDate() + 1)
     const today = new Date()
 
     if (open === '' && close === '') {
