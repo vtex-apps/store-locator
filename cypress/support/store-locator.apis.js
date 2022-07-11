@@ -9,12 +9,31 @@ import {
   searchPickupPoint,
 } from './pickup-point.api'
 
+export const INTIAL_PICKUP_POINTS_ENV = 'INTIAL_PICKUP_POINTS_ENV'
+
+const FILTER_PICKUP_POINT_KEY = 'pickup example'
+
+export function filterPickupPoint(response, filterByPickupExample = true) {
+  return response.body.filter((b) =>
+    filterByPickupExample
+      ? b.name.includes(FILTER_PICKUP_POINT_KEY)
+      : !b.name.includes(FILTER_PICKUP_POINT_KEY)
+  )
+}
+
+export function setIntialPickupPoints(response) {
+  const pickupointsCount = filterPickupPoint(response, false).length
+
+  cy.setPickupPointItem(INTIAL_PICKUP_POINTS_ENV, pickupointsCount)
+}
+
 export function listallPickupPointsAPI() {
   it('List all pickup points via API', updateRetry(2), () => {
     cy.addDelayBetweenRetries(2000)
     cy.getVtexItems().then((vtex) => {
       cy.getAPI(getPickupPoints(vtex.baseUrl)).then((response) => {
         expect(response.status).to.equal(200)
+        setIntialPickupPoints(response)
       })
     })
   })
@@ -133,8 +152,6 @@ export function deletePickupPointAPI(pickupPointPayload) {
 }
 
 export function deleteAllPickupPoints() {
-  const FILTER_PICKUP_POINT_KEY = 'pickup example'
-
   it(
     `Filter and delete pickup point which starts with "${FILTER_PICKUP_POINT_KEY}"`,
     updateRetry(5),
@@ -143,9 +160,7 @@ export function deleteAllPickupPoints() {
         cy.getAPI(getPickupPoints(vtex.baseUrl)).then((response) => {
           // Pickup points created in E2E tests should start with text "pickup example"
           // If we create other pickup points then it will not be deleted in wipe
-          const filterPickUpPoints = response.body.filter((b) =>
-            b.name.includes(FILTER_PICKUP_POINT_KEY)
-          )
+          const filterPickUpPoints = filterPickupPoint(response, true)
 
           if (filterPickUpPoints.length > 0) {
             for (const element of filterPickUpPoints) {
