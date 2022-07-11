@@ -2,6 +2,7 @@ import { updateRetry } from './common/support'
 import storeLocatorSelectors, {
   findPickupPoint,
 } from './storelocator.selectors'
+import { INTIAL_PICKUP_POINTS_ENV } from './store-locator.apis'
 
 export function addPickUpPoint(pickPointName) {
   cy.visit('/admin/app/pickup-points')
@@ -23,7 +24,7 @@ export function addPickUpPoint(pickPointName) {
   cy.get(storeLocatorSelectors.WorkStartTime).type('10:00')
   cy.get(storeLocatorSelectors.WorkEndTime).type('19:00')
   cy.get(storeLocatorSelectors.SaveChanges).click()
-  cy.get(storeLocatorSelectors.ChangesSaved)
+  cy.get(storeLocatorSelectors.ChangesSaved, { timeout: 10000 })
     .should('be.visible')
     .contains('Changes saved')
 }
@@ -32,23 +33,31 @@ export function verifyAllPickUpPoint() {
   cy.visitStore()
   cy.get(storeLocatorSelectors.ListOfStores).should('be.visible')
   cy.get(storeLocatorSelectors.LoadStores).click()
-  cy.get(storeLocatorSelectors.MoreItems).should('have.length', 6)
-  cy.get(storeLocatorSelectors.MoreItems)
-    .its('length')
-    .then((itemLen) => {
-      for (let i = 0; i < itemLen; i++) {
-        cy.get(storeLocatorSelectors.LoadStores).should('be.visible').click()
-        cy.get(storeLocatorSelectors.MoreItems)
-          .eq(i)
-          .should('be.visible')
-          .click()
-        cy.get(storeLocatorSelectors.AddressContainer).should('be.visible')
-        cy.get(storeLocatorSelectors.Hours).should('be.visible')
-        cy.get(storeLocatorSelectors.BackToPickUpPoint)
-          .should('be.visible')
-          .click()
-      }
-    })
+
+  cy.getPickupPointItem().then((pickupCount) => {
+    cy.get(storeLocatorSelectors.MoreItems).should(
+      'have.length',
+      pickupCount[INTIAL_PICKUP_POINTS_ENV] + 4
+    )
+    cy.get(storeLocatorSelectors.MoreItems)
+      .its('length')
+      .then((itemLen) => {
+        for (let i = 0; i < itemLen; i++) {
+          cy.get(storeLocatorSelectors.LoadStores).should('be.visible').click()
+          cy.get(storeLocatorSelectors.MoreItems)
+            .eq(i)
+            .should('be.visible')
+            .click()
+          cy.get(storeLocatorSelectors.AddressContainer, {
+            timeout: 20000,
+          }).should('be.visible')
+          cy.get(storeLocatorSelectors.Hours).should('be.visible')
+          cy.get(storeLocatorSelectors.BackToPickUpPoint)
+            .should('be.visible')
+            .click()
+        }
+      })
+  })
 }
 
 export function linkPickupPointToShippingPolicy(pickuppoint, link = false) {

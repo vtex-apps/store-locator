@@ -57,6 +57,9 @@ workspace:
     - vtex.store-locator@0.x
     # Published a new theme for store-theme E2E test
     - vtex.store-locator-qa-theme@0.0.1
+    # Store locator reads pickup points from store-graphql
+    # So, installing store-graphql@2.x
+    - vtex.store-graphql@2.x
   removeApps:
    - vtex.bitcot-qa-theme
   wipe:
