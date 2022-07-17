@@ -4,6 +4,8 @@ import storeLocatorSelectors, {
 } from './storelocator.selectors'
 import { INTIAL_PICKUP_POINTS_ENV } from './store-locator.apis'
 
+const pickuppointsJson = '.pickuppoints.json'
+
 export function addPickUpPoint(pickPointName) {
   cy.visit('/admin/app/pickup-points')
 
@@ -29,6 +31,17 @@ export function addPickUpPoint(pickPointName) {
     .contains('Changes saved')
 }
 
+function tConvert(timeString) {
+  const hourEnd = timeString.indexOf(':')
+  const H = +timeString.substr(0, hourEnd)
+  const h = H % 12 || 12
+  const ampm = H < 12 ? 'am' : 'pm'
+
+  timeString = h + timeString.substr(hourEnd, 3) + ampm
+
+  return timeString
+}
+
 export function verifyAllPickUpPoint() {
   cy.visitStore()
   cy.get(storeLocatorSelectors.ListOfStores).should('be.visible')
@@ -52,6 +65,63 @@ export function verifyAllPickUpPoint() {
             timeout: 20000,
           }).should('be.visible')
           cy.get(storeLocatorSelectors.Hours).should('be.visible')
+          cy.get('div[class*=store-storedetail] div[class*=storeName]')
+            .invoke('text')
+            .then((text) => {
+              if (text === 'pickup example 1') {
+                cy.get('div[class*=hourRow]').then(($els) => {
+                  const pickupPoins = [...$els].map((el) => el.innerText)
+                  const pickupPointsHours = pickupPoins.map((name) =>
+                    name.split(':\n')
+                  )
+
+                  cy.log(pickupPointsHours)
+                  cy.readFile(pickuppointsJson).then((pp) => {
+                    const filterPickupPoint = pp.filter((p) => p.name === text)
+                    // eslint-disable-next-line prefer-destructuring
+                    const { businessHours } = filterPickupPoint[0]
+
+                    // eslint-disable-next-line array-callback-return
+                    businessHours.map((ba) => {
+                      if (ba.dayOfWeek === 1) {
+                        const dayOfWeek = pickupPointsHours.filter(
+                          (day) => day[0] === 'Monday'
+                        )
+
+                        const startTime = tConvert(ba.openingTime)
+                        const endTime = tConvert(ba.closingTime)
+
+                        expect(dayOfWeek[0][1]).to.be.equal(
+                          `0${startTime} - ${endTime}`
+                        )
+                      } else if (ba.dayOfWeek === 2) {
+                        const dayOfWeek = pickupPointsHours.filter(
+                          (day) => day[0] === 'Tuesday'
+                        )
+
+                        const startTime = tConvert(ba.openingTime)
+                        const endTime = tConvert(ba.closingTime)
+
+                        expect(dayOfWeek[0][1]).to.be.equal(
+                          `0${startTime} - ${endTime}`
+                        )
+                      } else if (ba.dayOfWeek === 5) {
+                        const dayOfWeek = pickupPointsHours.filter(
+                          (day) => day[0] === 'Friday'
+                        )
+
+                        const startTime = tConvert(ba.openingTime)
+                        const endTime = tConvert(ba.closingTime)
+
+                        expect(dayOfWeek[0][1]).to.be.equal(
+                          `0${startTime} - ${endTime}`
+                        )
+                      }
+                    })
+                  })
+                })
+              }
+            })
           cy.get(storeLocatorSelectors.BackToPickUpPoint)
             .should('be.visible')
             .click()

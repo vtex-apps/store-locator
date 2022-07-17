@@ -33,6 +33,7 @@ export function listallPickupPointsAPI() {
     cy.getVtexItems().then((vtex) => {
       cy.getAPI(getPickupPoints(vtex.baseUrl)).then((response) => {
         expect(response.status).to.equal(200)
+        cy.savePickupPoints(response.body)
         setIntialPickupPoints(response)
       })
     })

@@ -8,6 +8,7 @@ import storelocatorSelectors, {
 
 const storelocatorJson = '.storelocator.json'
 const fileName = 'pickups.xls'
+const pickuppointsJson = '.pickuppoints.json'
 
 // Save pickupPoint
 Cypress.Commands.add(
@@ -19,6 +20,11 @@ Cypress.Commands.add(
     })
   }
 )
+
+// Save pickupPoint
+Cypress.Commands.add('savePickupPoints', (pickuppoints) => {
+  cy.writeFile(pickuppointsJson, pickuppoints)
+})
 
 // Get pickupPoint
 Cypress.Commands.add('getPickupPointItem', () => {
