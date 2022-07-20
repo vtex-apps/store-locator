@@ -3,6 +3,12 @@ interface BusinessHours {
   dayOfWeek: string
   closingTime: string
 }
+
+interface LocationType {
+  longitude: number
+  latitude: number
+}
+
 interface Address {
   addressId: string
   cacheId: string
@@ -21,6 +27,7 @@ interface Address {
   reference: string
   addressName: string
   addressType: string
+  location?: LocationType
 }
 interface SpecificationGroup {
   businessHours: [BusinessHours]
