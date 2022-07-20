@@ -19,6 +19,8 @@ export default {
   MoreItems: '.vtex-store-locator-0-x-addressListLink',
   AddressContainer: 'div[class*=addressContainer]',
   Hours: '.vtex-store-locator-0-x-hoursContainer',
+  StoreName: 'div[class*=store-storedetail] div[class*=storeName]',
+  HourRow: 'div[class*=hourRow]',
   BackToPickUpPoint: '.vtex-store-locator-0-x-backlink',
   VtexButton: '.vtex-button',
   UploadInput: 'input[type=file]',

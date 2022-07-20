@@ -5,10 +5,10 @@ import storelocatorSelectors, {
   getAddressLink,
   getPickupPoint,
 } from './storelocator.selectors'
+import { pickuppointsJsonFile } from './constants'
 
 const storelocatorJson = '.storelocator.json'
 const fileName = 'pickups.xls'
-const pickuppointsJson = '.pickuppoints.json'
 
 // Save pickupPoint
 Cypress.Commands.add(
@@ -23,7 +23,7 @@ Cypress.Commands.add(
 
 // Save pickupPoint
 Cypress.Commands.add('savePickupPoints', (pickuppoints) => {
-  cy.writeFile(pickuppointsJson, pickuppoints)
+  cy.writeFile(pickuppointsJsonFile, pickuppoints)
 })
 
 // Get pickupPoint

@@ -3,8 +3,7 @@ import storeLocatorSelectors, {
   findPickupPoint,
 } from './storelocator.selectors'
 import { INTIAL_PICKUP_POINTS_ENV } from './store-locator.apis'
-
-const pickuppointsJson = '.pickuppoints.json'
+import { pickuppointsJsonFile } from './constants'
 
 export function addPickUpPoint(pickPointName) {
   cy.visit('/admin/app/pickup-points')
@@ -65,21 +64,19 @@ export function verifyAllPickUpPoint() {
             timeout: 20000,
           }).should('be.visible')
           cy.get(storeLocatorSelectors.Hours).should('be.visible')
-          cy.get('div[class*=store-storedetail] div[class*=storeName]')
+          cy.get(storeLocatorSelectors.StoreName)
             .invoke('text')
             .then((text) => {
               if (text === 'pickup example 1') {
-                cy.get('div[class*=hourRow]').then(($els) => {
+                cy.get(storeLocatorSelectors.HourRow).then(($els) => {
                   const pickupPoins = [...$els].map((el) => el.innerText)
                   const pickupPointsHours = pickupPoins.map((name) =>
                     name.split(':\n')
                   )
 
-                  cy.log(pickupPointsHours)
-                  cy.readFile(pickuppointsJson).then((pp) => {
+                  cy.readFile(pickuppointsJsonFile).then((pp) => {
                     const filterPickupPoint = pp.filter((p) => p.name === text)
-                    // eslint-disable-next-line prefer-destructuring
-                    const { businessHours } = filterPickupPoint[0]
+                    const [{ businessHours }] = filterPickupPoint
 
                     // eslint-disable-next-line array-callback-return
                     businessHours.map((ba) => {
