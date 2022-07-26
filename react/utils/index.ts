@@ -1,1 +1,8 @@
 export * from './filter'
+export { 
+  formatStorePhoneNumber,
+  textParser, 
+  getImages, 
+  formatId 
+} from './storeGroup'
+export { Slugify } from './slugify'

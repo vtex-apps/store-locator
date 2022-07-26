@@ -4,6 +4,7 @@ import { useCssHandles } from 'vtex.css-handles'
 
 import { OptionsContext } from './contexts/OptionsContext'
 import { useStoreGroup } from './StoreGroup'
+import { formatStorePhoneNumber } from './utils'
 
 const CSS_HANDLES = [
   'instructionsContainer',
@@ -46,7 +47,7 @@ const StoreInstructions: FC<StoreInstructionsProps & WrappedComponentProps> = ({
           className={`${handles.instructionsLink} underline-hover no-underline`}
           href={`tel:${group.instructions}`}
         >
-          {group.instructions}
+          {formatStorePhoneNumber(group.instructions)}
         </a>
       ) : (
         <span className={handles.instructionsText}>{group.instructions}</span>

@@ -5,6 +5,7 @@ import { useRuntime, Helmet } from "vtex.render-runtime";
 
 import { OptionsContext } from "./contexts/OptionsContext";
 import GET_STORE from "./queries/getStore.gql";
+import { formatStorePhoneNumber, textParser, getImages, formatId } from "./utils";
 
 const DAYS = [0, 1, 2, 3, 4, 5, 6];
 
@@ -39,41 +40,6 @@ interface StoreGroupProps {
   instructionsAsPhone?: boolean;
 }
 
-const getImages = (imageSelector: string) => {
-  const images: string[] = [];
-
-  if (imageSelector) {
-    const elements: NodeListOf<HTMLImageElement> =
-      document.querySelectorAll(imageSelector);
-
-    if (elements.length) {
-      for (let i = 0; i < elements.length; i++) {
-        const { src } = elements[i];
-
-        if (src) {
-          images.push(src);
-        }
-      }
-    }
-  } else {
-    return images
-  }
-
-  return images;
-};
-
-const textParser = (text: string, group: SpecificationGroup) => {
-  const {
-    friendlyName,
-    address: { city, state },
-  } = group;
-
-  return text
-    .replace(/{storeName}/gi, friendlyName)
-    .replace(/{storeCity}/gi, city ?? "")
-    .replace(/{storeState}/gi, state ?? "");
-};
-
 const buildDataType = (
   data: any,
   title: string,
@@ -92,21 +58,23 @@ const buildDataType = (
     "Saturday",
   ];
 
+  const { state, postalCode, country, city, number, street } = data?.address;
+  
   return {
     "@context": "https://schema.org",
     "@type": "Store",
-    "@id": data.id,
+    "@id": formatId(title, state, postalCode, data.id),
     name: title,
     description,
     image: getImages(imageSelector),
-    telephone: hasPhone ? data.instructions : "",
+    telephone: hasPhone ? formatStorePhoneNumber(data?.instructions) : "",
     address: {
       "@type": "PostalAddress",
-      streetAddress: `${data.address.number} ${data.address.street}`,
-      addressLocality: data.address.city,
-      addressRegion: data.address.state,
-      postalCode: data.address.postalCode,
-      addressCountry: data.address.country,
+      streetAddress: `${number} ${street}`,
+      addressLocality: city,
+      addressRegion: state,
+      postalCode: postalCode,
+      addressCountry: country,
     },
     geo: {
       "@type": "GeoCoordinates",
@@ -144,7 +112,7 @@ const StoreGroup: FC<StoreGroupProps> = ({
 
   if (history && !called) {
     const id = history.location.state.navigationRoute.params.store_id;
-
+    
     getStore({
       variables: {
         id,
