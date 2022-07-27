@@ -5,7 +5,12 @@ import { useRuntime, Helmet } from "vtex.render-runtime";
 
 import { OptionsContext } from "./contexts/OptionsContext";
 import GET_STORE from "./queries/getStore.gql";
-import { formatStorePhoneNumber, textParser, getImages, formatId } from "./utils";
+import {
+  textParser,
+  getImages,
+  formatId,
+  getTelNumbers,
+} from "./utils";
 
 const DAYS = [0, 1, 2, 3, 4, 5, 6];
 
@@ -67,7 +72,7 @@ const buildDataType = (
     name: title,
     description,
     image: getImages(imageSelector),
-    telephone: hasPhone ? formatStorePhoneNumber(data?.instructions) : "",
+    telephone: hasPhone ? getTelNumbers(data?.instructions) : "",
     address: {
       "@type": "PostalAddress",
       streetAddress: `${number} ${street}`,
@@ -112,7 +117,7 @@ const StoreGroup: FC<StoreGroupProps> = ({
 
   if (history && !called) {
     const id = history.location.state.navigationRoute.params.store_id;
-    
+
     getStore({
       variables: {
         id,
@@ -163,7 +168,7 @@ const StoreGroup: FC<StoreGroupProps> = ({
         <Helmet>
           <title>{parsedTitle}</title>
           <meta name="description" content={parsedDescription} />
-          {(
+          {
             <script type="application/ld+json">
               {JSON.stringify(
                 buildDataType(
@@ -175,7 +180,7 @@ const StoreGroup: FC<StoreGroupProps> = ({
                 )
               )}
             </script>
-          )}
+          }
         </Helmet>
       )}
       <StoreGroupProvider

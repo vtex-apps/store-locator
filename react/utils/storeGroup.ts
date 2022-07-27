@@ -1,15 +1,38 @@
 import { Slugify } from "./slugify";
 
-export const formatStorePhoneNumber = (instruction: string): string => {
-  const countryCode = '(+27)';
+export const formatStorePhoneNumber = (
+  instruction: string
+): string | string[] => {
+  const countryCode = "(+27)";
   const countPhoneNumbers: number = instruction.split(countryCode).length - 1;
 
   if (countPhoneNumbers >= 1) {
     const stripAlphabets = instruction.replace(/[A-Za-z]/g, "");
-    return stripAlphabets.substring(stripAlphabets.indexOf(countryCode) + 0);
+    const phoneNumbers = stripAlphabets.substring(
+      stripAlphabets.indexOf(countryCode) + 0
+    );
+
+    return phoneNumbers.split(",");
   }
 
   return instruction;
+};
+
+export const getTelNumbers = (instruction: string): string => {
+  const telephoneNumbers = formatStorePhoneNumber(instruction);
+  let telNum: string = "";
+
+  const extractTelNumber = (value: string): void => {
+    telNum += value + " ";
+  };
+
+  if (Array.isArray(telephoneNumbers)) {
+    telephoneNumbers.forEach(extractTelNumber);
+
+    return telNum;
+  } else {
+    return telephoneNumbers;
+  }
 };
 
 export const formatId = (

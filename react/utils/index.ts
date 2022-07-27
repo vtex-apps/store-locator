@@ -3,6 +3,7 @@ export {
   formatStorePhoneNumber,
   textParser, 
   getImages, 
-  formatId 
+  formatId,
+  getTelNumbers
 } from './storeGroup'
 export { Slugify } from './slugify'
