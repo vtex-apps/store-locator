@@ -3,16 +3,31 @@ import { Slugify } from "./slugify";
 export const formatStorePhoneNumber = (
   instruction: string
 ): string | string[] => {
-  const countryCode = "(+27)";
-  const countPhoneNumbers: number = instruction.split(countryCode).length - 1;
+  const countryCode = "+27";
+  const availablePhoneNumbers: number =
+    instruction.split(countryCode).length - 1;
 
-  if (countPhoneNumbers >= 1) {
-    const stripAlphabets = instruction.replace(/[A-Za-z]/g, "");
-    const phoneNumbers = stripAlphabets.substring(
-      stripAlphabets.indexOf(countryCode) + 0
+  if (availablePhoneNumbers >= 1) {
+    const stripChars = instruction.replace(/[A-Za-z()-]/g, "");
+    const phoneNumbers = stripChars.substring(
+      stripChars.indexOf(countryCode) + 0
     );
+    const stripFirstZero = phoneNumbers.replace(/\b0+/, "");
+    const alignTelNumbers = stripFirstZero
+      .split(",")
+      .map((numbers: string) =>
+        [
+          numbers.slice(0, 3),
+          "",
+          numbers.slice(3, 6),
+          " ",
+          numbers.slice(6, 9),
+          " ",
+          numbers.slice(9),
+        ].join("")
+      );
 
-    return phoneNumbers.split(",");
+    return alignTelNumbers;
   }
 
   return instruction;

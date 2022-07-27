@@ -31,7 +31,7 @@ const StoreInstructions: FC<StoreInstructionsProps & WrappedComponentProps> = ({
 }) => {
   const group = useStoreGroup();
   const hasPhone = useContext(OptionsContext);
-
+  
   const handles = useCssHandles(CSS_HANDLES);
 
   if (!group?.instructions) {
