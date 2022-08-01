@@ -72,7 +72,7 @@ const StoreList = ({
   }
 
   useEffect(() => {
-    state.strikes < 4 && loadAll()
+    state.strikes >= 4 && loadAll()
   }, [state.strikes])
 
   useEffect(() => {
@@ -98,6 +98,16 @@ const StoreList = ({
     }
   }, [ofData, ofCalled, ofLoading])
 
+  useEffect(() => {
+    if (loading || data?.getStores?.items?.length > 0) return
+
+    state.strikes < 4 &&
+      setState((prev) => ({
+        ...prev,
+        strikes: ++prev.strikes,
+      }))
+  }, [data, loading])
+
   const handleCenter = (center: any) => {
     setState({
       ...state,
@@ -105,95 +115,83 @@ const StoreList = ({
     })
   }
 
-  if (called) {
-    if (!loading && !!data && data.getStores.items.length === 0) {
-      state.strikes < 4 &&
-        setState((prev) => ({
-          ...prev,
-          strikes: ++prev.strikes,
-        }))
-    }
+  if (!state.center && data?.getStores?.items.length) {
+    const [firstResult] = data.getStores.items
 
-    if (!state.center && data?.getStores?.items.length) {
-      const [firstResult] = data.getStores.items
+    const { latitude, longitude } = firstResult.address.location
 
-      const { latitude, longitude } = firstResult.address.location
+    const center = ofData?.shippingData?.address?.geoCoordinates ?? [
+      longitude || long,
+      latitude || lat,
+    ]
 
-      const center = ofData?.shippingData?.address?.geoCoordinates ?? [
-        longitude || long,
-        latitude || lat,
-      ]
-
-      handleCenter(center)
-    }
-
-    const stores =
-      data?.getStores?.items.sort((a, b) => {
-        if (a[sortBy] < b[sortBy]) {
-          return -1
-        }
-
-        if (a[sortBy] > b[sortBy]) {
-          return 1
-        }
-
-        return 0
-      }) ?? []
-
-    return (
-      <div
-        className={`flex flex-row ${handles.container}`}
-        style={{
-          maxHeight: 750,
-        }}
-      >
-        <div className={`flex-col w-30 ${handles.storesListCol}`}>
-          {loading && <Spinner />}
-          {!loading && !!data && stores.length > 0 && (
-            <div className={`overflow-auto h-100 ${handles.storesList}`}>
-              <Listing items={stores} onChangeCenter={handleCenter} />
-              {state.allLoaded && (
-                <span
-                  className={`mt2 link c-link underline-hover pointer ${handles.loadAll}`}
-                  onClick={() => {
-                    loadAll()
-                  }}
-                >
-                  <FormattedMessage id="store/load-all" />
-                </span>
-              )}
-            </div>
-          )}
-          {!loading && !!data && stores.length === 0 && (
-            <div className={handles.noResults}>
-              <h3>
-                <FormattedMessage id="store/none-stores" />
-              </h3>
-            </div>
-          )}
-        </div>
-        <div className={`flex-col w-70 ${handles.storesMapCol}`}>
-          {!loading &&
-            !!data &&
-            stores.length > 0 &&
-            googleMapsKeys?.logistics?.googleMapsKey && (
-              <Pinpoints
-                apiKey={googleMapsKeys.logistics.googleMapsKey}
-                className={handles.listingMapContainer}
-                items={data.getStores.items}
-                zoom={state.zoom}
-                center={state.center}
-                icon={icon}
-                iconWidth={iconWidth}
-                iconHeight={iconHeight}
-              />
-            )}
-        </div>
-      </div>
-    )
+    handleCenter(center)
   }
 
-  return null
+  const stores =
+    data?.getStores?.items.sort((a, b) => {
+      if (a[sortBy] < b[sortBy]) {
+        return -1
+      }
+
+      if (a[sortBy] > b[sortBy]) {
+        return 1
+      }
+
+      return 0
+    }) ?? []
+
+  return (
+    <div
+      className={`flex flex-row ${handles.container}`}
+      style={{
+        maxHeight: 750,
+      }}
+    >
+      <div className={`flex-col w-30 ${handles.storesListCol}`}>
+        {(loading || ofLoading) && <Spinner />}
+        {!loading && !!data && stores.length > 0 && (
+          <div className={`overflow-auto h-100 ${handles.storesList}`}>
+            <Listing items={stores} onChangeCenter={handleCenter} />
+            {!state.allLoaded && (
+              <span
+                className={`mt2 link c-link underline-hover pointer ${handles.loadAll}`}
+                onClick={() => {
+                  loadAll()
+                }}
+              >
+                <FormattedMessage id="store/load-all" />
+              </span>
+            )}
+          </div>
+        )}
+        {!loading && !!data && stores.length === 0 && (
+          <div className={handles.noResults}>
+            <h3>
+              <FormattedMessage id="store/none-stores" />
+            </h3>
+          </div>
+        )}
+      </div>
+      <div className={`flex-col w-70 ${handles.storesMapCol}`}>
+        {!loading &&
+          !!data &&
+          stores.length > 0 &&
+          googleMapsKeys?.logistics?.googleMapsKey && (
+            <Pinpoints
+              apiKey={googleMapsKeys.logistics.googleMapsKey}
+              className={handles.listingMapContainer}
+              items={data.getStores.items}
+              zoom={state.zoom}
+              center={state.center}
+              icon={icon}
+              iconWidth={iconWidth}
+              iconHeight={iconHeight}
+            />
+          )}
+      </div>
+    </div>
+  )
 }
 
 export default injectIntl(
