@@ -141,7 +141,12 @@ const StoreList = ({
       }) ?? []
 
     return (
-      <div className={`flex flex-row ${handles.container}`}>
+      <div
+        className={`flex flex-row ${handles.container}`}
+        style={{
+          maxHeight: 750,
+        }}
+      >
         <div className={`flex-col w-30 ${handles.storesListCol}`}>
           {loading && <Spinner />}
           {!loading && !!data && stores.length > 0 && (
