@@ -84,6 +84,8 @@ const StoreList: FunctionComponent<WrappedComponentProps & Props> = ({
   }
 
   useEffect(() => {
+    if (!ofData?.orderForm) return
+
     let longitude: number | undefined
     let latitude: number | undefined
 
