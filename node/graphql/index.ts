@@ -131,15 +131,13 @@ export const resolvers = {
       const pickuppoints = data.items ? data : { items: data }
 
       if (paging?.pages > 1) {
-        let i = 2
         const results = [] as any
 
         // API will return errors starting at ?page=100
         const limitPagesTo99 = paging.pages > 99 ? 99 : paging.pages
 
-        while (i <= limitPagesTo99) {
+        for (let i = 2; i <= limitPagesTo99; i++) {
           results.push(hub.getStores({ ...param, page: i }))
-          i++
         }
 
         const remainingData = await Promise.all(results)
