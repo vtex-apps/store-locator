@@ -84,15 +84,19 @@ const StoreList: FunctionComponent<WrappedComponentProps & Props> = ({
   }
 
   useEffect(() => {
-    if (
-      !ofData?.orderForm?.shippingData?.address?.postalCode ||
-      ofData?.orderForm?.shippingData?.address?.postalCode?.indexOf('*') > -1
-    ) {
-      return
-    }
+    let longitude: number | undefined
+    let latitude: number | undefined
 
-    const [longitude, latitude] =
-      ofData?.orderForm?.shippingData.address.geoCoordinates
+    if (
+      ofData?.orderForm?.shippingData?.address?.postalCode &&
+      ofData?.orderForm?.shippingData?.address?.postalCode?.indexOf('*') === -1
+    ) {
+      const [ofLongitude, ofLatitude] =
+        ofData?.orderForm?.shippingData.address.geoCoordinates
+
+      longitude = ofLongitude
+      latitude = ofLatitude
+    }
 
     if (!longitude || !latitude) {
       setState((prev) => ({
@@ -162,8 +166,7 @@ const StoreList: FunctionComponent<WrappedComponentProps & Props> = ({
                   handleLoadAll()
                 }}
                 onKeyDown={(e) => {
-                  // 32 = space, 13 = enter
-                  if (e.keyCode !== 32 && e.keyCode !== 13) return
+                  if (e.key !== 'Enter' && e.key !== ' ') return
                   e.preventDefault()
                   handleLoadAll()
                 }}
