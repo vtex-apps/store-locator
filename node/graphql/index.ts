@@ -130,22 +130,20 @@ export const resolvers = {
 
       const pickuppoints = data.items ? data : { items: data }
 
-      if (paging?.pages > 1) {
-        const results = [] as any
+      const results = [] as any
 
-        // API will return errors starting at ?page=100
-        const limitPagesTo99 = paging.pages > 99 ? 99 : paging.pages
+      // API will return errors starting at ?page=100
+      const limitPagesTo99 = paging.pages > 99 ? 99 : paging.pages
 
-        for (let i = 2; i <= limitPagesTo99; i++) {
-          results.push(hub.getStores({ ...param, page: i }))
-        }
-
-        const remainingData = await Promise.all(results)
-
-        remainingData.forEach((newResult: any) => {
-          pickuppoints.items.push(...newResult.data.items)
-        })
+      for (let i = 2; i <= limitPagesTo99; i++) {
+        results.push(hub.getStores({ ...param, page: i }))
       }
+
+      const remainingData = await Promise.all(results)
+
+      remainingData.forEach((newResult: any) => {
+        pickuppoints.items.push(...newResult.data.items)
+      })
 
       // include for usage statistics
       logger.info({ message: 'getStores', items: pickuppoints?.items?.length })
