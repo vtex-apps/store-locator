@@ -47,12 +47,8 @@ Cypress.Commands.add('verifyPickupPointsInStore', () => {
     cy.visitStore()
     cy.wait('@Session', { timeout: 40000 })
     cy.get(storelocatorSelectors.LoadStores).should('be.visible').click()
-    cy.get(storelocatorSelectors.VtexStoreLocatorAddress).contains(
-      'pickup example 1'
-    )
-    cy.get(storelocatorSelectors.VtexStoreLocatorAddress).contains(
-      'pickup example 2'
-    )
+    cy.get(storelocatorSelectors.VtexStoreName).contains('pickup example 1')
+    cy.get(storelocatorSelectors.VtexStoreName).contains('pickup example 2')
   })
 })
 
