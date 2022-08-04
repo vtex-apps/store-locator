@@ -125,8 +125,8 @@ export const resolvers = {
 
       const {
         data,
-        data: { paging },
-      } = result ?? { data: { items: [] } }
+        data: { paging = { pages: 0 } },
+      } = result ?? { data: { items: [], paging: { pages: 0 } } }
 
       const pickuppoints = data.items ? data : { items: data }
 
