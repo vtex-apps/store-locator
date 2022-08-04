@@ -100,7 +100,8 @@ strategy:
     parallel: true
     specs:
       - cypress/integration/2.3-verify_pickup_points.spec.js
-      - cypress/integration/2.4-order_product_via_pick_up_store.spec.js
+      # TODO: Enable below test case after STORELOCAT-29 is published
+      # - cypress/integration/2.4-order_product_via_pick_up_store.spec.js
     dependency:
       - cypress/integration/2.1.2-rest_graphql_apis.spec.js
       - cypress/integration/2.2.1-add_pickup_point.spec.js
@@ -116,4 +117,5 @@ strategy:
       - cypress/integration/2.5-inactive_pickup_scenarios.spec.js
     dependency:
       - cypress/integration/2.3-verify_pickup_points.spec.js
-      - cypress/integration/2.4-order_product_via_pick_up_store.spec.js
+      # TODO: Enable below test case after STORELOCAT-29 is published
+      # - cypress/integration/2.4-order_product_via_pick_up_store.spec.js

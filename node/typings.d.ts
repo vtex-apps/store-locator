@@ -1,4 +1,5 @@
 interface Logger {
+  // eslint-disable-next-line @typescript-eslint/ban-types
   log(content: string, level: LogLevel, details?: {}): PromiseLike<void>
 }
 
