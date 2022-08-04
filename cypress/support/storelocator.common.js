@@ -29,10 +29,18 @@ export function addPickUpPoint(pickPointName) {
     .contains('Changes saved')
 }
 
+function clickLoadAllStores() {
+  cy.get('body').then(($body) => {
+    if ($body.find(storeLocatorSelectors.LoadStores).length) {
+      cy.get(storeLocatorSelectors.LoadStores).click()
+    }
+  })
+}
+
 export function verifyAllPickUpPoint() {
   cy.visitStore()
   cy.get(storeLocatorSelectors.ListOfStores).should('be.visible')
-  cy.get(storeLocatorSelectors.LoadStores).click()
+  clickLoadAllStores()
 
   cy.getPickupPointItem().then((pickupCount) => {
     cy.get(storeLocatorSelectors.MoreItems).should(
@@ -43,7 +51,7 @@ export function verifyAllPickUpPoint() {
       .its('length')
       .then((itemLen) => {
         for (let i = 0; i < itemLen; i++) {
-          cy.get(storeLocatorSelectors.LoadStores).should('be.visible').click()
+          clickLoadAllStores()
           cy.get(storeLocatorSelectors.MoreItems)
             .eq(i)
             .should('be.visible')
