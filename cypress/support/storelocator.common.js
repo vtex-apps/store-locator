@@ -32,7 +32,9 @@ export function addPickUpPoint(pickPointName) {
 export function clickLoadAllStores() {
   cy.get('body').then(($body) => {
     if ($body.find(storeLocatorSelectors.LoadStores).length) {
-      cy.get(storeLocatorSelectors.LoadStores, { timeout: 15000 }).click()
+      cy.get(storeLocatorSelectors.LoadStores, { timeout: 15000 })
+        .should('be.visible')
+        .click()
     }
   })
 }
@@ -59,10 +61,11 @@ export function verifyAllPickUpPoint() {
           cy.get(storeLocatorSelectors.AddressContainer, {
             timeout: 20000,
           }).should('be.visible')
-          cy.get(storeLocatorSelectors.Hours).should('be.visible')
+          cy.get(storeLocatorSelectors.HoursContainer).should('be.visible')
           cy.get(storeLocatorSelectors.BackToPickUpPoint)
             .should('be.visible')
             .click()
+          cy.get(storeLocatorSelectors.MoreItems).should('be.visible')
         }
       })
   })
