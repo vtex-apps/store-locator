@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { FC, useContext, ReactNode, useState, useEffect } from 'react'
+import type { FC, ReactNode } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import { useLazyQuery } from 'react-apollo'
 import { useRuntime, Helmet } from 'vtex.render-runtime'
 
@@ -41,9 +42,8 @@ interface StoreGroupProps {
 
 const getImages = (imageSelector: string) => {
   const images: string[] = []
-  const elements: NodeListOf<HTMLImageElement> = document.querySelectorAll(
-    imageSelector
-  )
+  const elements: NodeListOf<HTMLImageElement> =
+    document.querySelectorAll(imageSelector)
 
   if (elements.length) {
     for (let i = 0; i < elements.length; i++) {

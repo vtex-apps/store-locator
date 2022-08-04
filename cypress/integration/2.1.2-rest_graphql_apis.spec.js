@@ -25,11 +25,8 @@ How to get shippingPolicy Id?
 
 const shippingPolicyId = 'sha1920ede3r'
 
-const {
-  pickupPoint1Payload,
-  pickupPoint2Payload,
-  pickupPoint3Payload,
-} = restAPITestCase
+const { pickupPoint1Payload, pickupPoint2Payload, pickupPoint3Payload } =
+  restAPITestCase
 
 describe('Rest & Graphql API testcases', () => {
   testSetup()

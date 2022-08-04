@@ -44,7 +44,9 @@ export default class RequestHub extends ExternalClient {
     return this.http
       .getRaw(routes.getAll(data, this.context.account))
       .catch((e) => {
-        this.logger.error(e)
+        this.logger.error({ error: e, message: 'getStores-error' })
+
+        return null
       })
   }
 }

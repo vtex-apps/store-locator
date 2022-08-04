@@ -1,7 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { FC } from 'react'
+import type { FC } from 'react'
+import React from 'react'
+import type { WrappedComponentProps } from 'react-intl'
 import { injectIntl } from 'react-intl'
-import { graphql, compose } from 'react-apollo'
+import { useQuery } from 'react-apollo'
 
 import { useStoreGroup } from './StoreGroup'
 import Map from './components/Map'
@@ -23,15 +25,15 @@ interface StoreMapProps {
   zoom: number
 }
 
-const StoreMap: FC<StoreMapProps> = ({
+const StoreMap: FC<StoreMapProps & WrappedComponentProps> = ({
   width,
   height,
-  googleMapsKeys,
   icon,
   iconWidth,
   iconHeight,
   zoom,
 }) => {
+  const { data: googleMapsKeys } = useQuery(GOOGLE_KEYS, { ssr: false })
   const group = useStoreGroup()
 
   if (!group || !googleMapsKeys?.logistics?.googleMapsKey) {
@@ -60,13 +62,4 @@ StoreMap.defaultProps = {
   zoom: DEFAULT.ZOOM,
 }
 
-export default injectIntl(
-  compose(
-    graphql(GOOGLE_KEYS, {
-      name: 'googleMapsKeys',
-      options: {
-        ssr: false,
-      },
-    })
-  )(StoreMap)
-)
+export default injectIntl(StoreMap)

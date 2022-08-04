@@ -1,15 +1,9 @@
-/* eslint-disable vtex/prefer-early-return */
-/* eslint-disable padding-line-between-statements */
-/* eslint-disable no-restricted-imports */
-/* eslint-disable no-console */
-/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
+import type { FunctionComponent } from 'react'
 import React, { useState, useEffect } from 'react'
+import type { WrappedComponentProps } from 'react-intl'
 import { injectIntl, FormattedMessage } from 'react-intl'
-import { graphql, useLazyQuery } from 'react-apollo'
-import { flowRight as compose } from 'lodash'
+import { useQuery, useLazyQuery } from 'react-apollo'
 import { Spinner } from 'vtex.styleguide'
 import { useCssHandles } from 'vtex.css-handles'
 
@@ -29,9 +23,18 @@ const CSS_HANDLES = [
   'loadAll',
 ] as const
 
-const StoreList = ({
-  orderForm: { called: ofCalled, loading: ofLoading, orderForm: ofData },
-  googleMapsKeys,
+interface Props {
+  filterByTag?: string
+  icon?: string
+  iconWidth?: number
+  iconHeight?: number
+  zoom?: number
+  lat?: number
+  long?: number
+  sortBy?: string
+}
+
+const StoreList: FunctionComponent<WrappedComponentProps & Props> = ({
   filterByTag,
   icon,
   iconWidth,
@@ -41,23 +44,25 @@ const StoreList = ({
   long,
   sortBy = 'distance',
 }) => {
-  const [getStores, { data, loading, called, error }] = useLazyQuery(
-    GET_STORES,
-    {
-      fetchPolicy: 'cache-first',
-    }
-  )
+  const { data: ofData, loading: ofLoading } = useQuery(ORDER_FORM, {
+    ssr: false,
+  })
+
+  const { data: googleMapsKeys } = useQuery(GOOGLE_KEYS, { ssr: false })
+
+  const [getStores, { data, loading }] = useLazyQuery(GET_STORES, {
+    fetchPolicy: 'cache-first',
+  })
 
   const [state, setState] = useState({
-    strikes: 0,
     allLoaded: false,
     center: null,
-    zoom: zoom || 10,
+    zoom: zoom ?? 10,
   })
 
   const handles = useCssHandles(CSS_HANDLES)
 
-  const loadAll = () => {
+  const handleLoadAll = () => {
     setState({
       ...state,
       allLoaded: true,
@@ -71,33 +76,6 @@ const StoreList = ({
     })
   }
 
-  useEffect(() => {
-    state.strikes < 4 && loadAll()
-  }, [state.strikes])
-
-  useEffect(() => {
-    if (
-      ofData?.shippingData?.address?.postalCode &&
-      ofData?.shippingData?.address?.postalCode?.indexOf('*') === -1
-    ) {
-      const [longitude, latitude] = ofData?.shippingData.address.geoCoordinates
-
-      getStores({
-        variables: {
-          latitude,
-          longitude,
-          filterByTag,
-        },
-      })
-    } else if (!loading && called && error && !state.allLoaded) {
-      state.strikes < 4 &&
-        setState((prev) => ({
-          ...prev,
-          strikes: ++prev.strikes,
-        }))
-    }
-  }, [ofData, ofCalled, ofLoading])
-
   const handleCenter = (center: any) => {
     setState({
       ...state,
@@ -105,105 +83,129 @@ const StoreList = ({
     })
   }
 
-  if (called) {
-    if (!loading && !!data && data.getStores.items.length === 0) {
-      state.strikes < 4 &&
-        setState((prev) => ({
-          ...prev,
-          strikes: ++prev.strikes,
-        }))
+  useEffect(() => {
+    if (!ofData?.orderForm) return
+
+    let longitude: number | undefined
+    let latitude: number | undefined
+
+    if (
+      ofData?.orderForm?.shippingData?.address?.postalCode &&
+      ofData?.orderForm?.shippingData?.address?.postalCode?.indexOf('*') === -1
+    ) {
+      const [ofLongitude, ofLatitude] =
+        ofData?.orderForm?.shippingData.address.geoCoordinates
+
+      longitude = ofLongitude
+      latitude = ofLatitude
     }
 
-    if (!state.center && data?.getStores?.items.length) {
-      const [firstResult] = data.getStores.items
-
-      const { latitude, longitude } = firstResult.address.location
-
-      const center = ofData?.shippingData?.address?.geoCoordinates ?? [
-        longitude || long,
-        latitude || lat,
-      ]
-
-      handleCenter(center)
+    if (!longitude || !latitude) {
+      setState((prev) => ({
+        ...prev,
+        allLoaded: true,
+      }))
     }
 
-    const stores =
-      data?.getStores?.items.sort((a, b) => {
-        if (a[sortBy] < b[sortBy]) {
-          return -1
-        }
-
-        if (a[sortBy] > b[sortBy]) {
-          return 1
-        }
-
-        return 0
-      }) ?? []
-
-    return (
-      <div className={`flex flex-row ${handles.container}`}>
-        <div className={`flex-col w-30 ${handles.storesListCol}`}>
-          {loading && <Spinner />}
-          {!loading && !!data && stores.length > 0 && (
-            <div className={`overflow-auto h-100 ${handles.storesList}`}>
-              <Listing items={stores} onChangeCenter={handleCenter} />
-              {state.allLoaded && (
-                <span
-                  className={`mt2 link c-link underline-hover pointer ${handles.loadAll}`}
-                  onClick={() => {
-                    loadAll()
-                  }}
-                >
-                  <FormattedMessage id="store/load-all" />
-                </span>
-              )}
-            </div>
-          )}
-          {!loading && !!data && stores.length === 0 && (
-            <div className={handles.noResults}>
-              <h3>
-                <FormattedMessage id="store/none-stores" />
-              </h3>
-            </div>
-          )}
-        </div>
-        <div className={`flex-col w-70 ${handles.storesMapCol}`}>
-          {!loading &&
-            !!data &&
-            stores.length > 0 &&
-            googleMapsKeys?.logistics?.googleMapsKey && (
-              <Pinpoints
-                apiKey={googleMapsKeys.logistics.googleMapsKey}
-                className={handles.listingMapContainer}
-                items={data.getStores.items}
-                zoom={state.zoom}
-                center={state.center}
-                icon={icon}
-                iconWidth={iconWidth}
-                iconHeight={iconHeight}
-              />
-            )}
-        </div>
-      </div>
-    )
-  }
-
-  return null
-}
-
-export default injectIntl(
-  compose(
-    graphql(ORDER_FORM, {
-      name: 'orderForm',
-      options: {
-        ssr: false,
-      },
-    }),
-    graphql(GOOGLE_KEYS, {
-      name: 'googleMapsKeys',
-      options: {
-        ssr: false,
+    getStores({
+      variables: {
+        latitude,
+        longitude,
+        filterByTag,
       },
     })
-  )(StoreList)
-)
+  }, [filterByTag, getStores, ofData])
+
+  useEffect(() => {
+    if (state.center || !data?.getStores?.items?.length) return
+
+    const [firstResult] = data.getStores.items
+
+    const { latitude, longitude } = firstResult.address.location
+
+    const center = ofData?.orderForm?.shippingData?.address?.geoCoordinates ?? [
+      longitude || long,
+      latitude || lat,
+    ]
+
+    setState({
+      ...state,
+      center,
+    })
+  }, [data, lat, long, ofData, state])
+
+  const stores =
+    data?.getStores?.items.sort((a, b) => {
+      if (a[sortBy] < b[sortBy]) {
+        return -1
+      }
+
+      if (a[sortBy] > b[sortBy]) {
+        return 1
+      }
+
+      return 0
+    }) ?? []
+
+  return (
+    <div
+      className={`flex flex-row ${handles.container}`}
+      style={{
+        maxHeight: 750,
+      }}
+    >
+      <div className={`flex-col w-30 ${handles.storesListCol}`}>
+        {(loading || ofLoading) && <Spinner />}
+        {!loading && !!data && stores.length > 0 && (
+          <div className={`overflow-auto h-100 ${handles.storesList}`}>
+            <Listing items={stores} onChangeCenter={handleCenter} />
+            {!state.allLoaded && (
+              <span
+                className={`mt2 link c-link underline-hover pointer ${handles.loadAll}`}
+                role="button"
+                tabIndex={0}
+                onClick={() => {
+                  handleLoadAll()
+                }}
+                onKeyDown={(e) => {
+                  if (e.key !== 'Enter' && e.key !== ' ') return
+                  e.preventDefault()
+                  handleLoadAll()
+                }}
+              >
+                <FormattedMessage id="store/load-all" />
+              </span>
+            )}
+          </div>
+        )}
+        {!loading && !!data && stores.length === 0 && (
+          <div className={handles.noResults}>
+            <h3>
+              <FormattedMessage id="store/none-stores" />
+            </h3>
+          </div>
+        )}
+      </div>
+      <div className={`flex-col w-70 ${handles.storesMapCol}`}>
+        {!loading &&
+          !!data &&
+          stores.length > 0 &&
+          state.center &&
+          googleMapsKeys?.logistics?.googleMapsKey && (
+            <Pinpoints
+              apiKey={googleMapsKeys.logistics.googleMapsKey}
+              className={handles.listingMapContainer}
+              items={data.getStores.items}
+              zoom={state.zoom}
+              center={state.center}
+              icon={icon}
+              iconWidth={iconWidth}
+              iconHeight={iconHeight}
+            />
+          )}
+      </div>
+    </div>
+  )
+}
+
+export default injectIntl(StoreList)
