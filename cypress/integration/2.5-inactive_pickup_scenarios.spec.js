@@ -8,6 +8,7 @@ import { restAPITestCase } from '../support/store-locator.outputvalidation.js'
 import storelocatorSelectors from '../support/storelocator.selectors'
 import { graphql, getStores } from '../support/shipping-policy.graphql'
 import { storeLocator } from '../support/app_list'
+import { clickLoadAllStores } from '../support/storelocator.common.js'
 
 const { pickupPoint3Payload } = restAPITestCase
 
@@ -26,9 +27,7 @@ describe('Inactive Pickup Points should not be visible in storefront', () => {
         cy.get(storelocatorSelectors.StorePickUpPointList, {
           timeout: 8000,
         }).should('be.visible')
-        cy.get(storelocatorSelectors.LoadStores, { timeout: 8000 })
-          .should('be.visible')
-          .click()
+        clickLoadAllStores()
         cy.get(storelocatorSelectors.MoreItems, { timeout: 8000 }).should(
           'have.length',
           pickupCount[INTIAL_PICKUP_POINTS_ENV] + 3

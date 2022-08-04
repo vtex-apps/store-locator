@@ -29,7 +29,7 @@ export function addPickUpPoint(pickPointName) {
     .contains('Changes saved')
 }
 
-function clickLoadAllStores() {
+export function clickLoadAllStores() {
   cy.get('body').then(($body) => {
     if ($body.find(storeLocatorSelectors.LoadStores).length) {
       cy.get(storeLocatorSelectors.LoadStores).click()
