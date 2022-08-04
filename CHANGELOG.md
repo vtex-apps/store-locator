@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Destructuring error in vbase `alreadyHasSitemap` check
+- Limit logistics pickupPoint paging to 99 pages
+- Add `max-height` CSS property to stores list
+
 ## [0.10.11] - 2022-04-28
 
 ### Added
