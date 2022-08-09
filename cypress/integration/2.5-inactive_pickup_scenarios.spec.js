@@ -39,16 +39,19 @@ describe('Inactive Pickup Points should not be visible in storefront', () => {
     }
   )
 
-  it('verify getStores with latitude and longitude', updateRetry(3), () => {
-    graphql(storeLocator, getStores(-22.94, -43.18), (response) => {
-      expect(response.status).to.equal(200)
-      expect(response.body.data.getStores.items.length).to.equal(2)
-    })
-  })
   it('verify getStores without latitude and longitude', updateRetry(3), () => {
     graphql(storeLocator, getStores(), (response) => {
+      cy.addDelayBetweenRetries(2000)
       expect(response.status).to.equal(200)
       expect(response.body.data.getStores.items.length).to.not.equal(0)
+    })
+  })
+
+  it('verify getStores with latitude and longitude', updateRetry(3), () => {
+    graphql(storeLocator, getStores(-22.94, -43.18), (response) => {
+      cy.addDelayBetweenRetries(2000)
+      expect(response.status).to.equal(200)
+      expect(response.body.data.getStores.items.length).to.equal(2)
     })
   })
 })
