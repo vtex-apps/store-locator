@@ -58,8 +58,10 @@ workspace:
     # Published a new theme for store-theme E2E test
     - vtex.store-locator-qa-theme@0.0.1
     # Store locator reads pickup points from store-graphql
-    # So, installing store-graphql@2.x
-    - vtex.store-graphql@2.x
+    # 2.153.0 version is not deployed, but this PR-54 has dependency with this version
+    # So, installing in 2.153.0
+    # TODO: Once 2.153.0 version is deployed, then update below line to vtex.store-graphql@2.x
+    - vtex.store-graphql@2.153.0
   removeApps:
    - vtex.bitcot-qa-theme
   wipe:
