@@ -58,10 +58,7 @@ workspace:
     # Published a new theme for store-theme E2E test
     - vtex.store-locator-qa-theme@0.0.1
     # Store locator reads pickup points from store-graphql
-    # 2.153.0 version is not deployed, but this PR-54 has dependency with this version
-    # So, installing in 2.153.0
-    # TODO: Once 2.153.0 version is deployed, then update below line to vtex.store-graphql@2.x
-    - vtex.store-graphql@2.153.0
+    - vtex.store-graphql
   removeApps:
    - vtex.bitcot-qa-theme
   wipe:
@@ -102,8 +99,7 @@ strategy:
     parallel: true
     specs:
       - cypress/integration/2.3-verify_pickup_points.spec.js
-      # TODO: Enable below test case after STORELOCAT-29 is published
-      # - cypress/integration/2.4-order_product_via_pick_up_store.spec.js
+      - cypress/integration/2.4-order_product_via_pick_up_store.spec.js
     dependency:
       - cypress/integration/2.1.2-rest_graphql_apis.spec.js
       - cypress/integration/2.2.1-add_pickup_point.spec.js
@@ -119,5 +115,4 @@ strategy:
       - cypress/integration/2.5-inactive_pickup_scenarios.spec.js
     dependency:
       - cypress/integration/2.3-verify_pickup_points.spec.js
-      # TODO: Enable below test case after STORELOCAT-29 is published
-      # - cypress/integration/2.4-order_product_via_pick_up_store.spec.js
+      - cypress/integration/2.4-order_product_via_pick_up_store.spec.js
