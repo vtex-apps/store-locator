@@ -1,8 +1,5 @@
-import {
-  graphql,
-  updateShippingPolicy,
-} from '../support/shipping-policy.graphql.js'
-import { deleteAllPickupPoints } from '../support/store-locator.apis.js'
+import { graphql, updateShippingPolicy } from '../support/graphql_testcase.js'
+import { deleteAllPickupPoints } from '../support/api_testcase.js'
 import data from '../support/shipping-policy.json'
 import { testSetup } from '../support/common/support.js'
 

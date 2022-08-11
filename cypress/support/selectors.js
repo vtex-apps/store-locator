@@ -54,6 +54,7 @@ export default {
     'label[for="isActive"] > div > div[class*=primary]',
   ShippingPolicyPickupPointStatus:
     'label[for="active"] > div > div[class*=primary]',
+  FillInvoiceAddress: 'p[class*=omnishipping] ~ button[class*=omnishipping]',
 }
 
 export function getAddressLink(index) {

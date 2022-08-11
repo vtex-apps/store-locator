@@ -3,12 +3,12 @@ import {
   updatePickupPointdata,
   listallPickupPointsAPI,
   INTIAL_PICKUP_POINTS_ENV,
-} from '../support/store-locator.apis'
-import { restAPITestCase } from '../support/store-locator.outputvalidation.js'
-import storelocatorSelectors from '../support/storelocator.selectors'
-import { graphql, getStores } from '../support/shipping-policy.graphql'
+} from '../support/api_testcase'
+import { restAPITestCase } from '../support/outputvalidation.js'
+import storelocatorSelectors from '../support/selectors.js'
+import { graphql, getStores } from '../support/graphql_testcase'
 import { storeLocator } from '../support/app_list'
-import { clickLoadAllStores } from '../support/storelocator.common.js'
+import { clickLoadAllStores } from '../support/common.js'
 
 const { pickupPoint3Payload } = restAPITestCase
 
