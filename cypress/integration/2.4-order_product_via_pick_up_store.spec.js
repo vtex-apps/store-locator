@@ -17,7 +17,7 @@ describe('Test pickup in checkout with one of the pickup points created in 2.2 t
 
   it(`In ${prefix} - Updating Shipping Information`, updateRetry(2), () => {
     // Update Shipping Section
-    cy.updateShippingInformation({ postalCode, pickup: true, timeout: 8000 })
+    cy.updateShippingInformation({ postalCode, pickup: true, timeout: 12000 })
   })
 
   it(`In ${prefix} - Order the product using promisory`, updateRetry(2), () => {
