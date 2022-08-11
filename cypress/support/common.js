@@ -1,8 +1,6 @@
 import { updateRetry } from './common/support'
-import storeLocatorSelectors, {
-  findPickupPoint,
-} from './storelocator.selectors'
-import { INTIAL_PICKUP_POINTS_ENV } from './store-locator.apis'
+import storeLocatorSelectors, { findPickupPoint } from './selectors.js'
+import { INTIAL_PICKUP_POINTS_ENV } from './api_testcase'
 
 export function addPickUpPoint(pickPointName) {
   cy.visit('/admin/app/pickup-points')
