@@ -71,7 +71,7 @@ Cypress.Commands.add('verifyDetailsInDetailPage', () => {
 
 Cypress.Commands.add('ordertheProduct', () => {
   cy.get('body').then(($body) => {
-    if ($body.find(storelocatorSelectors.FillInvoiceAddress).length) {
+    if ($body.find(storelocatorSelectors.FillInvoiceAddress).length === 2) {
       cy.get(storelocatorSelectors.FillInvoiceAddress)
         .last()
         .should('be.visible')
