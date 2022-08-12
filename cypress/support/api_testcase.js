@@ -7,7 +7,7 @@ import {
   getPickupPointById,
   deletePickupPoint,
   searchPickupPoint,
-} from './pickup-point.api'
+} from './apis'
 
 export const INTIAL_PICKUP_POINTS_ENV = 'INTIAL_PICKUP_POINTS_ENV'
 

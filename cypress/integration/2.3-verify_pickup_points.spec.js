@@ -1,6 +1,6 @@
 import { testSetup, updateRetry } from '../support/common/support'
-import { verifyAllPickUpPoint } from '../support/storelocator.common'
-import { listallPickupPointsAPI } from '../support/store-locator.apis.js'
+import { verifyAllPickUpPoint } from '../support/common.js'
+import { listallPickupPointsAPI } from '../support/api_testcase.js'
 
 describe('Verify all pickup points is displayed', () => {
   // Load test setup

@@ -1,6 +1,6 @@
 import { testSetup, updateRetry } from '../support/common/support'
-import { addPickUpPoint } from '../support/storelocator.common'
-import { pickupTestCase } from '../support/store-locator.outputvalidation.js'
+import { addPickUpPoint } from '../support/common.js'
+import { pickupTestCase } from '../support/outputvalidation.js'
 
 describe('Adding Multiple pickup point', () => {
   // Load test setup

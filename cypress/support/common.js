@@ -1,8 +1,6 @@
 import { updateRetry } from './common/support'
-import storeLocatorSelectors, {
-  findPickupPoint,
-} from './storelocator.selectors'
-import { INTIAL_PICKUP_POINTS_ENV } from './store-locator.apis'
+import storeLocatorSelectors, { findPickupPoint } from './selectors.js'
+import { INTIAL_PICKUP_POINTS_ENV } from './api_testcase'
 import { pickuppointsJsonFile } from './constants'
 
 export function addPickUpPoint(pickPointName) {
@@ -41,10 +39,20 @@ function tConvert(timeString) {
   return timeString
 }
 
+export function clickLoadAllStores() {
+  cy.get('body').then(($body) => {
+    if ($body.find(storeLocatorSelectors.LoadStores).length) {
+      cy.get(storeLocatorSelectors.LoadStores, { timeout: 15000 })
+        .should('be.visible')
+        .click()
+    }
+  })
+}
+
 export function verifyAllPickUpPoint() {
   cy.visitStore()
   cy.get(storeLocatorSelectors.ListOfStores).should('be.visible')
-  cy.get(storeLocatorSelectors.LoadStores).click()
+  clickLoadAllStores()
 
   cy.getPickupPointItem().then((pickupCount) => {
     cy.get(storeLocatorSelectors.MoreItems).should(
@@ -55,7 +63,7 @@ export function verifyAllPickUpPoint() {
       .its('length')
       .then((itemLen) => {
         for (let i = 0; i < itemLen; i++) {
-          cy.get(storeLocatorSelectors.LoadStores).should('be.visible').click()
+          clickLoadAllStores()
           cy.get(storeLocatorSelectors.MoreItems)
             .eq(i)
             .should('be.visible')
@@ -119,9 +127,11 @@ export function verifyAllPickUpPoint() {
                 })
               }
             })
+          cy.get(storeLocatorSelectors.HoursContainer).should('be.visible')
           cy.get(storeLocatorSelectors.BackToPickUpPoint)
             .should('be.visible')
             .click()
+          cy.get(storeLocatorSelectors.MoreItems).should('be.visible')
         }
       })
   })

@@ -3,7 +3,7 @@
     "numberOfItemsPerShipment": 1,
     "id": "sha1920ede3r",
     "name": "Test Shipping",
-    "shippingMethod": "Normal (1234)",
+    "shippingMethod": "Test",
     "carrierSchedule": [
       {
         "dayOfWeek": 0,

@@ -16,19 +16,18 @@ export default {
   ChangesSaved: 'div[class*=vtex-toast] .pr5',
   ListOfStores: '.overflow-auto > .list',
   LoadStores: 'span[class*=loadAll]',
-  MoreItems: '.vtex-store-locator-0-x-addressListLink',
+  MoreItems: 'span[class*=addressListLink]',
   AddressContainer: 'div[class*=addressContainer]',
   Hours: '.vtex-store-locator-0-x-hoursContainer',
   StoreName: 'div[class*=store-storedetail] div[class*=storeName]',
   HourRow: 'div[class*=hourRow]',
-  BackToPickUpPoint: '.vtex-store-locator-0-x-backlink',
+  BackToPickUpPoint: 'span[class*=backlink]',
   VtexButton: '.vtex-button',
   UploadInput: 'input[type=file]',
   CloseIcon: '.vtex-modal__close-icon',
   VtexAlert: '.vtex-alert .ph5',
-  VtexStoreLocatorAddress: '.vtex-store-locator-0-x-addressStoreName',
-  VtexStoreName: '.vtex-store-locator-0-x-addressStoreName',
-  HoursContainer: '.vtex-store-locator-0-x-hoursContainer',
+  VtexStoreName: 'span[class*=addressStoreName]',
+  HoursContainer: 'div[class*=hoursContainer]',
   AddPickupPointButton: '.w-70-ns > :nth-child(2) > .vtex-button__label',
   PickupPointName:
     '.w-60-ns > .vtex-input > .vtex-input-prefix__group > .vtex-styleguide-9-x-input',
@@ -58,12 +57,13 @@ export default {
     'label[for="isActive"] > div > div[class*=primary]',
   ShippingPolicyPickupPointStatus:
     'label[for="active"] > div > div[class*=primary]',
+  FillInvoiceAddress: 'p[class*=omnishipping] ~ button[class*=omnishipping]',
 }
 
 export function getAddressLink(index) {
-  return `.vtex-store-locator-0-x-addressListItem:nth-child(${
+  return `span[class*=addressListItem]:nth-child(${
     index + 1
-  }) .vtex-store-locator-0-x-addressListLink`
+  }) span[class*=addressListLink]`
 }
 
 export function getPickupPoint(pickupPoint) {
