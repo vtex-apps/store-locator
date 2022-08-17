@@ -23,13 +23,17 @@
     "vtex.store-sitemap": "2.x",
     "vtex.apps-graphql": "2.x"
   },
-  "registries": ["smartcheckout"],
+  "registries": [
+    "smartcheckout"
+  ],
   "billingOptions": {
     "type": "free",
     "support": {
       "url": "https://support.vtex.com/hc/requests"
     },
-    "availableCountries": ["*"]
+    "availableCountries": [
+      "*"
+    ]
   },
   "policies": [
     {
