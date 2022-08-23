@@ -21,6 +21,6 @@ describe('Test pickup in checkout with one of the pickup points created in 2.2 t
   })
 
   it(`In ${prefix} - Order the product using promisory`, updateRetry(2), () => {
-    cy.ordertheProduct()
+    cy.orderProduct()
   })
 })
