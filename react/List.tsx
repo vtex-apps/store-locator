@@ -66,8 +66,8 @@ const StoreList = ({
   const [state, setState] = useState<{strikes: number, allLoaded:boolean, center: any, zoom: number}>({
     strikes: 0,
     allLoaded: false,
-    center: null,
-    zoom: zoom || 10,
+    center: null as unknown as number[],
+    zoom: zoom || 8,
   })
 
   const handles = useCssHandles(CSS_HANDLES)
@@ -181,12 +181,12 @@ const StoreList = ({
   }, [storesFilter.province])
 
   useEffect(() => {
-    if (storesFiltered && storesFiltered[0]?.address?.location) {
-      const { longitude, latitude } = storesFiltered[0].address?.location
+    if (storesFiltered && storesFiltered[0]?.address.location) {
+      const { longitude, latitude } = storesFiltered[0].address.location
       setState({ ...state, center: [longitude, latitude], zoom: 9 })
     }
   }, [storesFiltered])
-  
+
   window.addEventListener('click', (e: any) => {
     const classNames = e.target.getAttribute("class")
     if (classNames.includes("drawerActive")) { // Drawer class names
@@ -221,7 +221,7 @@ const StoreList = ({
 
       handleCenter(center)
     }
-
+    
     return (
       <div className={`flex flex-row ${handles.listContainer}`}>
         <div className={`flex-col w-100 ${handles.listContainerCol}`}>

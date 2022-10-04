@@ -6,9 +6,9 @@ import type { FC } from 'react'
 import React from 'react'
 import { injectIntl, FormattedMessage } from 'react-intl'
 import PropTypes from 'prop-types'
-import slugify from 'slugify'
 import { useRuntime } from 'vtex.render-runtime'
 import { useCssHandles } from 'vtex.css-handles'
+import { Slugify } from '../utils'
 
 const CSS_HANDLES = [
   'addressList',
@@ -24,10 +24,6 @@ const CSS_HANDLES = [
   'addressShowOnMap'
 ] as const
 
-const Slugify = (str: string) => {
-  return slugify(str, { lower: true, remove: /[*+~.()'"!:@]/g })
-}
-
 const Listing: FC<any> = ({ items, onChangeCenter }) => {
   const handles = useCssHandles(CSS_HANDLES)
   const { navigate } = useRuntime()
@@ -40,7 +36,7 @@ const Listing: FC<any> = ({ items, onChangeCenter }) => {
 
   const goTo = (item: any) => {
     const { state: _state, postalCode } = item.address
-
+    
     navigate({
       page: 'store.storedetail',
       params: {
