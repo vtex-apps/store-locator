@@ -18,5 +18,6 @@
   "store/filter-by-store": "Filtrar por loja",
   "store/reset-filter": "Reset",
   "store/get-directions": "Obter direções",
-  "store/none-stores-message": "Tente limpar os filtros."
+  "store/none-stores-message": "Tente limpar os filtros.",
+  "store/reset-stores-message": "Limpar filtros para ver todas as lojas"
 }

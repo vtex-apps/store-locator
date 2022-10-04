@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Button } from 'vtex.styleguide'
 import { useCssHandles } from 'vtex.css-handles'
 import { defineMessages, useIntl } from 'react-intl'
@@ -28,11 +28,14 @@ const FilterByStore = ({
   setStoresFilter,
   storesSettings,
 }: FilterByStoreProps) => {
+  const [activeDrawer, setActiveDrawer] = useState<boolean>(false)
+
   const handleSelectStore = (e) => {
     const { value } = e.target
 
     setStoresFilter((prev) => ({ ...prev, store: value }))
     saveStoresFilter('store', value)
+    setActiveDrawer(!activeDrawer)
   }
 
   const resetFilter = () => {
@@ -41,7 +44,6 @@ const FilterByStore = ({
     setActiveDrawer(!activeDrawer)
   }
 
-  const [activeDrawer, setActiveDrawer] = useState<boolean>(false)
   const handles = useCssHandles(CSS_HANDLES)
   const intl = useIntl()
   const messages = defineMessages({
@@ -118,7 +120,4 @@ const FilterByStore = ({
 }
 
 export default FilterByStore
-function useState<T>(arg0: boolean): [any, any] {
-  throw new Error('Function not implemented.')
-}
 

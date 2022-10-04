@@ -7,9 +7,14 @@ const CSS_HANDLES = [
   'noResultsIcon',
   'noResultsTitle',
   'noResultsMessage',
+  'noResultsResetMessage'
 ] as const
 
-const EmptyList = () => {
+interface IProps{
+  resetLink: () => void
+}
+
+const EmptyList = ( {resetLink}: IProps) => {
   const handles = useCssHandles(CSS_HANDLES)
 
   return (
@@ -21,6 +26,9 @@ const EmptyList = () => {
       <span className={handles.noResultsMessage}>
         <FormattedMessage id="store/none-stores-message" />
       </span>
+      <a className={`${handles.noResultsResetMessage} mt2 underline-hover no-underline`} href={`#`} onClick={() => resetLink()}>
+        <FormattedMessage id="store/reset-stores-message" />
+      </a>
     </div>
   )
 }

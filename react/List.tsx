@@ -20,7 +20,7 @@ import STORES_SETTINGS from './queries/storesSettings.graphql'
 import Listing from './components/Listing'
 import Pinpoints from './components/Pinpoints'
 import Filter from './components/Filter'
-import { filterStoresByProvince, getStoresFilter } from './utils'
+import { filterStoresByProvince, getStoresFilter, saveStoresFilter } from './utils'
 import EmptyList from './components/EmptyList'
 
 const CSS_HANDLES = [
@@ -186,13 +186,6 @@ const StoreList = ({
     }
   }, [storesFiltered])
 
-  // window.addEventListener('click', (e: any) => {
-  //   const classNames = e.target.getAttribute("class")
-  //   if (classNames.includes("drawerActive")) { // Drawer class names
-  //     setActiveDrawer(false)
-  //   }
-  // })
-
   if (called && !loadingStoresSettings) {
     let storesSettingsParsed: { stores: StoreOnStoresFilter[] } =
       storesSettings && JSON.parse(storesSettings?.appSettings.message)
@@ -248,7 +241,11 @@ const StoreList = ({
               />
             </div>
           )}
-          {!loading && !!data && storesFiltered.length === 0 && <EmptyList />}
+          {!loading && !!data && storesFiltered.length === 0 && <EmptyList resetLink={() => {
+            saveStoresFilter('province', '')
+            saveStoresFilter('store', '')
+            setStoresFilter(getStoresFilter())
+          }} />}
           {!loading && !!data && storesFiltered.length > 0 && (
             <div className={handles.storesListCol}>
               <div className={`overflow-auto h-100 ${handles.storesList}`}>
