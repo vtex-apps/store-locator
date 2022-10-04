@@ -41,7 +41,6 @@ const FilterByStore = ({
   const resetFilter = () => {
     setStoresFilter((prev) => ({ ...prev, store: '' }))
     saveStoresFilter('store', '')
-    setActiveDrawer(!activeDrawer)
   }
 
   const handles = useCssHandles(CSS_HANDLES)
