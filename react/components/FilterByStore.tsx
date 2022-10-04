@@ -20,8 +20,6 @@ const CSS_HANDLES = [
 interface FilterByStoreProps {
   storesFilter: StoresFilter
   setStoresFilter: React.Dispatch<React.SetStateAction<StoresFilter>>
-  activeDrawer: boolean
-  setActiveDrawer: React.Dispatch<React.SetStateAction<boolean>>
   storesSettings: StoreOnStoresFilter[]
 }
 
@@ -29,8 +27,6 @@ const FilterByStore = ({
   storesFilter,
   setStoresFilter,
   storesSettings,
-  setActiveDrawer,
-  activeDrawer
 }: FilterByStoreProps) => {
   const handleSelectStore = (e) => {
     const { value } = e.target
@@ -45,7 +41,7 @@ const FilterByStore = ({
     setActiveDrawer(!activeDrawer)
   }
 
-  // const [activeDrawer, setActiveDrawer] = useState<boolean>(false)
+  const [activeDrawer, setActiveDrawer] = useState<boolean>(false)
   const handles = useCssHandles(CSS_HANDLES)
   const intl = useIntl()
   const messages = defineMessages({
@@ -57,6 +53,13 @@ const FilterByStore = ({
       defaultMessage: 'Reset',
       id: 'store/reset-filter',
     },
+  })
+
+   window.addEventListener('click', (e: any) => {
+    const classNames = e.target.getAttribute("class")
+    if (classNames.includes("drawerActive")) { // Drawer class names
+      setActiveDrawer(false)
+    }
   })
 
   return (
@@ -115,3 +118,7 @@ const FilterByStore = ({
 }
 
 export default FilterByStore
+function useState<T>(arg0: boolean): [any, any] {
+  throw new Error('Function not implemented.')
+}
+

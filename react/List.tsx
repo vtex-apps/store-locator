@@ -61,7 +61,6 @@ const StoreList = ({
   const [storesFilter, setStoresFilter] = useState<StoresFilter>(
     getStoresFilter()
   )
-  const [activeDrawer, setActiveDrawer] = useState<boolean>(false)
 
   const [state, setState] = useState<{strikes: number, allLoaded:boolean, center: any, zoom: number}>({
     strikes: 0,
@@ -187,12 +186,12 @@ const StoreList = ({
     }
   }, [storesFiltered])
 
-  window.addEventListener('click', (e: any) => {
-    const classNames = e.target.getAttribute("class")
-    if (classNames.includes("drawerActive")) { // Drawer class names
-      setActiveDrawer(false)
-    }
-  })
+  // window.addEventListener('click', (e: any) => {
+  //   const classNames = e.target.getAttribute("class")
+  //   if (classNames.includes("drawerActive")) { // Drawer class names
+  //     setActiveDrawer(false)
+  //   }
+  // })
 
   if (called && !loadingStoresSettings) {
     let storesSettingsParsed: { stores: StoreOnStoresFilter[] } =
@@ -229,8 +228,6 @@ const StoreList = ({
             storesFilter={storesFilter}
             setStoresFilter={setStoresFilter}
             storesSettings={storesSettingsParsed.stores}
-            activeDrawer={activeDrawer}
-            setActiveDrawer={setActiveDrawer}
           />
           {loading && (
             <div className={handles.loadingContainer}>
