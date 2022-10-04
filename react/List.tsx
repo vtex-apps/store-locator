@@ -57,12 +57,13 @@ const StoreList = ({
     }
   )
   const [stores, setStores] = useState<SpecificationGroup[]>([])
-  const [storesFiltered, setStoresFiltered] = useState<SpecificationGroup[]>([])
+  const [storesFiltered, setStoresFiltered] = useState<any[]>([])
   const [storesFilter, setStoresFilter] = useState<StoresFilter>(
     getStoresFilter()
   )
+  const [activeDrawer, setActiveDrawer] = useState<boolean>(false)
 
-  const [state, setState] = useState({
+  const [state, setState] = useState<{strikes: number, allLoaded:boolean, center: any, zoom: number}>({
     strikes: 0,
     allLoaded: false,
     center: null,
@@ -179,6 +180,20 @@ const StoreList = ({
     setStoresFiltered(filterStoresByProvince(storesFilter.province, stores))
   }, [storesFilter.province])
 
+  useEffect(() => {
+    if (storesFiltered && storesFiltered[0]?.address?.location) {
+      const { longitude, latitude } = storesFiltered[0].address?.location
+      setState({ ...state, center: [longitude, latitude], zoom: 9 })
+    }
+  }, [storesFiltered])
+  
+  window.addEventListener('click', (e: any) => {
+    const classNames = e.target.getAttribute("class")
+    if (classNames.includes("drawerActive")) { // Drawer class names
+      setActiveDrawer(false)
+    }
+  })
+
   if (called && !loadingStoresSettings) {
     let storesSettingsParsed: { stores: StoreOnStoresFilter[] } =
       storesSettings && JSON.parse(storesSettings?.appSettings.message)
@@ -214,6 +229,8 @@ const StoreList = ({
             storesFilter={storesFilter}
             setStoresFilter={setStoresFilter}
             storesSettings={storesSettingsParsed.stores}
+            activeDrawer={activeDrawer}
+            setActiveDrawer={setActiveDrawer}
           />
           {loading && (
             <div className={handles.loadingContainer}>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Button } from 'vtex.styleguide'
 import { useCssHandles } from 'vtex.css-handles'
 import { defineMessages, useIntl } from 'react-intl'
@@ -20,6 +20,8 @@ const CSS_HANDLES = [
 interface FilterByStoreProps {
   storesFilter: StoresFilter
   setStoresFilter: React.Dispatch<React.SetStateAction<StoresFilter>>
+  activeDrawer: boolean
+  setActiveDrawer: React.Dispatch<React.SetStateAction<boolean>>
   storesSettings: StoreOnStoresFilter[]
 }
 
@@ -27,6 +29,8 @@ const FilterByStore = ({
   storesFilter,
   setStoresFilter,
   storesSettings,
+  setActiveDrawer,
+  activeDrawer
 }: FilterByStoreProps) => {
   const handleSelectStore = (e) => {
     const { value } = e.target
@@ -38,9 +42,10 @@ const FilterByStore = ({
   const resetFilter = () => {
     setStoresFilter((prev) => ({ ...prev, store: '' }))
     saveStoresFilter('store', '')
+    setActiveDrawer(!activeDrawer)
   }
 
-  const [activeDrawer, setActiveDrawer] = useState<boolean>(false)
+  // const [activeDrawer, setActiveDrawer] = useState<boolean>(false)
   const handles = useCssHandles(CSS_HANDLES)
   const intl = useIntl()
   const messages = defineMessages({
@@ -59,7 +64,7 @@ const FilterByStore = ({
       <div
         className={`${handles.secondaryButton} ${handles.filterStoresButton}`}
       >
-        <Button onClick={() => setActiveDrawer((prevValue) => !prevValue)}>
+        <Button onClick={() => setActiveDrawer(!activeDrawer)}>
           {intl.formatMessage(messages.filterByStore)}
         </Button>
       </div>

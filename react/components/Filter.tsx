@@ -9,6 +9,8 @@ const CSS_HANDLES = ['filterContainer'] as const
 interface FilterProps {
   storesFilter: StoresFilter
   setStoresFilter: React.Dispatch<React.SetStateAction<StoresFilter>>
+  activeDrawer: boolean
+  setActiveDrawer: React.Dispatch<React.SetStateAction<boolean>>
   storesSettings: StoreOnStoresFilter[]
 }
 
@@ -16,6 +18,8 @@ const Filter = ({
   storesFilter,
   setStoresFilter,
   storesSettings,
+  activeDrawer,
+  setActiveDrawer
 }: FilterProps) => {
   const handles = useCssHandles(CSS_HANDLES)
 
@@ -30,6 +34,8 @@ const Filter = ({
           storesSettings={storesSettings}
           storesFilter={storesFilter}
           setStoresFilter={setStoresFilter}
+          activeDrawer={activeDrawer}
+          setActiveDrawer={setActiveDrawer}
         />
       </div>
     </>
