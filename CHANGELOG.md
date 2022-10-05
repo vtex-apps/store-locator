@@ -9,13 +9,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- GitHub reusable workflow and Cy-Runner uptade to version 2
+- GitHub reusable workflow and Cy-Runner update to version 2
+- Updated descriptions for block props in README
+- Moved error logging for `getStores` to GraphQL resolver instead of client
 
 ## [0.10.13] - 2022-08-09
 
 ## [0.10.12] - 2022-08-04
 
 ### Added
+
 - Add holiday exceptions
 
 ### Fixed
