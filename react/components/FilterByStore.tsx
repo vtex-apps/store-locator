@@ -28,11 +28,14 @@ const FilterByStore = ({
   setStoresFilter,
   storesSettings,
 }: FilterByStoreProps) => {
+  const [activeDrawer, setActiveDrawer] = useState<boolean>(false)
+
   const handleSelectStore = (e) => {
     const { value } = e.target
 
     setStoresFilter((prev) => ({ ...prev, store: value }))
     saveStoresFilter('store', value)
+    setActiveDrawer(!activeDrawer)
   }
 
   const resetFilter = () => {
@@ -40,7 +43,6 @@ const FilterByStore = ({
     saveStoresFilter('store', '')
   }
 
-  const [activeDrawer, setActiveDrawer] = useState<boolean>(false)
   const handles = useCssHandles(CSS_HANDLES)
   const intl = useIntl()
   const messages = defineMessages({
@@ -54,12 +56,19 @@ const FilterByStore = ({
     },
   })
 
+   window.addEventListener('click', (e: any) => {
+    const classNames = e.target.getAttribute("class")
+    if (classNames.includes("drawerActive")) { // Drawer class names
+      setActiveDrawer(false)
+    }
+  })
+
   return (
     <>
       <div
         className={`${handles.secondaryButton} ${handles.filterStoresButton}`}
       >
-        <Button onClick={() => setActiveDrawer((prevValue) => !prevValue)}>
+        <Button onClick={() => setActiveDrawer(!activeDrawer)}>
           {intl.formatMessage(messages.filterByStore)}
         </Button>
       </div>
@@ -110,3 +119,4 @@ const FilterByStore = ({
 }
 
 export default FilterByStore
+

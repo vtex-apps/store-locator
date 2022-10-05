@@ -20,7 +20,7 @@ import STORES_SETTINGS from './queries/storesSettings.graphql'
 import Listing from './components/Listing'
 import Pinpoints from './components/Pinpoints'
 import Filter from './components/Filter'
-import { filterStoresByProvince, getStoresFilter } from './utils'
+import { filterStoresByProvince, getStoresFilter, saveStoresFilter } from './utils'
 import EmptyList from './components/EmptyList'
 
 const CSS_HANDLES = [
@@ -57,16 +57,16 @@ const StoreList = ({
     }
   )
   const [stores, setStores] = useState<SpecificationGroup[]>([])
-  const [storesFiltered, setStoresFiltered] = useState<SpecificationGroup[]>([])
+  const [storesFiltered, setStoresFiltered] = useState<any[]>([])
   const [storesFilter, setStoresFilter] = useState<StoresFilter>(
     getStoresFilter()
   )
 
-  const [state, setState] = useState({
+  const [state, setState] = useState<{strikes: number, allLoaded:boolean, center: any, zoom: number}>({
     strikes: 0,
     allLoaded: false,
-    center: null,
-    zoom: zoom || 10,
+    center: null as unknown as number[],
+    zoom: zoom || 8,
   })
 
   const handles = useCssHandles(CSS_HANDLES)
@@ -179,6 +179,13 @@ const StoreList = ({
     setStoresFiltered(filterStoresByProvince(storesFilter.province, stores))
   }, [storesFilter.province])
 
+  useEffect(() => {
+    if (storesFiltered && storesFiltered[0]?.address.location) {
+      const { longitude, latitude } = storesFiltered[0].address.location
+      setState({ ...state, center: [longitude, latitude], zoom: 9 })
+    }
+  }, [storesFiltered])
+
   if (called && !loadingStoresSettings) {
     let storesSettingsParsed: { stores: StoreOnStoresFilter[] } =
       storesSettings && JSON.parse(storesSettings?.appSettings.message)
@@ -206,7 +213,7 @@ const StoreList = ({
 
       handleCenter(center)
     }
-
+    
     return (
       <div className={`flex flex-row ${handles.listContainer}`}>
         <div className={`flex-col w-100 ${handles.listContainerCol}`}>
@@ -234,7 +241,11 @@ const StoreList = ({
               />
             </div>
           )}
-          {!loading && !!data && storesFiltered.length === 0 && <EmptyList />}
+          {!loading && !!data && storesFiltered.length === 0 && <EmptyList resetLink={() => {
+            saveStoresFilter('province', '')
+            saveStoresFilter('store', '')
+            setStoresFilter(getStoresFilter())
+          }} />}
           {!loading && !!data && storesFiltered.length > 0 && (
             <div className={handles.storesListCol}>
               <div className={`overflow-auto h-100 ${handles.storesList}`}>

@@ -39,7 +39,7 @@ const StoreAddress: FC<StoreAddressProps & WrappedComponentProps> = ({
   }
 
   const [lng, lat] = group.address.geoCoordinates
-
+  
   return (
     <div className={handles.addressContainer}>
       <div className={handles.addressLabelContainer}>

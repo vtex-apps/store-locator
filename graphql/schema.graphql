@@ -1,6 +1,6 @@
 type Query {
   getStores(latitude: Float, longitude: Float, keyword: String): StoreResponse
-    @cacheControl(scope: PRIVATE)
+    @cacheControl(scope: PUBLIC, maxAge: 86400)
 }
 
 type StoreResponse {
