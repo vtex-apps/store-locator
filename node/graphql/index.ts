@@ -9,6 +9,10 @@ const Slugify = (str: string) => {
   return slugify(str, { lower: true, remove: /[*+~.()'"!:@]/g })
 }
 
+const stripTrailingSlash = (str: string) => {
+  return str.endsWith('/') ? str.slice(0, -1) : str
+}
+
 export const resolvers = {
   Routes: {
     getSitemap: [
@@ -16,6 +20,7 @@ export const resolvers = {
         GET: async (ctx: Context) => {
           const {
             clients: { tenant },
+            vtex: { logger },
           } = ctx
 
           try {
@@ -27,7 +32,11 @@ export const resolvers = {
                 longitude: null,
               },
               ctx
-            )
+            ).catch((error) => {
+              logger.error({ error, message: 'getSitemap-getStores-error' })
+
+              return null
+            })
 
             const [storeBindings] = await getStoreBindings(tenant)
 
@@ -36,10 +45,6 @@ export const resolvers = {
               canonicalBaseAddress.indexOf('myvtex') === -1
                 ? String(canonicalBaseAddress)
                 : String(ctx.vtex.host)
-
-            const stripTrailingSlash = (str: string) => {
-              return str.endsWith('/') ? str.slice(0, -1) : str
-            }
 
             const lastMod = new Date().toISOString()
             const storesMap = `
@@ -117,12 +122,29 @@ export const resolvers = {
         }
       })
 
-      let result = await hub.getStores(param)
+      let result = await hub.getStores(param).catch((error) => {
+        logger.error({
+          error,
+          message: 'getStores-error',
+          param,
+        })
+
+        return null
+      })
 
       if (!result?.data.length && !param.keyword) {
-        result = await hub.getStores({})
+        result = await hub.getStores({}).catch((error) => {
+          logger.error({
+            error,
+            message: 'getStores-error',
+            param: {},
+          })
+
+          return null
+        })
       }
 
+      // accounts for different reponse structure for Logistics _search and _searchsellers endpoints
       const {
         data,
         data: { paging = { pages: 0 } },
@@ -136,7 +158,17 @@ export const resolvers = {
       const limitPagesTo99 = paging.pages > 99 ? 99 : paging.pages
 
       for (let i = 2; i <= limitPagesTo99; i++) {
-        results.push(hub.getStores({ ...param, page: i }))
+        results.push(
+          hub.getStores({ ...param, page: i }).catch((error) => {
+            logger.error({
+              error,
+              message: 'getStores-error',
+              param: { ...param, page: i },
+            })
+
+            return null
+          })
+        )
       }
 
       const remainingData = await Promise.all(results)
