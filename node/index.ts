@@ -1,10 +1,10 @@
-import {
+import type {
   ClientsConfig,
-  Service,
   ServiceContext,
   ParamsContext,
   RecorderState,
 } from '@vtex/api'
+import { Service } from '@vtex/api'
 
 import { Clients } from './clients'
 import { resolvers } from './graphql'

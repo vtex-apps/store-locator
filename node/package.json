@@ -1,6 +1,6 @@
 {
   "name": "vtex.store-locator",
-  "version": "0.10.13",
+  "version": "0.10.14",
   "dependencies": {
     "co-body": "^6.0.0",
     "jsonwebtoken": "^8.5.0",

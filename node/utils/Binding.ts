@@ -1,4 +1,4 @@
-import { TenantClient } from '@vtex/api'
+import type { TenantClient } from '@vtex/api'
 
 export const TENANT_CACHE_TTL_S = 60 * 10
 export const STORE_PRODUCT = 'vtex-storefront'
