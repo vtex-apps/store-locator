@@ -59,80 +59,64 @@ export function verifyAllPickUpPoint() {
       'have.length',
       pickupCount[INTIAL_PICKUP_POINTS_ENV] + 4
     )
-    cy.get(storeLocatorSelectors.MoreItems)
-      .its('length')
-      .then((itemLen) => {
-        for (let i = 0; i < itemLen; i++) {
-          clickLoadAllStores()
-          cy.get(storeLocatorSelectors.MoreItems)
-            .eq(i)
-            .should('be.visible')
-            .click()
-          cy.get(storeLocatorSelectors.AddressContainer, {
-            timeout: 20000,
-          }).should('be.visible')
-          cy.get(storeLocatorSelectors.Hours).should('be.visible')
-          cy.get(storeLocatorSelectors.StoreName)
-            .invoke('text')
-            .then((text) => {
-              if (text === 'pickup example 1') {
-                cy.get(storeLocatorSelectors.HourRow).then(($els) => {
-                  const pickupPoins = [...$els].map((el) => el.innerText)
-                  const pickupPointsHours = pickupPoins.map((name) =>
-                    name.split(':\n')
-                  )
+    cy.contains('li', 'pickup example 1')
+      .invoke('index')
+      .then((i) => {
+        cy.get(storeLocatorSelectors.MoreItems)
+          .eq(i)
+          .scrollIntoView()
+          .should('be.visible')
+          .click()
+        cy.get(storeLocatorSelectors.HourRow).then(($els) => {
+          const pickupPoins = [...$els].map((el) => el.innerText)
+          const pickupPointsHours = pickupPoins.map((name) => name.split(':\n'))
 
-                  cy.readFile(pickuppointsJsonFile).then((pp) => {
-                    const filterPickupPoint = pp.filter((p) => p.name === text)
-                    const [{ businessHours }] = filterPickupPoint
+          cy.readFile(pickuppointsJsonFile).then((pp) => {
+            const filterPickupPoint = pp.filter(
+              (p) => p.name === 'pickup example 1'
+            )
 
-                    // eslint-disable-next-line array-callback-return
-                    businessHours.map((ba) => {
-                      if (ba.dayOfWeek === 1) {
-                        const dayOfWeek = pickupPointsHours.filter(
-                          (day) => day[0] === 'Monday'
-                        )
+            const [{ businessHours }] = filterPickupPoint
 
-                        const startTime = tConvert(ba.openingTime)
-                        const endTime = tConvert(ba.closingTime)
+            // eslint-disable-next-line array-callback-return
+            businessHours.map((ba) => {
+              if (ba.dayOfWeek === 1) {
+                const dayOfWeek = pickupPointsHours.filter(
+                  (day) => day[0] === 'Monday'
+                )
 
-                        expect(dayOfWeek[0][1]).to.be.equal(
-                          `0${startTime} - ${endTime}`
-                        )
-                      } else if (ba.dayOfWeek === 2) {
-                        const dayOfWeek = pickupPointsHours.filter(
-                          (day) => day[0] === 'Tuesday'
-                        )
+                const startTime = tConvert(ba.openingTime)
+                const endTime = tConvert(ba.closingTime)
 
-                        const startTime = tConvert(ba.openingTime)
-                        const endTime = tConvert(ba.closingTime)
+                expect(dayOfWeek[0][1]).to.be.equal(
+                  `0${startTime} - ${endTime}`
+                )
+              } else if (ba.dayOfWeek === 2) {
+                const dayOfWeek = pickupPointsHours.filter(
+                  (day) => day[0] === 'Tuesday'
+                )
 
-                        expect(dayOfWeek[0][1]).to.be.equal(
-                          `0${startTime} - ${endTime}`
-                        )
-                      } else if (ba.dayOfWeek === 5) {
-                        const dayOfWeek = pickupPointsHours.filter(
-                          (day) => day[0] === 'Friday'
-                        )
+                const startTime = tConvert(ba.openingTime)
+                const endTime = tConvert(ba.closingTime)
 
-                        const startTime = tConvert(ba.openingTime)
-                        const endTime = tConvert(ba.closingTime)
+                expect(dayOfWeek[0][1]).to.be.equal(
+                  `0${startTime} - ${endTime}`
+                )
+              } else if (ba.dayOfWeek === 5) {
+                const dayOfWeek = pickupPointsHours.filter(
+                  (day) => day[0] === 'Friday'
+                )
 
-                        expect(dayOfWeek[0][1]).to.be.equal(
-                          `0${startTime} - ${endTime}`
-                        )
-                      }
-                    })
-                  })
-                })
+                const startTime = tConvert(ba.openingTime)
+                const endTime = tConvert(ba.closingTime)
+
+                expect(dayOfWeek[0][1]).to.be.equal(
+                  `0${startTime} - ${endTime}`
+                )
               }
             })
-          cy.get(storeLocatorSelectors.HoursContainer).should('be.visible')
-          cy.get(storeLocatorSelectors.BackToPickUpPoint)
-            .should('be.visible')
-            .click()
-          cy.get(storeLocatorSelectors.MoreItems).should('be.visible')
-        }
+          })
+        })
       })
   })
 }
