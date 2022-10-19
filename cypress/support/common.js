@@ -54,6 +54,7 @@ export function verifyAllPickUpPoint() {
           clickLoadAllStores()
           cy.get(storeLocatorSelectors.MoreItems)
             .eq(i)
+            .scrollIntoView()
             .should('be.visible')
             .click()
           cy.get(storeLocatorSelectors.AddressContainer, {
