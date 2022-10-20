@@ -47,9 +47,7 @@ describe('Inactive Pickup Points should not be visible in storefront', () => {
         p.name.includes('pickup example')
       )
 
-      expect(response.body.data.getStores.items.length).to.equal(
-        pickupPoints.length
-      )
+      expect(pickupPoints.length).to.equal(2)
     })
   })
 
