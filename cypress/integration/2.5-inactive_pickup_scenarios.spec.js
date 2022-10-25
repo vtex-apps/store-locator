@@ -43,7 +43,11 @@ describe('Inactive Pickup Points should not be visible in storefront', () => {
     graphql(storeLocator, getStores(-22.94, -43.18), (response) => {
       cy.addDelayBetweenRetries(4000)
       expect(response.status).to.equal(200)
-      expect(response.body.data.getStores.items.length).to.equal(2)
+      const pickupPoints = response.body.data.getStores.items.map((p) =>
+        p.name.includes('pickup example')
+      )
+
+      expect(pickupPoints.length).to.equal(2)
     })
   })
 
