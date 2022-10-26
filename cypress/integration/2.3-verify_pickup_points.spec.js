@@ -7,7 +7,7 @@ describe('Verify all pickup points is displayed', () => {
   testSetup()
 
   listallPickupPointsAPI()
-  it('Verify all pickup points is shown in stores', updateRetry(5), () => {
+  it('Verify all pickup points is shown in stores', updateRetry(2), () => {
     cy.addDelayBetweenRetries(10000)
     verifyAllPickUpPoint()
   })
