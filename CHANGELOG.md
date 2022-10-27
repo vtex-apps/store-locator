@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Increased hard retries to verify pickup points in cypress tests
+
 ## [0.10.14] - 2022-10-07
 
 ### Changed
