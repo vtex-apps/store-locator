@@ -96,7 +96,7 @@ strategy:
   verifyPickupPoints:
     enabled: true
     sendDashboard: true
-    hardTries: 1
+    hardTries: 4
     stopOnFail: false
     parallel: true
     specs:
