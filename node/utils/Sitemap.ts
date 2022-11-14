@@ -1,4 +1,5 @@
-import { AppGraphQLClient, InstanceOptions, IOContext } from '@vtex/api'
+import type { InstanceOptions, IOContext } from '@vtex/api'
+import { AppGraphQLClient } from '@vtex/api'
 
 const saveIndexMutation = `mutation SaveIndex($index: String!) {
     saveIndex(index: $index)
@@ -27,7 +28,7 @@ export default class Sitemap extends AppGraphQLClient {
       },
       {
         headers: {
-          ...(this.options && this.options.headers),
+          ...this.options?.headers,
           'Proxy-Authorization': this.context.authToken,
           VtexIdclientAutCookie: this.context.authToken,
           'x-vtex-tenant': tenant,

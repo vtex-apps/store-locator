@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { ExternalClient, InstanceOptions, IOContext, Logger } from '@vtex/api'
+import type { InstanceOptions, IOContext } from '@vtex/api'
+import { ExternalClient } from '@vtex/api'
 
 const BASE_PATH =
   'http://logistics.vtexcommercestable.com.br/api/logistics/pvt/configuration/pickuppoints/'
@@ -26,7 +27,6 @@ const routes = {
 }
 
 export default class RequestHub extends ExternalClient {
-  public logger: Logger
   constructor(context: IOContext, options?: InstanceOptions) {
     super('', context, {
       ...options,
@@ -37,14 +37,9 @@ export default class RequestHub extends ExternalClient {
         VtexIdclientAutCookie: context.authToken,
       },
     })
-    this.logger = new Logger(context)
   }
 
   public getStores(data: any) {
-    return this.http
-      .getRaw(routes.getAll(data, this.context.account))
-      .catch((e) => {
-        this.logger.error(e)
-      })
+    return this.http.getRaw(routes.getAll(data, this.context.account))
   }
 }

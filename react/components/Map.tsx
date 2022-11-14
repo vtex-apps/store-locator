@@ -3,7 +3,7 @@ import React from 'react'
 import { GoogleMap, Marker, useJsApiLoader } from '@react-google-maps/api'
 
 const Map = (props: any) => {
-  const zoom = props.zoom
+  const { zoom } = props
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
     googleMapsApiKey: props.apiKey,

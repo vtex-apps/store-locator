@@ -9,6 +9,10 @@ const Slugify = (str: string) => {
   return slugify(str, { lower: true, remove: /[*+~.()'"!:@]/g })
 }
 
+const stripTrailingSlash = (str: string) => {
+  return str.endsWith('/') ? str.slice(0, -1) : str
+}
+
 export const resolvers = {
   Routes: {
     getSitemap: [
@@ -16,6 +20,7 @@ export const resolvers = {
         GET: async (ctx: Context) => {
           const {
             clients: { tenant },
+            vtex: { logger },
           } = ctx
 
           try {
@@ -27,7 +32,11 @@ export const resolvers = {
                 longitude: null,
               },
               ctx
-            )
+            ).catch((error) => {
+              logger.error({ error, message: 'getSitemap-getStores-error' })
+
+              return null
+            })
 
             const [storeBindings] = await getStoreBindings(tenant)
 
@@ -36,10 +45,6 @@ export const resolvers = {
               canonicalBaseAddress.indexOf('myvtex') === -1
                 ? String(canonicalBaseAddress)
                 : String(ctx.vtex.host)
-
-            const stripTrailingSlash = (str: string) => {
-              return str.endsWith('/') ? str.slice(0, -1) : str
-            }
 
             const lastMod = new Date().toISOString()
             const storesMap = `
@@ -73,21 +78,21 @@ export const resolvers = {
     ],
   },
   Query: {
-    getStores: async (_: any, param: any, ctx: any) => {
+    getStores: async (_: any, param: any, ctx: Context) => {
       const {
         clients: { hub, sitemap, vbase },
         vtex: { logger },
       } = ctx
 
       const APP_NAME = 'store-locator'
-      const SHCEMA_NAME = 'sitemap'
+      const SCHEMA_NAME = 'sitemap'
 
       const saveInVbase = async () => {
         try {
-          const res = await sitemap.saveIndex()
+          const res: any = await sitemap.saveIndex()
 
-          if (res.data.saveIndex) {
-            await vbase.saveJSON(APP_NAME, SHCEMA_NAME, {
+          if (res?.data?.saveIndex) {
+            await vbase.saveJSON(APP_NAME, SCHEMA_NAME, {
               alreadyHasSitemap: true,
             })
 
@@ -96,7 +101,7 @@ export const resolvers = {
 
           return false
         } catch (err) {
-          logger.log({ error: err, message: 'getStores-saveInBase-error' })
+          logger.error({ error: err, message: 'getStores-saveInBase-error' })
 
           return false
         }
@@ -105,46 +110,75 @@ export const resolvers = {
       sitemap.hasSitemap().then((has: any) => {
         if (has === false) {
           vbase
-            .getJSON(APP_NAME, SHCEMA_NAME, true)
+            .getJSON(APP_NAME, SCHEMA_NAME, true)
             .then((getResponse: any) => {
-              const { alreadyHasSitemap } = getResponse
+              const { alreadyHasSitemap = false } = getResponse ?? {}
 
               !alreadyHasSitemap && saveInVbase()
             })
             .catch((err: any) =>
-              logger.log({ error: err, message: 'getStores-getJSON-error' })
+              logger.error({ error: err, message: 'getStores-getJSON-error' })
             )
         }
       })
 
-      let result = await hub.getStores(param)
+      let result = await hub.getStores(param).catch((error) => {
+        logger.error({
+          error,
+          message: 'getStores-error',
+          param,
+        })
+
+        return null
+      })
 
       if (!result?.data.length && !param.keyword) {
-        result = await hub.getStores({})
+        result = await hub.getStores({}).catch((error) => {
+          logger.error({
+            error,
+            message: 'getStores-error',
+            param: {},
+          })
+
+          return null
+        })
       }
 
+      // accounts for different reponse structure for Logistics _search and _searchsellers endpoints
       const {
         data,
-        data: { paging },
-      } = result
+        data: { paging = { pages: 0 } },
+      } = result ?? { data: { items: [], paging: { pages: 0 } } }
 
       const pickuppoints = data.items ? data : { items: data }
 
-      if (paging?.pages > 1) {
-        let i = 2
-        const results = [] as any
+      const results = [] as any
 
-        while (i <= paging.pages) {
-          results.push(hub.getStores({ ...param, page: i }))
-          i++
-        }
+      // API will return errors starting at ?page=100
+      const limitPagesTo99 = paging.pages > 99 ? 99 : paging.pages
 
-        const remainingData = await Promise.all(results)
+      for (let i = 2; i <= limitPagesTo99; i++) {
+        results.push(
+          hub.getStores({ ...param, page: i }).catch((error) => {
+            logger.error({
+              error,
+              message: 'getStores-error',
+              param: { ...param, page: i },
+            })
 
-        remainingData.forEach((newResult: any) => {
-          pickuppoints.items.push(...newResult.data.items)
-        })
+            return null
+          })
+        )
       }
+
+      const remainingData = await Promise.all(results)
+
+      remainingData.forEach((newResult: any) => {
+        pickuppoints.items.push(...newResult.data.items)
+      })
+
+      // include for usage statistics
+      logger.info({ message: 'getStores', items: pickuppoints?.items?.length })
 
       return {
         items: pickuppoints.items

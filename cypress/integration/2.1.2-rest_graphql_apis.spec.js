@@ -6,13 +6,10 @@ import {
   listallPickupPointsAPI,
   searchPickupPointAPI,
   updatePickupPointAPI,
-} from '../support/store-locator.apis.js'
-import { restAPITestCase } from '../support/store-locator.outputvalidation.js'
+} from '../support/api_testcase.js'
+import { restAPITestCase } from '../support/outputvalidation.js'
 import data from '../support/shipping-policy.json'
-import {
-  graphql,
-  updateShippingPolicy,
-} from '../support/shipping-policy.graphql'
+import { graphql, updateShippingPolicy } from '../support/graphql_testcase'
 import { logisticsCarrier } from '../support/app_list'
 
 /*
@@ -25,11 +22,8 @@ How to get shippingPolicy Id?
 
 const shippingPolicyId = 'sha1920ede3r'
 
-const {
-  pickupPoint1Payload,
-  pickupPoint2Payload,
-  pickupPoint3Payload,
-} = restAPITestCase
+const { pickupPoint1Payload, pickupPoint2Payload, pickupPoint3Payload } =
+  restAPITestCase
 
 describe('Rest & Graphql API testcases', () => {
   testSetup()

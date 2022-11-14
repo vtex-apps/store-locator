@@ -15,10 +15,12 @@ base:
   twilio:
     enabled: true
   jira:
-    enabled: false
-    account: config-dev
-    board: jira-key
-    issueType: task
+    enabled: true
+    account: vtex-dev
+    board: STORELOCAT
+    issueType: Bug
+    priority: High
+    testing: true
   slack:
     enabled: false
     channel: some-channel
@@ -58,15 +60,14 @@ workspace:
     # Published a new theme for store-theme E2E test
     - vtex.store-locator-qa-theme@0.0.1
     # Store locator reads pickup points from store-graphql
-    # So, installing store-graphql@2.x
-    - vtex.store-graphql@2.x
+    - vtex.store-graphql
   removeApps:
-   - vtex.bitcot-qa-theme
+    - vtex.bitcot-qa-theme
   wipe:
     enabled: true
     stopOnFail: false
     specs:
-    - cypress/integration/wipe.spec.js
+      - cypress/integration/wipe.spec.js
   teardown:
     enabled: true
 strategy:
@@ -95,7 +96,7 @@ strategy:
   verifyPickupPoints:
     enabled: true
     sendDashboard: true
-    hardTries: 1
+    hardTries: 4
     stopOnFail: false
     parallel: true
     specs:

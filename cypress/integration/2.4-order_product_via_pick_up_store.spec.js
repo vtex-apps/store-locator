@@ -1,5 +1,5 @@
 import { testSetup, updateRetry } from '../support/common/support'
-import { pickupTestCase } from '../support/store-locator.outputvalidation.js'
+import { pickupTestCase } from '../support/outputvalidation.js'
 
 describe('Test pickup in checkout with one of the pickup points created in 2.2 testcase', () => {
   // Load test setup
@@ -17,10 +17,10 @@ describe('Test pickup in checkout with one of the pickup points created in 2.2 t
 
   it(`In ${prefix} - Updating Shipping Information`, updateRetry(2), () => {
     // Update Shipping Section
-    cy.updateShippingInformation({ postalCode, pickup: true, timeout: 8000 })
+    cy.updateShippingInformation({ postalCode, pickup: true, timeout: 12000 })
   })
 
   it(`In ${prefix} - Order the product using promisory`, updateRetry(2), () => {
-    cy.ordertheProduct()
+    cy.orderProduct()
   })
 })
