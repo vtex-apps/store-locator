@@ -29,10 +29,11 @@ export function setIntialPickupPoints(response) {
 
 export function listallPickupPointsAPI() {
   it('List all pickup points via API', updateRetry(2), () => {
-    cy.addDelayBetweenRetries(2000)
+    cy.addDelayBetweenRetries(10000)
     cy.getVtexItems().then((vtex) => {
       cy.getAPI(getPickupPoints(vtex.baseUrl)).then((response) => {
         expect(response.status).to.equal(200)
+        cy.savePickupPoints(response.body)
         setIntialPickupPoints(response)
       })
     })

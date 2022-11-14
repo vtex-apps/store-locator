@@ -1,6 +1,7 @@
 import 'cypress-file-upload'
 import selectors from './common/selectors'
 import storelocatorSelectors, { getAddressLink } from './selectors.js'
+import { pickuppointsJsonFile } from './constants'
 
 const storelocatorJson = '.storelocator.json'
 const fileName = 'pickups.xls'
@@ -15,6 +16,11 @@ Cypress.Commands.add(
     })
   }
 )
+
+// Save pickupPoint
+Cypress.Commands.add('savePickupPoints', (pickuppoints) => {
+  cy.writeFile(pickuppointsJsonFile, pickuppoints)
+})
 
 // Get pickupPoint
 Cypress.Commands.add('getPickupPointItem', () => {

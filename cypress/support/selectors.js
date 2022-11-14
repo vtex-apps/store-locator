@@ -18,6 +18,8 @@ export default {
   LoadStores: 'span[class*=loadAll]',
   MoreItems: 'span[class*=addressListLink]',
   AddressContainer: 'div[class*=addressContainer]',
+  StoreName: 'div[class*=store-storedetail] div[class*=storeName]',
+  HourRow: 'div[class*=hourRow]',
   BackToPickUpPoint: 'span[class*=backlink]',
   VtexButton: '.vtex-button',
   UploadInput: 'input[type=file]',
