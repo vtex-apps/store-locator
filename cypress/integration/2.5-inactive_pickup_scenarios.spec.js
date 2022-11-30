@@ -9,7 +9,7 @@ import storelocatorSelectors from '../support/selectors.js'
 import { getStores } from '../support/graphql_testcase'
 import { storeLocator } from '../support/app_list'
 import { clickLoadAllStores } from '../support/common.js'
-import { graphql } from '../support/common/shipping-policy.graphql'
+import { graphql } from '../support/common/graphql_utils'
 
 const { pickupPoint3Payload } = restAPITestCase
 
