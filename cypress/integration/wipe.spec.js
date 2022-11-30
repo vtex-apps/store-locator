@@ -1,7 +1,8 @@
-import { graphql, updateShippingPolicy } from '../support/graphql_testcase.js'
+import { updateShippingPolicy } from '../support/graphql_testcase.js'
 import { deleteAllPickupPoints } from '../support/api_testcase.js'
 import data from '../support/shipping-policy.json'
 import { testSetup } from '../support/common/support.js'
+import { graphql } from '../support/common/graphql_utils.js'
 
 describe('Wipe the pickup points', () => {
   testSetup(false)
