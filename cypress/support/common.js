@@ -1,26 +1,27 @@
 import { updateRetry } from './common/support'
 import storeLocatorSelectors, { findPickupPoint } from './selectors.js'
 import { INTIAL_PICKUP_POINTS_ENV } from './api_testcase'
+import selectors from './common/selectors'
 
 export function addPickUpPoint(pickPointName) {
   cy.visit('/admin/app/pickup-points')
 
   cy.get(storeLocatorSelectors.AddPickUpButton).click()
-  cy.get(storeLocatorSelectors.PickUpPointName).clear().type(pickPointName)
-  cy.get(storeLocatorSelectors.PickUpPointId).should('be.visible').type('1')
+  cy.get(selectors.PickUpPointName).clear().type(pickPointName)
+  cy.get(selectors.PickUpPointId).should('be.visible').type('1')
   cy.get('select')
     .select('United States of America')
     .should('have.value', 'USA')
   /* eslint-disable cypress/no-unnecessary-waiting */
   cy.wait(1000)
   /* eslint-disable cypress/no-unnecessary-waiting */
-  cy.get(storeLocatorSelectors.PickUpAddress)
+  cy.get(selectors.PickUpAddress)
     .type('1279 Shinn Street Fremont CA,USA', { delay: 50 })
     .wait(500)
     .type('{downarrow}{enter}')
-  cy.get(storeLocatorSelectors.CheckBox).click()
-  cy.get(storeLocatorSelectors.WorkStartTime).type('10:00')
-  cy.get(storeLocatorSelectors.WorkEndTime).type('19:00')
+  cy.get(selectors.CheckBox).click()
+  cy.get(selectors.WorkStartTime).eq(1).type('10:00')
+  cy.get(selectors.WorkEndTime).eq(1).type('19:00')
   cy.get(storeLocatorSelectors.SaveChanges).click()
   cy.get(storeLocatorSelectors.ChangesSaved, { timeout: 10000 })
     .should('be.visible')

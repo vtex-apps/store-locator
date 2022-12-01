@@ -9,8 +9,9 @@ import {
 } from '../support/api_testcase.js'
 import { restAPITestCase } from '../support/outputvalidation.js'
 import data from '../support/shipping-policy.json'
-import { graphql, updateShippingPolicy } from '../support/graphql_testcase'
+import { updateShippingPolicy } from '../support/graphql_testcase'
 import { logisticsCarrier } from '../support/app_list'
+import { graphql } from '../support/common/graphql_utils'
 
 /*
 How to get shippingPolicy Id?
