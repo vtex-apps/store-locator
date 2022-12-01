@@ -101,10 +101,10 @@ const StoreHours: FC<WrappedComponentProps & StoreHoursProps> = ({
 
   const displayHolidayDay = (item) => {
     const holiday = new Date(item.date)
-
-    holiday.setDate(holiday.getDate() + 1)
+    holiday.setDate(holiday.getDate())
     const dayOfWeek = holiday.getDay()
-    const month = new Intl.DateTimeFormat('US', {
+    const { locale } = intl
+    const month = new Intl.DateTimeFormat(locale, {
       day: 'numeric',
       month: 'long',
     }).format(holiday)
