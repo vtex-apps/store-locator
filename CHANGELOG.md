@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Cypress selectors improved
+
+### Changed
+
 - Increased hard retries and soft retries to verify inactive pickup points in cypress tests
 
 ### Changed
