@@ -1,6 +1,5 @@
 import { testSetup, updateRetry } from '../support/common/support'
 import {
-  updatePickupPointdata,
   listallPickupPointsAPI,
   INTIAL_PICKUP_POINTS_ENV,
 } from '../support/api_testcase'
@@ -17,7 +16,6 @@ describe('Inactive Pickup Points should not be visible in storefront', () => {
   testSetup()
 
   listallPickupPointsAPI()
-  updatePickupPointdata(pickupPoint3Payload)
 
   it(
     `Verify the inactive pickup point "${pickupPoint3Payload.name}" is not visible in stores page`,
