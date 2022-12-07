@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Cypress - Update pickup point as inactive testcase is moved to 2.2.1 file
+
+### Changed
+
 - Cypress selectors improved
 
 ### Changed

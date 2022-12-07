@@ -1,15 +1,15 @@
 import { testSetup, updateRetry } from '../support/common/support'
 import {
-  updatePickupPointdata,
   listallPickupPointsAPI,
   INTIAL_PICKUP_POINTS_ENV,
+  updatePickupPointdata,
 } from '../support/api_testcase'
 import { restAPITestCase } from '../support/outputvalidation.js'
 import storelocatorSelectors from '../support/selectors.js'
-import { getStores } from '../support/graphql_testcase'
-import { storeLocator } from '../support/app_list'
 import { clickLoadAllStores } from '../support/common.js'
 import { graphql } from '../support/common/graphql_utils'
+import { getStores } from '../support/graphql_testcase'
+import { storeLocator } from '../support/app_list'
 
 const { pickupPoint3Payload } = restAPITestCase
 
@@ -17,6 +17,7 @@ describe('Inactive Pickup Points should not be visible in storefront', () => {
   testSetup()
 
   listallPickupPointsAPI()
+
   updatePickupPointdata(pickupPoint3Payload)
 
   it(
