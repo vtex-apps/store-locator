@@ -1,6 +1,6 @@
 {
   "name": "vtex.store-locator",
-  "version": "0.10.14",
+  "version": "0.10.15",
   "dependencies": {
     "co-body": "^6.0.0",
     "ramda": "^0.25.0",
