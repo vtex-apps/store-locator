@@ -34,6 +34,7 @@ describe('Inactive Pickup Points should not be visible in storefront', () => {
           'have.length',
           pickupCount[INTIAL_PICKUP_POINTS_ENV] + 3
         )
+        cy.qe('Verify the inactive pickup point')
         cy.get(storelocatorSelectors.StorePickUpPointList, {
           timeout: 8000,
         }).should('not.contain', `${pickupPoint3Payload.name}`)

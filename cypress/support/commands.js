@@ -1,4 +1,4 @@
-import 'cypress-file-upload'
+// import 'cypress-file-upload'
 import selectors from './common/selectors'
 import storelocatorSelectors, { getAddressLink } from './selectors.js'
 
@@ -25,6 +25,7 @@ Cypress.Commands.add('getPickupPointItem', () => {
 
 Cypress.Commands.add('visitStore', () => {
   cy.intercept('**/rc.vtex.com.br/api/events').as('events')
+  cy.qe("Visit stores page")
   cy.visit('/stores')
   cy.wait('@events')
 
@@ -49,10 +50,14 @@ Cypress.Commands.add('verifyPickupPointsInStore', () => {
 })
 
 Cypress.Commands.add('uploadXLS', () => {
+  cy.qe("Visit admin pickup point page")
   cy.visit('/admin/app/pickup-points')
   cy.get(storelocatorSelectors.VtexButton).first().should('be.visible')
+  cy.qe("Click on Upload a XLS button")
   cy.contains('Upload a XLS').click()
+  cy.qe("Upload a file to add multiple pickup point")
   cy.get(storelocatorSelectors.UploadInput).attachFile(fileName)
+  cy.qe("Close the layout")
   cy.get(storelocatorSelectors.CloseIcon).should('be.visible').click()
   cy.get(storelocatorSelectors.VtexAlert, { timeout: 15000 }).should(
     'be.visible'

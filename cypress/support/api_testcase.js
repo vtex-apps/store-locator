@@ -31,6 +31,9 @@ export function listallPickupPointsAPI() {
   it('List all pickup points via API', updateRetry(2), () => {
     cy.addDelayBetweenRetries(2000)
     cy.getVtexItems().then((vtex) => {
+      cy.qe(`curl --location --request GET 'https://${vtex.baseUrl}/api/logistics/pvt/configuration/pickuppoints' \
+      --header 'VtexIdclientAutCookie: eyJhbGciOiJFUzI1NiIsImtpZCI6IjE3NEJBMDk0RjUwN0NDRUVCMUI0QjQzQ0FBNkMyNTYyRTU1NDIwRDIiLCJ0eXAiOiJqd3QifQ.eyJzdWIiOiJ2dGV4YXBwa2V5LXByb2R1Y3R1c3FhLU9GR0VIVCIsImFjY291bnQiOiJ2dGV4IiwiYXVkaWVuY2UiOiJhZG1pbiIsImV4cCI6MTY3NjUxNzY4NiwidXNlcklkIjoiODY3MmRiZmItYWIwYi00MWQ1LTlmZTMtYjBkM2M3NGM4MTEzIiwiaWF0IjoxNjc2NDMxMjg2LCJpc3MiOiJ0b2tlbi1lbWl0dGVyIiwianRpIjoiZTQwMzcwMTYtZWExMC00MjhkLTg5ZjQtNjNkMTYyNWQ4ZjQ2In0.W6VM7k9NXX6ZAhcr9TXrjl2irjowae4PN_G2FUMjw7fLOCDs-3qQxcJXTakF2U2tk83X84h1msbU26BQ4Ll7Eg' \
+      --header 'VtexIdclientAutCookie_productusqa;'`)
       cy.getAPI(getPickupPoints(vtex.baseUrl)).then((response) => {
         expect(response.status).to.equal(200)
         setIntialPickupPoints(response)
@@ -46,6 +49,10 @@ export function createPickupPointAPI(pickupPointPayload) {
     () => {
       cy.addDelayBetweenRetries(2000)
       cy.getVtexItems().then((vtex) => {
+        cy.qe(`curl --location --request POST 'https://${vtex.baseUrl}/api/logistics/pvt/configuration/pickuppoints' \
+        --header 'VtexIdclientAutCookie: eyJhbGciOiJFUzI1NiIsImtpZCI6IjE3NEJBMDk0RjUwN0NDRUVCMUI0QjQzQ0FBNkMyNTYyRTU1NDIwRDIiLCJ0eXAiOiJqd3QifQ.eyJzdWIiOiJ2dGV4YXBwa2V5LXByb2R1Y3R1c3FhLU9GR0VIVCIsImFjY291bnQiOiJ2dGV4IiwiYXVkaWVuY2UiOiJhZG1pbiIsImV4cCI6MTY3NjUxNzY4NiwidXNlcklkIjoiODY3MmRiZmItYWIwYi00MWQ1LTlmZTMtYjBkM2M3NGM4MTEzIiwiaWF0IjoxNjc2NDMxMjg2LCJpc3MiOiJ0b2tlbi1lbWl0dGVyIiwianRpIjoiZTQwMzcwMTYtZWExMC00MjhkLTg5ZjQtNjNkMTYyNWQ4ZjQ2In0.W6VM7k9NXX6ZAhcr9TXrjl2irjowae4PN_G2FUMjw7fLOCDs-3qQxcJXTakF2U2tk83X84h1msbU26BQ4Ll7Eg' \
+        --header 'Content-Type: application/json' \
+        --data-raw '{"id": "45678", "name": "pickup example puma", "description": "do it", "instructions": "do it properly", "formatted_address": "undefined"}'`)
         cy.request({
           method: 'POST',
           url: createPickupPoint(vtex.baseUrl),
@@ -77,6 +84,11 @@ export function updatePickupPointAPI(
     () => {
       cy.addDelayBetweenRetries(2000)
       cy.getVtexItems().then((vtex) => {
+        cy.qe(`curl --location --request POST 'https://${vtex.baseUrl}/api/logistics/pvt/configuration/pickuppoints?id=45678' \
+        --header 'VtexIdclientAutCookie: eyJhbGciOiJFUzI1NiIsImtpZCI6IjE3NEJBMDk0RjUwN0NDRUVCMUI0QjQzQ0FBNkMyNTYyRTU1NDIwRDIiLCJ0eXAiOiJqd3QifQ.eyJzdWIiOiJ2dGV4YXBwa2V5LXByb2R1Y3R1c3FhLU9GR0VIVCIsImFjY291bnQiOiJ2dGV4IiwiYXVkaWVuY2UiOiJhZG1pbiIsImV4cCI6MTY3NjUxNzY4NiwidXNlcklkIjoiODY3MmRiZmItYWIwYi00MWQ1LTlmZTMtYjBkM2M3NGM4MTEzIiwiaWF0IjoxNjc2NDMxMjg2LCJpc3MiOiJ0b2tlbi1lbWl0dGVyIiwianRpIjoiZTQwMzcwMTYtZWExMC00MjhkLTg5ZjQtNjNkMTYyNWQ4ZjQ2In0.W6VM7k9NXX6ZAhcr9TXrjl2irjowae4PN_G2FUMjw7fLOCDs-3qQxcJXTakF2U2tk83X84h1msbU26BQ4Ll7Eg' \
+        --header 'Content-Type: application/json' \
+        --data-raw '
+        {"id": "45678", "name": "pickup example walmart", "description": "do it", "instructions": "do it properly", "formatted_address": "undefined"}'`)
         cy.getPickupPointItem().then((data) => {
           cy.request({
             method: 'POST',
@@ -113,6 +125,9 @@ export function getPickupPointByIdAPI(pickupPointPayload) {
     () => {
       cy.addDelayBetweenRetries(2000)
       cy.getVtexItems().then((vtex) => {
+        cy.qe(`curl --location --request GET 'https://${vtex.baseUrl}/api/logistics/pvt/configuration/pickuppoints/45678' \
+        --header 'VtexIdclientAutCookie: eyJhbGciOiJFUzI1NiIsImtpZCI6IjE3NEJBMDk0RjUwN0NDRUVCMUI0QjQzQ0FBNkMyNTYyRTU1NDIwRDIiLCJ0eXAiOiJqd3QifQ.eyJzdWIiOiJ2dGV4YXBwa2V5LXByb2R1Y3R1c3FhLU9GR0VIVCIsImFjY291bnQiOiJ2dGV4IiwiYXVkaWVuY2UiOiJhZG1pbiIsImV4cCI6MTY3NjUxNzY4NiwidXNlcklkIjoiODY3MmRiZmItYWIwYi00MWQ1LTlmZTMtYjBkM2M3NGM4MTEzIiwiaWF0IjoxNjc2NDMxMjg2LCJpc3MiOiJ0b2tlbi1lbWl0dGVyIiwianRpIjoiZTQwMzcwMTYtZWExMC00MjhkLTg5ZjQtNjNkMTYyNWQ4ZjQ2In0.W6VM7k9NXX6ZAhcr9TXrjl2irjowae4PN_G2FUMjw7fLOCDs-3qQxcJXTakF2U2tk83X84h1msbU26BQ4Ll7Eg' \
+        --data-raw ''`)
         cy.getPickupPointItem().then((data) => {
           cy.getAPI(
             getPickupPointById(vtex.baseUrl, data[pickupPointPayload.name])
@@ -134,6 +149,9 @@ export function deletePickupPointAPI(pickupPointPayload) {
     () => {
       cy.addDelayBetweenRetries(2000)
       cy.getVtexItems().then((vtex) => {
+        cy.qe(`curl --location --request DELETE 'https://${vtex.baseUrl}/api/logistics/pvt/configuration/pickuppoints/45678' \
+        --header 'VtexIdclientAutCookie: eyJhbGciOiJFUzI1NiIsImtpZCI6IjE3NEJBMDk0RjUwN0NDRUVCMUI0QjQzQ0FBNkMyNTYyRTU1NDIwRDIiLCJ0eXAiOiJqd3QifQ.eyJzdWIiOiJ2dGV4YXBwa2V5LXByb2R1Y3R1c3FhLU9GR0VIVCIsImFjY291bnQiOiJ2dGV4IiwiYXVkaWVuY2UiOiJhZG1pbiIsImV4cCI6MTY3NjUxNzY4NiwidXNlcklkIjoiODY3MmRiZmItYWIwYi00MWQ1LTlmZTMtYjBkM2M3NGM4MTEzIiwiaWF0IjoxNjc2NDMxMjg2LCJpc3MiOiJ0b2tlbi1lbWl0dGVyIiwianRpIjoiZTQwMzcwMTYtZWExMC00MjhkLTg5ZjQtNjNkMTYyNWQ4ZjQ2In0.W6VM7k9NXX6ZAhcr9TXrjl2irjowae4PN_G2FUMjw7fLOCDs-3qQxcJXTakF2U2tk83X84h1msbU26BQ4Ll7Eg' \
+        --data-raw ''`)
         cy.getPickupPointItem().then((data) => {
           cy.request({
             method: 'DELETE',
@@ -157,12 +175,18 @@ export function deleteAllPickupPoints() {
     updateRetry(5),
     () => {
       cy.getVtexItems().then((vtex) => {
+        cy.qe(`curl --location --request GET 'https://${vtex.baseUrl}/api/logistics/pvt/configuration/pickuppoints' \
+        --header 'X-VTEX-API-AppToken: WURECFZGFIDKATXNPKQMSIMZOCZMEZSQSUIWIMDDECQYJTQTZHHJWWFOHRQAGMCGPMRFKAFDGNHPSOPUMFNWRITWPUPQWDXRAJIWBKIYCEDJOPVSCVNAZFPHSUPQLOGC' \
+        --header 'X-VTEX-API-AppKey: vtexappkey-productusqa-OFGEHT'`)
         cy.getAPI(getPickupPoints(vtex.baseUrl)).then((response) => {
           // Pickup points created in E2E tests should start with text "pickup example"
           // If we create other pickup points then it will not be deleted in wipe
           const filterPickUpPoints = filterPickupPoint(response, true)
 
           if (filterPickUpPoints.length > 0) {
+            cy.qe(`curl --location --request DELETE 'https://${vtex.baseUrl}/api/logistics/pvt/configuration/pickuppoints/456' \
+            --header 'X-VTEX-API-AppToken: WURECFZGFIDKATXNPKQMSIMZOCZMEZSQSUIWIMDDECQYJTQTZHHJWWFOHRQAGMCGPMRFKAFDGNHPSOPUMFNWRITWPUPQWDXRAJIWBKIYCEDJOPVSCVNAZFPHSUPQLOGC' \
+            --header 'X-VTEX-API-AppKey: vtexappkey-productusqa-OFGEHT'`)
             for (const element of filterPickUpPoints) {
               cy.request({
                 method: 'DELETE',
@@ -186,6 +210,9 @@ export function searchPickupPointAPI() {
   it('Search pickup points via API', updateRetry(2), () => {
     cy.addDelayBetweenRetries(2000)
     cy.getVtexItems().then((vtex) => {
+      cy.qe(`curl --location --request GET 'https://${vtex.baseUrl}/api/logistics/pvt/configuration/pickuppoints/_search?page=1&pageSize=5' \
+      --header 'VtexIdclientAutCookie: eyJhbGciOiJFUzI1NiIsImtpZCI6IjE3NEJBMDk0RjUwN0NDRUVCMUI0QjQzQ0FBNkMyNTYyRTU1NDIwRDIiLCJ0eXAiOiJqd3QifQ.eyJzdWIiOiJ2dGV4YXBwa2V5LXByb2R1Y3R1c3FhLU9GR0VIVCIsImFjY291bnQiOiJ2dGV4IiwiYXVkaWVuY2UiOiJhZG1pbiIsImV4cCI6MTY3NjUxNzY4NiwidXNlcklkIjoiODY3MmRiZmItYWIwYi00MWQ1LTlmZTMtYjBkM2M3NGM4MTEzIiwiaWF0IjoxNjc2NDMxMjg2LCJpc3MiOiJ0b2tlbi1lbWl0dGVyIiwianRpIjoiZTQwMzcwMTYtZWExMC00MjhkLTg5ZjQtNjNkMTYyNWQ4ZjQ2In0.W6VM7k9NXX6ZAhcr9TXrjl2irjowae4PN_G2FUMjw7fLOCDs-3qQxcJXTakF2U2tk83X84h1msbU26BQ4Ll7Eg' \
+      --data-raw ''`)
       cy.request({
         method: 'GET',
         url: searchPickupPoint(vtex.baseUrl),
@@ -212,6 +239,11 @@ export function updatePickupPointdata(pickupPointPayload) {
     () => {
       cy.addDelayBetweenRetries(2000)
       cy.getVtexItems().then((vtex) => {
+        cy.qe(`curl --location --request POST 'https://${vtex.baseUrl}/api/logistics/pvt/configuration/pickuppoints' \
+        --header 'VtexIdclientAutCookie: eyJhbGciOiJFUzI1NiIsImtpZCI6IjE3NEJBMDk0RjUwN0NDRUVCMUI0QjQzQ0FBNkMyNTYyRTU1NDIwRDIiLCJ0eXAiOiJqd3QifQ.eyJzdWIiOiJ2dGV4YXBwa2V5LXByb2R1Y3R1c3FhLU9GR0VIVCIsImFjY291bnQiOiJ2dGV4IiwiYXVkaWVuY2UiOiJhZG1pbiIsImV4cCI6MTY3NjUxNzY4NiwidXNlcklkIjoiODY3MmRiZmItYWIwYi00MWQ1LTlmZTMtYjBkM2M3NGM4MTEzIiwiaWF0IjoxNjc2NDMxMjg2LCJpc3MiOiJ0b2tlbi1lbWl0dGVyIiwianRpIjoiZTQwMzcwMTYtZWExMC00MjhkLTg5ZjQtNjNkMTYyNWQ4ZjQ2In0.W6VM7k9NXX6ZAhcr9TXrjl2irjowae4PN_G2FUMjw7fLOCDs-3qQxcJXTakF2U2tk83X84h1msbU26BQ4Ll7Eg' \
+        --header 'Content-Type: application/json' \
+        --data-raw '
+        {"id": "45678", "name": "pickup example adidas", "description": "do it'\'', instructions: '\''do it properly", "formatted_address": "undefined"}'`)
         cy.getPickupPointItem().then((data) => {
           pickupPointPayload.isActive = false
 

@@ -1,6 +1,7 @@
 export function updateShippingPolicy(data, { status = false, pickup = true }) {
   data.shippingPolicy.isActive = status
   data.shippingPolicy.deliveryChannel = pickup ? 'pickup-in-point' : 'delivery'
+  cy.qe("Update shipping Policy via graphql.The graphQl mutation we use in UI,mutation{( $shippingPolicy: ShippingPolicyInput!){updateShippingPolicy(shippingPolicy:$shippingPolicy){id, name}}}")
   const query =
     'mutation' +
     '( $shippingPolicy: ShippingPolicyInput!)' +
