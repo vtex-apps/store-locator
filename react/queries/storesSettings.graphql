@@ -1,5 +1,5 @@
 query {
-  appSettings(app: "thefoschini.store-locator", version: "0.x")
+  publicSettingsForApp(app: "thefoschini.store-locator", version: "0.x")
     @context(provider: "vtex.apps-graphql") {
     message
   }

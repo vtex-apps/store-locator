@@ -21,7 +21,7 @@
     "vtex.render-runtime": "8.x",
     "vtex.css-handles": "0.x",
     "vtex.store-sitemap": "2.x",
-    "vtex.apps-graphql": "2.x"
+    "vtex.apps-graphql": "3.x"
   },
   "registries": [
     "smartcheckout"
@@ -71,6 +71,7 @@
   "settingsSchema": {
     "title": "Store Locator",
     "type": "object",
+    "access": "public",
     "properties": {
       "stores": {
         "title": "Stores",

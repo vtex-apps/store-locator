@@ -188,7 +188,7 @@ const StoreList = ({
 
   if (called && !loadingStoresSettings) {
     let storesSettingsParsed: { stores: StoreOnStoresFilter[] } =
-      storesSettings && JSON.parse(storesSettings?.appSettings.message)
+      storesSettings && JSON.parse(storesSettings?.publicSettingsForApp.message)
     storesSettingsParsed = storesSettingsParsed?.stores?.length
       ? storesSettingsParsed
       : { stores: [] }
@@ -213,7 +213,7 @@ const StoreList = ({
 
       handleCenter(center)
     }
-    
+
     return (
       <div className={`flex flex-row ${handles.listContainer}`}>
         <div className={`flex-col w-100 ${handles.listContainerCol}`}>
