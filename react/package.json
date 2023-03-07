@@ -25,7 +25,7 @@
     "graphql": "^14.6.0",
     "thefoschini.store-locator": "http://thefoschini.vtexassets.com/_v/public/typings/v1/thefoschini.store-locator@0.0.8/public/@types/thefoschini.store-locator",
     "typescript": "3.9.7",
-    "vtex.apps-graphql": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.apps-graphql@3.14.0/public/@types/vtex.apps-graphql",
+    "vtex.apps-graphql": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.apps-graphql@3.14.1/public/@types/vtex.apps-graphql",
     "vtex.css-handles": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.css-handles@0.4.4/public/@types/vtex.css-handles",
     "vtex.flex-layout": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.flex-layout@0.20.1/public/@types/vtex.flex-layout",
     "vtex.render-runtime": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.render-runtime@8.132.6/public/@types/vtex.render-runtime",
