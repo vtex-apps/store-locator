@@ -1,7 +1,7 @@
 {
   "vendor": "thefoschini",
   "name": "store-locator",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "title": "Store Locator",
   "description": "Integrates with the logistics module to provide Store Locator pages",
   "builders": {
