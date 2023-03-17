@@ -5,7 +5,7 @@ import { Dropdown } from 'vtex.styleguide'
 import { saveStoresFilter } from '../utils'
 
 const ZAF = [
-  { value: '', label: 'Province' },
+  { value: '', label: 'View all stores' },
   { value: 'Eastern Cape', label: 'Eastern Cape' },
   { value: 'Free State', label: 'Free State' },
   { value: 'Gauteng', label: 'Gauteng' },
@@ -26,7 +26,7 @@ const ProvinceSelector = ({
   storesFilter,
   setStoresFilter,
 }: ProvinceSelectorProps) => {
-  const handleChange = (_, value) => {
+  const handleChange = (_, value: string) => {
     setStoresFilter((prevState) => ({ ...prevState, province: value }))
     saveStoresFilter('province', value)
   }
