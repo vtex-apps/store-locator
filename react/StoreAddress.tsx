@@ -1,5 +1,7 @@
-import React, { FC } from 'react'
-import { defineMessages, WrappedComponentProps, injectIntl } from 'react-intl'
+import type { FC } from 'react'
+import React from 'react'
+import type { WrappedComponentProps } from 'react-intl'
+import { defineMessages, injectIntl } from 'react-intl'
 import { useCssHandles } from 'vtex.css-handles'
 
 import { useStoreGroup } from './StoreGroup'
@@ -11,6 +13,10 @@ const CSS_HANDLES = [
   'addressStoreAddressGroupA',
   'addressStoreAddressNumber',
   'addressStoreAddressStreet',
+  'addressStoreAddressNeighborhood',
+  'addressStoreAddressCity',
+  'addressStoreAddressState',
+  'addressStoreAddressPostalCode',
 ] as const
 
 const messages = defineMessages({
@@ -22,10 +28,12 @@ const messages = defineMessages({
 
 interface StoreAddressProps {
   label: string
+  showNeighborhood?: boolean
 }
 
 const StoreAddress: FC<StoreAddressProps & WrappedComponentProps> = ({
   label,
+  showNeighborhood = false,
   intl,
 }) => {
   const handles = useCssHandles(CSS_HANDLES)
@@ -57,11 +65,22 @@ const StoreAddress: FC<StoreAddressProps & WrappedComponentProps> = ({
           <span
             className={handles.addressStoreAddressStreet}
           >{`${group.address.street}`}</span>
+          {showNeighborhood && (
+            <span
+              className={handles.addressStoreAddressNeighborhood}
+            >{`${group.address.neighborhood}`}</span>
+          )}
         </span>
         <br />
-        {group.address.city ? `${group.address.city}` : ''}
-        {group.address.state ? `, ${group.address.state}` : ''}
-        {group.address.postalCode ? `, ${group.address.postalCode}` : ''}
+        <span className={handles.addressStoreAddressCity}>
+          {group.address.city ? `${group.address.city}` : ''}
+        </span>
+        <span className={handles.addressStoreAddressState}>
+          {group.address.state ? `, ${group.address.state}` : ''}
+        </span>
+        <span className={handles.addressStoreAddressPostalCode}>
+          {group.address.postalCode ? `, ${group.address.postalCode}` : ''}
+        </span>
       </a>
     </div>
   )

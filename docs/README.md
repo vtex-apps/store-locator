@@ -183,16 +183,17 @@ In order to define the Store Locator custom page UI, you must use the blocks exp
 
 #### `store-list`
 
-|   Prop name   |   Type   |                                 Description                                  |    Default value     |
-| :-----------: | :------: | :--------------------------------------------------------------------------: | :------------------: |
-| `filterByTag` | `string` |                  Filter fetched Pickup Points by this tag.                   |      undefined       |
-|    `icon`     | `string` | Icon used to display store location in map. Input icon URL (`svg` or `png`). |   Google's default   |
-|  `iconWidth`  | `number` |                         Icon width in pixels (`px`).                         | Image default width  |
-| `iconHeight`  | `number` |                        Icon height in pixels (`px`).                         | Image default height |
-|    `zoom`     | `number` |                            Map zoom as a number.                             |         `10`         |
-|     `lat`     | `number` |                             Latitude coordinate.                             |      undefined       |
-|    `long`     | `number` |                            Longitude coordinate.                             |      undefined       |
-|   `sortBy`    | `string` |        Property (`name` or `distance`) used to sort the stores list.         |      `distance`      |
+|     Prop name      |   Type    |                                 Description                                  |    Default value     |
+| :----------------: | :-------: | :--------------------------------------------------------------------------: | :------------------: |
+|   `filterByTag`    | `string`  |                  Filter fetched Pickup Points by this tag.                   |      undefined       |
+|       `icon`       | `string`  | Icon used to display store location in map. Input icon URL (`svg` or `png`). |   Google's default   |
+|    `iconWidth`     | `number`  |                         Icon width in pixels (`px`).                         | Image default width  |
+|    `iconHeight`    | `number`  |                        Icon height in pixels (`px`).                         | Image default height |
+|       `zoom`       | `number`  |                            Map zoom as a number.                             |         `10`         |
+|       `lat`        | `number`  |                             Latitude coordinate.                             |      undefined       |
+|       `long`       | `number`  |                            Longitude coordinate.                             |      undefined       |
+|      `sortBy`      | `string`  |        Property (`name` or `distance`) used to sort the stores list.         |      `distance`      |
+| `showNeighborhood` | `boolean` |                Set if the Neighborhood info should be shown.                 |       `false`        |
 
 > ℹ️ _Use the `lat` and `long` props to display Pickup Points configured in seller accounts. If these props are not configured and you do not have any pick up points set up in your main account, the app will display no stores._
 
@@ -233,9 +234,10 @@ In order to define the Store Locator custom page UI, you must use the blocks exp
 
 #### `store-address` props
 
-| Prop name |   Type   |                         Description                          |  Default value  |
-| :-------: | :------: | :----------------------------------------------------------: | :-------------: |
-|  `label`  | `string` | Label for the `store-address` block when rendered on the UI. | `Store address` |
+|     Prop name      |   Type    |                         Description                          |  Default value  |
+| :----------------: | :-------: | :----------------------------------------------------------: | :-------------: |
+|      `label`       | `string`  | Label for the `store-address` block when rendered on the UI. | `Store address` |
+| `showNeighborhood` | `boolean` |        Set if the Neighborhood info should be shown.         |     `false`     |
 
 #### `store-hours` props
 
@@ -261,44 +263,47 @@ In order to define the Store Locator custom page UI, you must use the blocks exp
 
 In order to apply CSS customizations in this and other blocks, follow the instructions given in the recipe on [Using CSS Handles for store customization](https://vtex.io/docs/recipes/style/using-css-handles-for-store-customization).
 
-|         CSS Handles         |
-| :-------------------------: |
-|     `addressContainer`      |
-|       `addressLabel`        |
-|   `addressListFirstItem`    |
-|      `addressListItem`      |
-|      `addressListLink`      |
-|        `addressList`        |
-|    `addressStoreAddress`    |
-|     `addressStoreName`      |
-| `addressStoreAddressGroupA` |
-| `addressStoreAddressNumber` |
-| `addressStoreAddressStreet` |
-|     `backlinkContainer`     |
-|         `backlink`          |
-|       `businessHours`       |
-|         `container`         |
-|   `descriptionContainer`    |
-|      `descriptionText`      |
-|         `dayOfWeek`         |
-|          `divider`          |
-|          `hourRow`          |
-|      `hoursContainer`       |
-|        `hoursLabel`         |
-|   `instructionsContainer`   |
-|     `instructionsLabel`     |
-|     `instructionsText`      |
-|    `listingMapContainer`    |
-|          `loadAll`          |
-|     `markerInfoAddress`     |
-|      `markerInfoLink`       |
-|    `markerInfoStoreName`    |
-|        `markerInfo`         |
-|         `noResults`         |
-|         `storeName`         |
-|       `storesListCol`       |
-|        `storesList`         |
-|       `storesMapCol`        |
+|           CSS Handles           |
+| :-----------------------------: |
+|       `addressContainer`        |
+|         `addressLabel`          |
+|     `addressListFirstItem`      |
+|        `addressListItem`        |
+|        `addressListLink`        |
+|          `addressList`          |
+|      `addressStoreAddress`      |
+|       `addressStoreName`        |
+|   `addressStoreAddressGroupA`   |
+|   `addressStoreAddressNumber`   |
+|   `addressStoreAddressStreet`   |
+|    `addressStoreAddressCity`    |
+|   `addressStoreAddressState`    |
+| `addressStoreAddressPostalCode` |
+|       `backlinkContainer`       |
+|           `backlink`            |
+|         `businessHours`         |
+|           `container`           |
+|     `descriptionContainer`      |
+|        `descriptionText`        |
+|           `dayOfWeek`           |
+|            `divider`            |
+|            `hourRow`            |
+|        `hoursContainer`         |
+|          `hoursLabel`           |
+|     `instructionsContainer`     |
+|       `instructionsLabel`       |
+|       `instructionsText`        |
+|      `listingMapContainer`      |
+|            `loadAll`            |
+|       `markerInfoAddress`       |
+|        `markerInfoLink`         |
+|      `markerInfoStoreName`      |
+|          `markerInfo`           |
+|           `noResults`           |
+|           `storeName`           |
+|         `storesListCol`         |
+|          `storesList`           |
+|         `storesMapCol`          |
 
 <!-- DOCS-IGNORE:start -->
 

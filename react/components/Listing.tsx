@@ -19,6 +19,10 @@ const CSS_HANDLES = [
   'addressStoreAddressGroupA',
   'addressStoreAddressNumber',
   'addressStoreAddressStreet',
+  'addressStoreAddressNeighborhood',
+  'addressStoreAddressCity',
+  'addressStoreAddressState',
+  'addressStoreAddressPostalCode',
   'addressListLink',
 ] as const
 
@@ -26,7 +30,7 @@ const Slugify = (str: string) => {
   return slugify(str, { lower: true, remove: /[*+~.()'"!:@]/g })
 }
 
-const Listing: FC<any> = ({ items, onChangeCenter }) => {
+const Listing: FC<any> = ({ items, showNeighborhood, onChangeCenter }) => {
   const handles = useCssHandles(CSS_HANDLES)
   const { navigate } = useRuntime()
 
@@ -76,10 +80,23 @@ const Listing: FC<any> = ({ items, onChangeCenter }) => {
                   <span className={handles.addressStoreAddressStreet}>
                     {item.address.street}
                   </span>
+                  {showNeighborhood && (
+                    <span className={handles.addressStoreAddressNeighborhood}>
+                      {item.address.neighborhood}
+                    </span>
+                  )}
                 </span>
-                {item.address.city ? `, ${item.address.city}` : ''}
-                {item.address.state ? `, ${item.address.state}` : ''}
-                {item.address.postalCode ? ` - ${item.address.postalCode}` : ''}
+                <span className={handles.addressStoreAddressCity}>
+                  {item.address.city ? `, ${item.address.city}` : ''}
+                </span>
+                <span className={handles.addressStoreAddressState}>
+                  {item.address.state ? `, ${item.address.state}` : ''}
+                </span>
+                <span className={handles.addressStoreAddressPostalCode}>
+                  {item.address.postalCode
+                    ? ` - ${item.address.postalCode}`
+                    : ''}
+                </span>
               </span>
               <br />
               <span

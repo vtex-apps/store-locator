@@ -32,6 +32,7 @@ interface Props {
   lat?: number
   long?: number
   sortBy?: string
+  showNeighborhood?: boolean
 }
 
 const StoreList: FunctionComponent<WrappedComponentProps & Props> = ({
@@ -43,6 +44,7 @@ const StoreList: FunctionComponent<WrappedComponentProps & Props> = ({
   lat,
   long,
   sortBy = 'distance',
+  showNeighborhood = false,
 }) => {
   const { data: ofData, loading: ofLoading } = useQuery(ORDER_FORM, {
     ssr: false,
@@ -158,7 +160,11 @@ const StoreList: FunctionComponent<WrappedComponentProps & Props> = ({
         {(loading || ofLoading) && <Spinner />}
         {!loading && !!data && stores.length > 0 && (
           <div className={`overflow-auto h-100 ${handles.storesList}`}>
-            <Listing items={stores} onChangeCenter={handleCenter} />
+            <Listing
+              items={stores}
+              showNeighborhood={showNeighborhood}
+              onChangeCenter={handleCenter}
+            />
             {!state.allLoaded && (
               <span
                 className={`mt2 link c-link underline-hover pointer ${handles.loadAll}`}

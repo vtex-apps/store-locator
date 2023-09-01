@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Add option to show or not neighborhood
+- Add CSS handles for state, city and postal code
+
 ## [0.10.15] - 2023-01-11
 
 ### Removed
