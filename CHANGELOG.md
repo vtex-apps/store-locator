@@ -9,16 +9,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 + ### Fixed
 + - removing the added holiday day, and included the locale sent in the intl.
 
+## [0.10.15] - 2023-01-11
+
+### Removed
+
+- Unused `jsonwebtoken` package dependency
+
 ### Changed
 
+- Cypress - Update pickup point as inactive testcase is moved to 2.2.1 file
 - Cypress selectors improved
-
-### Changed
-
 - Increased hard retries and soft retries to verify inactive pickup points in cypress tests
-
-### Changed
-
 - Increased hard retries to verify pickup points in cypress tests
 
 ## [0.10.14] - 2022-10-07

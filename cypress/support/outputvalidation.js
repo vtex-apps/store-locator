@@ -7,10 +7,7 @@ function generatePickupPoint(pickupPointName) {
         acronym: 'CAN',
         name: 'CANADA',
       },
-      location: {
-        latitude: -22.974477767944336,
-        longitude: -43.18672561645508,
-      },
+      location: {},
       postalCode: '600079',
       city: 'TORONTO',
       state: 'ONTARIO',
@@ -46,10 +43,7 @@ export default {
           acronym: 'IND',
           name: 'INDIA',
         },
-        location: {
-          latitude: -22.974477767944336,
-          longitude: -43.18672561645508,
-        },
+        location: {},
         postalCode: '600077',
         city: 'france',
         state: 'TAMILNADU',
