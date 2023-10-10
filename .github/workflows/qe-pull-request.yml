@@ -20,9 +20,9 @@ jobs:
       dangerRequireChangelog: false
       nodeLint: true
       nodeTest: false
-      nodeSonar: true
-      nodeSonarProjectKey: vtex-apps_store-locator
-      nodeSonarOrganization: vtex-apps
+      # nodeSonar: true
+      # nodeSonarProjectKey: vtex-apps_store-locator
+      # nodeSonarOrganization: vtex-apps
       cypress: true
     secrets:
       githubToken: ${{ secrets.GITHUB_TOKEN }}

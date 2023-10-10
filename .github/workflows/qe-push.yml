@@ -13,9 +13,9 @@ jobs:
     with:
       nodeLint: true
       nodeTest: false
-      nodeSonar: true
-      nodeSonarProjectKey: vtex-apps_store-locator
-      nodeSonarOrganization: vtex-apps
+      # nodeSonar: true
+      # nodeSonarProjectKey: vtex-apps_store-locator
+      # nodeSonarOrganization: vtex-apps
     secrets:
       githubToken: ${{ secrets.GITHUB_TOKEN }}
       sonarToken: ${{ secrets.SONAR_TOKEN }}
