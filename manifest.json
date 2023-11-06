@@ -1,7 +1,7 @@
 {
   "vendor": "vtex",
   "name": "store-locator",
-  "version": "0.10.15",
+  "version": "0.11.0",
   "title": "Store Locator",
   "description": "Integrates with the logistics module to provide Store Locator pages",
   "builders": {
