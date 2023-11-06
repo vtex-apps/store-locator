@@ -1,6 +1,5 @@
 import { testSetup, updateRetry } from '../support/common/support'
 import { pickupTestCase } from '../support/outputvalidation.js'
-import { searchProduct } from '../support/search_product.js'
 
 describe('Test pickup in checkout with one of the pickup points created in 2.2 testcase', () => {
   // Load test setup
@@ -11,7 +10,7 @@ describe('Test pickup in checkout with one of the pickup points created in 2.2 t
 
   it(`${prefix} - Adding product to cart`, updateRetry(2), () => {
     // Search the product
-    searchProduct(productName)
+    cy.searchProduct(productName)
     // Add product to cart
     cy.addProduct(productName)
   })
