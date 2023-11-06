@@ -25,7 +25,7 @@ Cypress.Commands.add('getPickupPointItem', () => {
 
 Cypress.Commands.add('visitStore', () => {
   cy.intercept('**/rc.vtex.com.br/api/events').as('events')
-  cy.visit('/stores')
+  cy.visit('/api/io/stores')
   cy.wait('@events')
 
   cy.get(selectors.ProfileLabel, { timeout: 20000 })
