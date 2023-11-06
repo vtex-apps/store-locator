@@ -87,7 +87,7 @@ strategy:
       - cypress/integration/2.2.2-add_multiple_pickup_points_via_csv.spec.js
   # add pickup points and order the product
   verifyPickupPoints:
-    enabled: false
+    enabled: true
     sendDashboard: true
     hardTries: 4
     stopOnFail: false
@@ -101,7 +101,7 @@ strategy:
       - cypress/integration/2.2.2-add_multiple_pickup_points_via_csv.spec.js
   # inactive pickup points should not be shown
   inactivePickupPoints:
-    enabled: false
+    enabled: true
     sendDashboard: true
     hardTries: 3
     stopOnFail: false

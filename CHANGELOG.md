@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+- Enable and fix cypress tests
+
 ## [0.11.0] - 2023-11-06
 + ### Fixed
 + - removing the added holiday day, and included the locale sent in the intl.
