@@ -24,7 +24,7 @@ Cypress.Commands.add('getPickupPointItem', () => {
 })
 
 Cypress.Commands.add('visitStore', () => {
-  cy.intercept('**/rc.vtex.com.br/api/events').as('events')
+  cy.intercept('**/event-api/v1/productusqa/event').as('events')
   cy.visit('/api/io/stores')
   cy.wait('@events')
 
