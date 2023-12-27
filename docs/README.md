@@ -47,6 +47,7 @@ In order to define the Store Locator custom page UI, you must use the blocks exp
 |  `store-back-link`   |                                                            Renders a link to return to the previous page.                                                             |
 |     `store-map`      |                                                            Renders a map with the retail store's location.                                                            |
 |   `store-address`    |                                                                     Renders the store's address.                                                                      |
+|  `store-reference`   |                                                              Renders the store's reference information.                                                               |
 |    `store-hours`     | Renders the store's opening hours. This information comes by default from the Pickup Points configuration, but you can also define manually through the Store's theme |
 | `store-instructions` |                                                     Renders the desired instructions to access the retail store.                                                      |
 
@@ -236,6 +237,12 @@ In order to define the Store Locator custom page UI, you must use the blocks exp
 | Prop name |   Type   |                         Description                          |  Default value  |
 | :-------: | :------: | :----------------------------------------------------------: | :-------------: |
 |  `label`  | `string` | Label for the `store-address` block when rendered on the UI. | `Store address` |
+
+#### `store-reference` props
+
+| Prop name |   Type   |                          Description                          | Default value |
+| :-------: | :------: | :-----------------------------------------------------------: | :-----------: |
+|  `label`  | `string` | Entitles the `store-reference` block when rendered on the UI. |  `Reference`  |
 
 #### `store-hours` props
 
