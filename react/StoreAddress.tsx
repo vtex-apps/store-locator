@@ -36,6 +36,9 @@ const StoreAddress: FC<StoreAddressProps & WrappedComponentProps> = ({
     return null
   }
 
+  const instructionsParsed = JSON.parse(group.instructions)
+  const storePhoneNumber = instructionsParsed.phoneNumber
+
   const [lng, lat] = group.address.geoCoordinates
 
   return (
@@ -62,6 +65,12 @@ const StoreAddress: FC<StoreAddressProps & WrappedComponentProps> = ({
         {group.address.city ? `${group.address.city}` : ''}
         {group.address.state ? `, ${group.address.state}` : ''}
         {group.address.postalCode ? `, ${group.address.postalCode}` : ''}
+        <br />
+        <br />
+        <span
+            className={handles.addressStoreAddressStreet}
+          ><a className={`${handles.addressLink} underline-hover no-underline`} href={`tel:${storePhoneNumber}`}>{storePhoneNumber}</a>
+          </span>
       </a>
     </div>
   )

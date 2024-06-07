@@ -96,7 +96,7 @@ const StoreHours: FC<WrappedComponentProps & StoreHoursProps> = ({
   const instructionsParsed = JSON.parse(group.instructions)
   const groceryBusinessHours = instructionsParsed.groceryBusinessHours
 
-  console.log("LEONE GROUP", group.businessHours)
+  console.log("LEONE GROUP", group)
   console.log("LEONE GROCERYBUSINESSHOURS", groceryBusinessHours)
 
   const displayHours = (item) => {
