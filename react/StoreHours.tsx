@@ -11,6 +11,10 @@ const messages = defineMessages({
     defaultMessage: 'Store hours',
     id: 'store/hours-label',
   },
+  groceryHoursLabel: {
+    defaultMessage: 'Grocery opening times',
+    id: 'store/grocery-hours-label',
+  },
   holidayLabel: {
     defaultMessage: 'Holidays',
     id: 'store/holidays-label',
@@ -52,6 +56,7 @@ const messages = defineMessages({
 const CSS_HANDLES = [
   'hoursContainer',
   'hoursLabel',
+  'groceryHoursLabel',
   'hourRow',
   'dayOfWeek',
   'divider',
@@ -208,8 +213,8 @@ const StoreHours: FC<WrappedComponentProps & StoreHoursProps> = ({
           ))}
       </div>
       <div className={handles.hoursContainer}>
-        <span className={`b ${handles.hoursLabel}`}>
-          {label ?? intl.formatMessage(messages.hoursLabel)}
+        <span className={`b ${handles.groceryHoursLabel}`}>
+          {intl.formatMessage(messages.groceryHoursLabel)}
         </span>
         <br />
         {!businessHours &&
