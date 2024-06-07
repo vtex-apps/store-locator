@@ -212,22 +212,6 @@ const StoreHours: FC<WrappedComponentProps & StoreHoursProps> = ({
           {label ?? intl.formatMessage(messages.hoursLabel)}
         </span>
         <br />
-        {groceryBusinessHours?.map((item: any, i: number) => {
-          return (
-            <div
-              key={`hour_${i}`}
-              className={`${handles.hourRow} mv1 flex flex-wrap`}
-            >
-              <div className={`${handles.dayOfWeek} w-30`}>
-                {item.dayOfWeek}
-                <span className={handles.divider}>:</span>
-              </div>
-              <div className={`${handles.businessHours} tc w-50`}>
-                {item.openingTime} - {item.closingTime}
-              </div>
-            </div>
-          )
-        })}
         {!businessHours &&
           groceryBusinessHours.map((item: any, i: number) => {
             return (
