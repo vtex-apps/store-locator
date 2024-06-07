@@ -88,6 +88,12 @@ const StoreHours: FC<WrappedComponentProps & StoreHoursProps> = ({
     return null
   }
 
+  const instructionsParsed = JSON.parse(group.instructions)
+  const groceryBusinessHours = instructionsParsed.groceryBusinessHours
+
+  console.log("LEONE GROUP", group.businessHours)
+  console.log("LEONE GROCERYBUSINESSHOURS", groceryBusinessHours)
+
   const displayHours = (item) => {
     const open = timeFormat(item.openingTime, format)
     const close = timeFormat(item.closingTime, format)
@@ -149,56 +155,109 @@ const StoreHours: FC<WrappedComponentProps & StoreHoursProps> = ({
   }
 
   return (
-    <div className={handles.hoursContainer}>
-      <span className={`b ${handles.hoursLabel}`}>
-        {label ?? intl.formatMessage(messages.hoursLabel)}
-      </span>
-      <br />
-      {businessHours?.map((item: any, i: number) => {
-        return (
-          <div
-            key={`hour_${i}`}
-            className={`${handles.hourRow} mv1 flex flex-wrap`}
-          >
-            <div className={`${handles.dayOfWeek} w-30`}>
-              {item.dayOfWeek}
-              <span className={handles.divider}>:</span>
-            </div>
-            <div className={`${handles.businessHours} tc w-50`}>
-              {item.openingTime} - {item.closingTime}
-            </div>
-          </div>
-        )
-      })}
-      {!businessHours &&
-        group.businessHours.map((item: any, i: number) => {
+    <div>
+      <div className={handles.hoursContainer}>
+        <span className={`b ${handles.hoursLabel}`}>
+          {label ?? intl.formatMessage(messages.hoursLabel)}
+        </span>
+        <br />
+        {businessHours?.map((item: any, i: number) => {
           return (
             <div
               key={`hour_${i}`}
               className={`${handles.hourRow} mv1 flex flex-wrap`}
             >
               <div className={`${handles.dayOfWeek} w-30`}>
-                {intl.formatMessage(messages[item.dayOfWeek])}
+                {item.dayOfWeek}
                 <span className={handles.divider}>:</span>
               </div>
               <div className={`${handles.businessHours} tc w-50`}>
-                {displayHours(item)}
+                {item.openingTime} - {item.closingTime}
               </div>
             </div>
           )
         })}
-      <br />
-      <b>{intl.formatMessage(messages.holidayLabel)}</b>
-      {!pickupHolidays &&
-        group.pickupHolidays.map((item: any, i: number) => (
-          <div
-            key={`hour_${i}`}
-            className={`${handles.hourRow} mv1 flex flex-wrap`}
-          >
-            {displayHolidayDay(item)}
-            {displayHolidayHours(item)}
-          </div>
-        ))}
+        {!businessHours &&
+          group.businessHours.map((item: any, i: number) => {
+            return (
+              <div
+                key={`hour_${i}`}
+                className={`${handles.hourRow} mv1 flex flex-wrap`}
+              >
+                <div className={`${handles.dayOfWeek} w-30`}>
+                  {intl.formatMessage(messages[item.dayOfWeek])}
+                  <span className={handles.divider}>:</span>
+                </div>
+                <div className={`${handles.businessHours} tc w-50`}>
+                  {displayHours(item)}
+                </div>
+              </div>
+            )
+          })}
+        <br />
+        <b>{intl.formatMessage(messages.holidayLabel)}</b>
+        {!pickupHolidays &&
+          group.pickupHolidays.map((item: any, i: number) => (
+            <div
+              key={`hour_${i}`}
+              className={`${handles.hourRow} mv1 flex flex-wrap`}
+            >
+              {displayHolidayDay(item)}
+              {displayHolidayHours(item)}
+            </div>
+          ))}
+      </div>
+      <div className={handles.hoursContainer}>
+        <span className={`b ${handles.hoursLabel}`}>
+          {label ?? intl.formatMessage(messages.hoursLabel)}
+        </span>
+        <br />
+        {groceryBusinessHours?.map((item: any, i: number) => {
+          return (
+            <div
+              key={`hour_${i}`}
+              className={`${handles.hourRow} mv1 flex flex-wrap`}
+            >
+              <div className={`${handles.dayOfWeek} w-30`}>
+                {item.dayOfWeek}
+                <span className={handles.divider}>:</span>
+              </div>
+              <div className={`${handles.businessHours} tc w-50`}>
+                {item.openingTime} - {item.closingTime}
+              </div>
+            </div>
+          )
+        })}
+        {!businessHours &&
+          groceryBusinessHours.map((item: any, i: number) => {
+            return (
+              <div
+                key={`hour_${i}`}
+                className={`${handles.hourRow} mv1 flex flex-wrap`}
+              >
+                <div className={`${handles.dayOfWeek} w-30`}>
+                  {intl.formatMessage(messages[item.dayOfWeek])}
+                  <span className={handles.divider}>:</span>
+                </div>
+                <div className={`${handles.businessHours} tc w-50`}>
+                  {displayHours(item)}
+                </div>
+              </div>
+            )
+          })}
+        <br />
+        <b>{intl.formatMessage(messages.holidayLabel)}</b>
+        {!pickupHolidays &&
+          group.pickupHolidays.map((item: any, i: number) => (
+            <div
+              key={`hour_${i}`}
+              className={`${handles.hourRow} mv1 flex flex-wrap`}
+            >
+              {displayHolidayDay(item)}
+              {displayHolidayHours(item)}
+            </div>
+          ))}
+      </div>
     </div>
   )
 }

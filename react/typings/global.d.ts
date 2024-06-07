@@ -34,7 +34,13 @@ interface SpecificationGroup {
   distance: number
   friendlyName: string
   id: string
-  instructions: string
+  instructions: any
   seller: string
   address: Address
+}
+
+interface BusinessHours {
+  openingTime: string
+  dayOfWeek: string
+  closingTime: string
 }
