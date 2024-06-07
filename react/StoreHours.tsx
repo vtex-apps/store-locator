@@ -160,8 +160,8 @@ const StoreHours: FC<WrappedComponentProps & StoreHoursProps> = ({
   }
 
   return (
-    <div>
-      <div className={handles.hoursContainer}>
+    <div className="container">
+      <div className={`${handles.hoursContainer} box`}>
         <span className={`b ${handles.hoursLabel}`}>
           {label ?? intl.formatMessage(messages.hoursLabel)}
         </span>
@@ -212,7 +212,7 @@ const StoreHours: FC<WrappedComponentProps & StoreHoursProps> = ({
             </div>
           ))}
       </div>
-      <div className={handles.hoursContainer}>
+      <div className={`${handles.hoursContainer} box`}>
         <span className={`b ${handles.groceryHoursLabel}`}>
           {intl.formatMessage(messages.groceryHoursLabel)}
         </span>
