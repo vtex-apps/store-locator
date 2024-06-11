@@ -32,12 +32,21 @@ const StoreAddress: FC<StoreAddressProps & WrappedComponentProps> = ({
 
   const group = useStoreGroup()
 
+  function isValidJSON(str: string): boolean {
+    try {
+        JSON.parse(str);
+        return true;
+    } catch (e) {
+        return false;
+    }
+}
+
   if (!group) {
     return null
   }
-
-  const instructionsParsed = JSON.parse(group.instructions)
-  const storePhoneNumber = instructionsParsed.phoneNumber
+  const validJSON = isValidJSON(group.instructions)
+  const instructionsParsed = validJSON ? JSON.parse(group.instructions) : null
+  const storePhoneNumber = instructionsParsed ? instructionsParsed.phoneNumber : null
 
   const [lng, lat] = group.address.geoCoordinates
 
@@ -69,7 +78,7 @@ const StoreAddress: FC<StoreAddressProps & WrappedComponentProps> = ({
         <br />
         <span
             className={handles.addressStoreAddressStreet}
-          ><a className={`${handles.addressLink} underline-hover no-underline`} href={`tel:${storePhoneNumber}`}>{storePhoneNumber}</a>
+          >{storePhoneNumber && <a className={`${handles.addressLink} underline-hover no-underline`} href={`tel:${storePhoneNumber}`}>{storePhoneNumber}</a>}
           </span>
       </a>
     </div>

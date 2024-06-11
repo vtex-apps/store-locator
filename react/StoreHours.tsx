@@ -74,9 +74,8 @@ const timeFormat = (time: string, format?: string) => {
   const [hour, minute] = time.split(':')
 
   if (format?.toLocaleLowerCase() === '12h') {
-    return `${
-      parseInt(hour, 10) > 12 ? parseInt(hour, 10) - 12 : hour
-    }:${minute}${parseInt(hour, 10) >= 12 ? 'pm' : 'am'}`
+    return `${parseInt(hour, 10) > 12 ? parseInt(hour, 10) - 12 : hour
+      }:${minute}${parseInt(hour, 10) >= 12 ? 'pm' : 'am'}`
   }
 
   return `${hour}:${minute}`
@@ -89,15 +88,26 @@ const StoreHours: FC<WrappedComponentProps & StoreHoursProps> = ({
   pickupHolidays,
   intl,
 }) => {
+  function isValidJSON(str: string): boolean {
+    try {
+      JSON.parse(str);
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
   const handles = useCssHandles(CSS_HANDLES)
   const group = useStoreGroup()
 
   if (!group) {
     return null
   }
+  const validJSON = isValidJSON(group.instructions)
+  const instructionsParsed = validJSON ? JSON.parse(group.instructions) : null
+  const groceryBusinessHours = instructionsParsed ? instructionsParsed.groceryBusinessHours : null
 
-  const instructionsParsed = JSON.parse(group.instructions)
-  const { groceryBusinessHours } = instructionsParsed
+  console.log("GROCERY", groceryBusinessHours)
 
   const displayHours = (item) => {
     const open = timeFormat(item.openingTime, format)
@@ -163,7 +173,7 @@ const StoreHours: FC<WrappedComponentProps & StoreHoursProps> = ({
     <div
       className={`${handles.hoursMainContainer} container flex justify-around flex-wrap flex-nowrap-l`}
     >
-      <div className={`${handles.hoursContainer} w-100 w-50-l mh3 box`}>
+      <div className={`${handles.hoursContainer} w-100 ${groceryBusinessHours ? 'w-50-l' : 'w-100-l'} mh3 box`}>
         <span className={`b ${handles.hoursLabel}`}>
           {label ?? intl.formatMessage(messages.hoursLabel)}
         </span>
@@ -214,13 +224,13 @@ const StoreHours: FC<WrappedComponentProps & StoreHoursProps> = ({
             </div>
           ))}
       </div>
-      <div className={`${handles.hoursContainer} w-100 w-50-l mh3 box`}>
-        <span className={`b ${handles.groceryHoursLabel}`}>
-          {intl.formatMessage(messages.groceryHoursLabel)}
-        </span>
-        <br />
-        {!businessHours &&
-          groceryBusinessHours.map((item: any, i: number) => {
+      {groceryBusinessHours &&
+        (<div className={`${handles.hoursContainer} w-100 w-50-l mh3 box`}>
+          <span className={`b ${handles.groceryHoursLabel}`}>
+            {intl.formatMessage(messages.groceryHoursLabel)}
+          </span>
+          <br />
+          {groceryBusinessHours.map((item: any, i: number) => {
             return (
               <div
                 key={`hour_${i}`}
@@ -236,19 +246,9 @@ const StoreHours: FC<WrappedComponentProps & StoreHoursProps> = ({
               </div>
             )
           })}
-        <br />
-        <b>{intl.formatMessage(messages.holidayLabel)}</b>
-        {!pickupHolidays &&
-          group.pickupHolidays.map((item: any, i: number) => (
-            <div
-              key={`hour_${i}`}
-              className={`${handles.hourRow} mv1 ph2 flex flex-wrap`}
-            >
-              {displayHolidayDay(item)}
-              {displayHolidayHours(item)}
-            </div>
-          ))}
-      </div>
+          <br />
+        </div>)}
+
     </div>
   )
 }
