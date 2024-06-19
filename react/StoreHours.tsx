@@ -64,7 +64,8 @@ const CSS_HANDLES = [
   'dayOfWeek',
   'divider',
   'businessHours',
-  'hourHolidayRow'
+  'hourHolidayRow',
+  'pickupHolidaysContainer'
 ] as const
 
 const timeFormat = (time: string, format?: string) => {
@@ -122,11 +123,11 @@ const StoreHours: FC<WrappedComponentProps & StoreHoursProps> = ({
 
   const displayHolidayDay = (item) => {
     const holiday = new Date(item.date)
-    const dayOfWeek = holiday.getDay()
     const { locale } = intl
     const month = new Intl.DateTimeFormat(locale, {
       day: 'numeric',
-      month: 'long',
+      month: 'numeric',
+      year: 'numeric'
     }).format(holiday)
 
     const today = new Date()
@@ -137,7 +138,7 @@ const StoreHours: FC<WrappedComponentProps & StoreHoursProps> = ({
 
     return (
       <div className={`${handles.dayOfWeek} w-30`}>
-        Bank Holiday {intl.formatMessage(messages[dayOfWeek])}, {month}
+        Bank Holiday {month}
       </div>
     )
   }
@@ -171,7 +172,7 @@ const StoreHours: FC<WrappedComponentProps & StoreHoursProps> = ({
 
   return (
     <>
-      <div className={`container mt6`}>
+      <div className={`${handles.pickupHolidaysContainer} container mt6`}>
         {!pickupHolidays &&
           group.pickupHolidays.map((item: any, i: number) => (
             <div
