@@ -1,15 +1,24 @@
 {
   "store.storelocator": {
-    "blocks": ["flex-layout.row#title", "flex-layout.row#container"]
+    "blocks": [
+      "flex-layout.row#title",
+      "flex-layout.row#container"
+    ]
   },
   "flex-layout.row#title": {
-    "children": ["flex-layout.col#title"]
+    "children": [
+      "flex-layout.col#title"
+    ]
   },
   "flex-layout.row#container": {
-    "children": ["store-list"]
+    "children": [
+      "store-list"
+    ]
   },
   "flex-layout.col#title": {
-    "children": ["rich-text#title"],
+    "children": [
+      "rich-text#title"
+    ],
     "props": {
       "blockClass": "title",
       "preventVerticalStretch": true
@@ -21,22 +30,34 @@
     }
   },
   "store.storedetail": {
-    "blocks": ["flex-layout.row#titleStore", "store-group"]
+    "blocks": [
+      "flex-layout.row#titleStore",
+      "store-group"
+    ]
   },
   "store-group": {
-    "children": ["flex-layout.row#containerStore"],
+    "children": [
+      "flex-layout.row#containerStore"
+    ],
     "props": {
       "title": "{storeName} Store"
     }
   },
   "flex-layout.row#titleStore": {
-    "children": ["flex-layout.col#titleStore"]
+    "children": [
+      "flex-layout.col#titleStore"
+    ]
   },
   "flex-layout.row#containerStore": {
-    "children": ["flex-layout.col#detail", "flex-layout.col#store"]
+    "children": [
+      "flex-layout.col#detail",
+      "flex-layout.col#store"
+    ]
   },
   "flex-layout.col#titleStore": {
-    "children": ["rich-text#titleStore"],
+    "children": [
+      "rich-text#titleStore"
+    ],
     "props": {
       "blockClass": "title",
       "preventVerticalStretch": true
@@ -61,7 +82,9 @@
     }
   },
   "flex-layout.col#store": {
-    "children": ["store-name"],
+    "children": [
+      "store-name"
+    ],
     "props": {
       "width": "70%"
     }

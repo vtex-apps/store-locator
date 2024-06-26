@@ -1,6 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { FC } from 'react'
-import { defineMessages, WrappedComponentProps, injectIntl } from 'react-intl'
+import type { FC } from 'react'
+import React from 'react'
+import type { WrappedComponentProps } from 'react-intl'
+import { defineMessages, injectIntl } from 'react-intl'
 import PropTypes from 'prop-types'
 import { useCssHandles } from 'vtex.css-handles'
 
@@ -10,6 +12,10 @@ const messages = defineMessages({
   hoursLabel: {
     defaultMessage: 'Store hours',
     id: 'store/hours-label',
+  },
+  groceryHoursLabel: {
+    defaultMessage: 'Grocery opening times',
+    id: 'store/grocery-hours-label',
   },
   holidayLabel: {
     defaultMessage: 'Holidays',
@@ -50,12 +56,16 @@ const messages = defineMessages({
 })
 
 const CSS_HANDLES = [
+  'hoursMainContainer',
   'hoursContainer',
   'hoursLabel',
+  'groceryHoursLabel',
   'hourRow',
   'dayOfWeek',
   'divider',
   'businessHours',
+  'hourHolidayRow',
+  'pickupHolidaysContainer'
 ] as const
 
 const timeFormat = (time: string, format?: string) => {
@@ -66,9 +76,8 @@ const timeFormat = (time: string, format?: string) => {
   const [hour, minute] = time.split(':')
 
   if (format?.toLocaleLowerCase() === '12h') {
-    return `${
-      parseInt(hour, 10) > 12 ? parseInt(hour, 10) - 12 : hour
-    }:${minute}${parseInt(hour, 10) >= 12 ? 'pm' : 'am'}`
+    return `${parseInt(hour, 10) > 12 ? parseInt(hour, 10) - 12 : hour
+      }:${minute}${parseInt(hour, 10) >= 12 ? 'pm' : 'am'}`
   }
 
   return `${hour}:${minute}`
@@ -81,12 +90,25 @@ const StoreHours: FC<WrappedComponentProps & StoreHoursProps> = ({
   pickupHolidays,
   intl,
 }) => {
+  function isValidJSON(str: string): boolean {
+    try {
+      JSON.parse(str);
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
   const handles = useCssHandles(CSS_HANDLES)
   const group = useStoreGroup()
 
   if (!group) {
     return null
   }
+  const validJSON = isValidJSON(group.instructions)
+  const instructionsParsed = validJSON ? JSON.parse(group.instructions) : null
+  const groceryBusinessHours = instructionsParsed ? instructionsParsed.groceryBusinessHours : null
+  const groceryTitle = instructionsParsed ? instructionsParsed.groceryTitle : null
 
   const displayHours = (item) => {
     const open = timeFormat(item.openingTime, format)
@@ -101,11 +123,11 @@ const StoreHours: FC<WrappedComponentProps & StoreHoursProps> = ({
 
   const displayHolidayDay = (item) => {
     const holiday = new Date(item.date)
-    const dayOfWeek = holiday.getDay()
     const { locale } = intl
     const month = new Intl.DateTimeFormat(locale, {
       day: 'numeric',
-      month: 'long',
+      month: 'numeric',
+      year: 'numeric'
     }).format(holiday)
 
     const today = new Date()
@@ -116,7 +138,7 @@ const StoreHours: FC<WrappedComponentProps & StoreHoursProps> = ({
 
     return (
       <div className={`${handles.dayOfWeek} w-30`}>
-        {intl.formatMessage(messages[dayOfWeek])}, {month}
+        Bank Holiday {month}
       </div>
     )
   }
@@ -126,7 +148,6 @@ const StoreHours: FC<WrappedComponentProps & StoreHoursProps> = ({
     const close = timeFormat(item.hourEnd, format)
     const holiday = new Date(item.date)
 
-    holiday.setDate(holiday.getDate() + 1)
     const today = new Date()
 
     if (open === '' && close === '') {
@@ -137,7 +158,7 @@ const StoreHours: FC<WrappedComponentProps & StoreHoursProps> = ({
       )
     }
 
-    if (today > holiday) {
+    if (today >= holiday) {
       return ``
     }
 
@@ -149,57 +170,89 @@ const StoreHours: FC<WrappedComponentProps & StoreHoursProps> = ({
   }
 
   return (
-    <div className={handles.hoursContainer}>
-      <span className={`b ${handles.hoursLabel}`}>
-        {label ?? intl.formatMessage(messages.hoursLabel)}
-      </span>
-      <br />
-      {businessHours?.map((item: any, i: number) => {
-        return (
-          <div
-            key={`hour_${i}`}
-            className={`${handles.hourRow} mv1 flex flex-wrap`}
-          >
-            <div className={`${handles.dayOfWeek} w-30`}>
-              {item.dayOfWeek}
-              <span className={handles.divider}>:</span>
-            </div>
-            <div className={`${handles.businessHours} tc w-50`}>
-              {item.openingTime} - {item.closingTime}
-            </div>
-          </div>
-        )
-      })}
-      {!businessHours &&
-        group.businessHours.map((item: any, i: number) => {
-          return (
+    <>
+      <div className={`${handles.pickupHolidaysContainer} container mt6`}>
+        {!pickupHolidays &&
+          group.pickupHolidays.map((item: any, i: number) => (
             <div
               key={`hour_${i}`}
-              className={`${handles.hourRow} mv1 flex flex-wrap`}
+              className={`${handles.hourHolidayRow} mv1 ph2 flex flex-wrap`}
             >
-              <div className={`${handles.dayOfWeek} w-30`}>
-                {intl.formatMessage(messages[item.dayOfWeek])}
-                <span className={handles.divider}>:</span>
-              </div>
-              <div className={`${handles.businessHours} tc w-50`}>
-                {displayHours(item)}
-              </div>
+              {displayHolidayDay(item)}
+              {displayHolidayHours(item)}
             </div>
-          )
-        })}
-      <br />
-      <b>{intl.formatMessage(messages.holidayLabel)}</b>
-      {!pickupHolidays &&
-        group.pickupHolidays.map((item: any, i: number) => (
-          <div
-            key={`hour_${i}`}
-            className={`${handles.hourRow} mv1 flex flex-wrap`}
-          >
-            {displayHolidayDay(item)}
-            {displayHolidayHours(item)}
-          </div>
-        ))}
-    </div>
+          ))}
+      </div>
+      <div
+        className={`${handles.hoursMainContainer} container flex justify-around flex-wrap flex-nowrap-l`}
+      >
+        <div className={`${handles.hoursContainer} w-100 ${groceryBusinessHours ? 'w-50-l' : 'w-100-l'} mh3 box`}>
+          <span className={`b ${handles.hoursLabel}`}>
+            {label ?? intl.formatMessage(messages.hoursLabel)}
+          </span>
+          <br />
+          {businessHours?.map((item: any, i: number) => {
+            return (
+              <div
+                key={`hour_${i}`}
+                className={`${handles.hourRow} mv1 ph2 flex flex-wrap`}
+              >
+                <div className={`${handles.dayOfWeek} w-30`}>
+                  {item.dayOfWeek}
+                  <span className={handles.divider}>:</span>
+                </div>
+                <div className={`${handles.businessHours} tc w-50`}>
+                  {item.openingTime} - {item.closingTime}
+                </div>
+              </div>
+            )
+          })}
+          {!businessHours &&
+            group.businessHours.map((item: any, i: number) => {
+              return (
+                <div
+                  key={`hour_${i}`}
+                  className={`${handles.hourRow} mv1 ph2 flex flex-wrap`}
+                >
+                  <div className={`${handles.dayOfWeek} w-30`}>
+                    {intl.formatMessage(messages[item.dayOfWeek])}
+                    <span className={handles.divider}>:</span>
+                  </div>
+                  <div className={`${handles.businessHours} tc w-50`}>
+                    {displayHours(item)}
+                  </div>
+                </div>
+              )
+            })}
+          <br />
+          <b>{intl.formatMessage(messages.holidayLabel)}</b>
+        </div>
+        {groceryBusinessHours &&
+          (<div className={`${handles.hoursContainer} w-100 w-50-l mh3 box`}>
+            <span className={`b ${handles.groceryHoursLabel}`}>
+              {groceryTitle ? groceryTitle : intl.formatMessage(messages.groceryHoursLabel)}
+            </span>
+            <br />
+            {groceryBusinessHours.map((item: any, i: number) => {
+              return (
+                <div
+                  key={`hour_${i}`}
+                  className={`${handles.hourRow} mv1 ph2 flex flex-wrap`}
+                >
+                  <div className={`${handles.dayOfWeek} w-30`}>
+                    {intl.formatMessage(messages[item.dayOfWeek])}
+                    <span className={handles.divider}>:</span>
+                  </div>
+                  <div className={`${handles.businessHours} tc w-50`}>
+                    {displayHours(item)}
+                  </div>
+                </div>
+              )
+            })}
+            <br />
+          </div>)}
+      </div>
+    </>
   )
 }
 

@@ -11,7 +11,7 @@
     "@types/co-body": "0.0.3",
     "@types/node": "^12.0.0",
     "@types/ramda": "types/npm-ramda#dist",
-    "@vtex/api": "6.45.12",
+    "@vtex/api": "6.47.0",
     "@vtex/prettier-config": "^0.3.1",
     "tslint": "^5.12.0",
     "tslint-config-prettier": "^1.18.0",
