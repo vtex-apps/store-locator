@@ -148,7 +148,6 @@ const StoreHours: FC<WrappedComponentProps & StoreHoursProps> = ({
     const close = timeFormat(item.hourEnd, format)
     const holiday = new Date(item.date)
 
-    holiday.setDate(holiday.getDate() + 1)
     const today = new Date()
 
     if (open === '' && close === '') {
@@ -159,7 +158,7 @@ const StoreHours: FC<WrappedComponentProps & StoreHoursProps> = ({
       )
     }
 
-    if (today > holiday) {
+    if (today >= holiday) {
       return ``
     }
 
