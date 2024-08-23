@@ -124,12 +124,11 @@ const StoreList: FunctionComponent<WrappedComponentProps & Props> = ({
     const { latitude, longitude } = firstResult.address.location
 
     const ofGeoCoordinates = ofData?.orderForm?.shippingData?.address?.geoCoordinates
-    const center = (ofGeoCoordinates && ofGeoCoordinates.length > 0)
-    ? ofGeoCoordinates
-    : [
-      longitude || long,
-      latitude || lat,
-    ]
+
+    const center = 
+    ofGeoCoordinates && ofGeoCoordinates.length > 0
+      ? ofGeoCoordinates
+      : [longitude || long, latitude || lat]
 
     setState({
       ...state,
