@@ -25,15 +25,6 @@
   "registries": [
     "smartcheckout"
   ],
-  "billingOptions": {
-    "type": "free",
-    "support": {
-      "url": "https://support.vtex.com/hc/requests"
-    },
-    "availableCountries": [
-      "*"
-    ]
-  },
   "policies": [
     {
       "name": "outbound-access",
