@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+- Removing billing options in order to use store-locator as a direct dependency.
+
 ## [0.11.1] - 2023-11-07
 
 ### Fixed
