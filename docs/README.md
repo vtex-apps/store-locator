@@ -10,6 +10,8 @@
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 <!-- DOCS-IGNORE:end -->
 
+>❗️ The `vtex.store-locator` app is no longer maintained by VTEX.
+
 The Store Locator app fetches the Pickup point data in order to display address location for retail stores.
 
 ![store-list](https://user-images.githubusercontent.com/52087100/99975140-9f809500-2d80-11eb-87ce-2f9cfcf567d6.png)
