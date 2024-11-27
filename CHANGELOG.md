@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.1] - 2024-11-27
+
 ### Added
 
 - Added a callout to inform users that the Store Locator app is no longer maintained by VTEX.
