@@ -4,6 +4,7 @@
   "store/load-all": "Load all stores",
   "store/back-link": "Back to all stores",
   "store/address-label": "Store address",
+  "store/reference-label": "Reference",
   "store/information-label": "Information",
   "store/store-closed": "Closed",
   "store/hours-label": "Store hours",

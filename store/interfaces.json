@@ -22,6 +22,10 @@
     "component": "StoreAddress",
     "composition": "children"
   },
+  "store-reference": {
+    "component": "StoreReference",
+    "composition": "children"
+  },
   "store-back-link": {
     "component": "StoreBackLink",
     "composition": "children"

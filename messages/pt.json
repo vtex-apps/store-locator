@@ -4,6 +4,7 @@
   "store/load-all": "Listar todas as lojas",
   "store/back-link": "Voltar para lista de lojas",
   "store/address-label": "Endereço",
+  "store/reference-label": "Referência",
   "store/information-label": "Informações",
   "store/store-closed": "Fechado",
   "store/hours-label": "Horário de funcionamento",
