@@ -2,10 +2,7 @@
 
 # Store Locator
 
-##  ⚠️ Maintenance ⚠️
-*Starting June 1st 2023, this application will no longer be maintained by VTEX.*
-
----
+[<i class="fa-brands fa-github"></i> Source code](https://github.com/vtex-apps/store-locator)
 
 <!-- DOCS-IGNORE:start -->
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
@@ -14,6 +11,8 @@
 
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 <!-- DOCS-IGNORE:end -->
+
+> ⚠️ This app is no longer maintained by VTEX. This means support and maintenance are no longer provided.
 
 The Store Locator app fetches the Pickup point data in order to display address location for retail stores.
 
